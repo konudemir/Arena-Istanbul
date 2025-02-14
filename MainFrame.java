@@ -5,10 +5,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import java.awt.event.*;
-
-import java.awt.Image;
-
 public class MainFrame extends JFrame{
     
     
@@ -24,7 +20,14 @@ public class MainFrame extends JFrame{
         this.setIconImage(frameLogo.getImage());
         this.getContentPane().setBackground(Color.YELLOW);
 
-        mainScreenButton newGameButton = new mainScreenButton("New Game",100, 225, 400, 115);
+        //Fake labels before the panel loads
+        ImageIcon backgroundIcon = new ImageIcon("graphs/MainScreen.png");
+        JLabel backgroundLabel = new JLabel();
+        backgroundLabel.setIcon(backgroundIcon);
+        backgroundLabel.setBounds(0, 0, 1920, 1080);
+        this.add(backgroundLabel);
+
+        mainScreenButton newGameButton = new mainScreenButton("New Game",100, 225, 400, 115, false);
         this.add(newGameButton);
 
         mainScreenButton loadGameButton = new mainScreenButton("Load Game",100, 375, 400, 115);
@@ -47,6 +50,9 @@ public class MainFrame extends JFrame{
         groupLogo.setFont(new Font("Impact", Font.PLAIN, 60));
         groupLogo.setForeground(Color.white);
         this.add(groupLogo);
+
+        
+        
 
 
         this.setVisible(true);

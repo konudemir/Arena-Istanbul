@@ -12,8 +12,10 @@ public class mainScreenButton extends JLabel implements MouseListener{
     private final ImageIcon clickedButtonIcon;
     private final ImageIcon enteredButton;
     private String context;
+    private boolean clickable;
 
-    public mainScreenButton(String context, int x, int y, int width, int height){
+    public mainScreenButton(String context, int x, int y, int width, int height, boolean clickable){
+        this.clickable = clickable;
         ImageIcon mainButton = new ImageIcon("graphs/button.png");
         this.context = context;
         //If the requested with or height isn't the same as the button
@@ -25,7 +27,7 @@ public class mainScreenButton extends JLabel implements MouseListener{
         clickedButtonIcon = new ImageIcon("graphs/clickedButton.png");
         enteredButton = new ImageIcon("graphs/enteredButton.png");
         this.setIcon(buttonIcon);
-        this.setText(context);
+        this.setText(this.context);
         this.setHorizontalTextPosition(JLabel.CENTER);
         this.setForeground(Color.white);
         this.setFont(new Font("Impact", Font.PLAIN, 60));
@@ -37,33 +39,41 @@ public class mainScreenButton extends JLabel implements MouseListener{
         this.addMouseListener(this);
     }
 
+    public mainScreenButton(String context, int x, int y, int width, int height){
+        this(context, x, y, width, height, true);
+    }
+
     //Mouse methods
     @Override
     public void mouseClicked(MouseEvent e)
     {
-        
+        if(!this.clickable) return;
     }
     @Override
     public void mousePressed(MouseEvent e)
     {
+        if(!this.clickable) return;
         this.setIcon(clickedButtonIcon);
         this.setFont(new Font("Impact", Font.PLAIN, 58));
     }
     @Override
     public void mouseReleased(MouseEvent e)
     {
+        if(!this.clickable) return;
         this.setIcon(enteredButton);
         this.setFont(new Font("Impact", Font.PLAIN, 60));
     }
     @Override
     public void mouseEntered(MouseEvent e)
     {
+        if(!this.clickable) return;
         this.setIcon(enteredButton);
         this.setFont(new Font("Impact", Font.PLAIN, 60));
     }
     @Override
     public void mouseExited(MouseEvent e)
     {
+        if(!this.clickable) return;
         this.setIcon(buttonIcon);
         this.setFont(new Font("Impact", Font.PLAIN, 60));
     }

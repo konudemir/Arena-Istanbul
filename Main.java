@@ -7,6 +7,7 @@ import java.awt.Font;
 
 
 public class Main {
+    public static final String mainScreenPath = "graphs/gptMainScreen1.png";
 
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
@@ -17,7 +18,7 @@ public class Main {
     {
         JPanel firstScreen = new JPanel();
         firstScreen.setLayout(null);
-        ImageIcon backgroundIcon = new ImageIcon("graphs/MainScreen.png");
+        ImageIcon backgroundIcon = new ImageIcon(mainScreenPath);
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundIcon);
         backgroundLabel.setBounds(0, 0, 1920, 1080);

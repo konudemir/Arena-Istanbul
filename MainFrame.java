@@ -21,7 +21,7 @@ public class MainFrame extends JFrame{
         this.getContentPane().setBackground(Color.YELLOW);
 
         //Fake labels before the panel loads
-        ImageIcon backgroundIcon = new ImageIcon("graphs/MainScreen.png");
+        ImageIcon backgroundIcon = new ImageIcon(Main.mainScreenPath);
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundIcon);
         backgroundLabel.setBounds(0, 0, 1920, 1080);

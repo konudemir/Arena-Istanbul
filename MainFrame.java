@@ -66,8 +66,7 @@ public class MainFrame extends JFrame{
         theFrame = this;
     }
     
-    //Methods (These methods are static only for easier access)
-    public static JPanel getFirstScreen()
+    public JPanel getFirstScreen()
     {
         JPanel firstScreen = new JPanel();
         firstScreen.setLayout(null);
@@ -103,26 +102,25 @@ public class MainFrame extends JFrame{
         firstScreen.add(groupLogo);
         //Remove the fake JLabels
 
-        for(java.awt.Component removeLabel : theFrame.getContentPane().getComponents())
+        for(java.awt.Component removeLabel : this.getContentPane().getComponents())
         {
-            if(removeLabel instanceof JLabel ) theFrame.remove(removeLabel);
+            if(removeLabel instanceof JLabel ) this.remove(removeLabel);
         }
         //Remove the previous JPanel if existant
         removePrevPanels();
 
         firstScreen.add(backgroundLabel);
 
-        theFrame.add(firstScreen);
+        this.add(firstScreen);
 
-        theFrame.repaint();
+        this.repaint();
         return firstScreen;
     }
-
-    public static JPanel newGameScreen()
+    public JPanel newGameScreen()
     {
         JPanel newGameScreen = new JPanel();
         newGameScreen.setLayout(null);
-        ImageIcon backgroundIcon = new ImageIcon("graphs/gptMainScreen2.png");
+        ImageIcon backgroundIcon = new ImageIcon("graphs/newGameScreen.png");
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundIcon);
         backgroundLabel.setBounds(0, 0, 1920, 1080);
@@ -131,7 +129,8 @@ public class MainFrame extends JFrame{
         
         //Remove the previous JPanel if existant
         removePrevPanels();
-
+        
+        //Add the exit button
         JLabel backButton = new JLabel();
         backButton.setIcon(new ImageIcon("graphs/arrow.png"));
         backButton.setText("BACK");
@@ -141,6 +140,18 @@ public class MainFrame extends JFrame{
         backButton.setVerticalAlignment(JLabel.CENTER);
         backButton.setHorizontalAlignment(JLabel.CENTER);
         backButton.setBounds(1500, 850, 400, 200);
+
+        CharacterPanel customizableCharacter = new CharacterPanel();
+
+        getBGButtonsForCustomization(newGameScreen, "Hair", 0, new Color[]{new Color(0xF5E0B7), new Color(0x3D2B24), new Color(0x3D3D3D), new Color(0x6A4E42), new Color(0xA52A2A)});
+        getBGButtonsForCustomization(newGameScreen, "Skin", 1, new Color[]{new Color(0xFFD3BA), new Color(0xDBA772), new Color(0xB87D4B), new Color(0x7C4A3A)});
+        getBGButtonsForCustomization(newGameScreen, "Jacket", 2, new Color[]{});
+        getBGButtonsForCustomization(newGameScreen, "Shirt", 3, new Color[]{});
+        getBGButtonsForCustomization(newGameScreen, "Tie", 4, new Color[]{});
+        getBGButtonsForCustomization(newGameScreen, "Pants", 5, new Color[]{});
+        
+        
+
         backButton.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -172,26 +183,101 @@ public class MainFrame extends JFrame{
         }
         });
 
-        //Adding the labels
-        newGameScreen.add(backButton);
+        //Adding the labels (in descending order of showing up)
+        //newGameScreen.add(backButton);
+        newGameScreen.add(customizableCharacter);
         newGameScreen.add(backgroundLabel);
 
-        theFrame.add(newGameScreen);
-        theFrame.repaint();
+        this.add(newGameScreen);
+        this.repaint();
         return newGameScreen;
+    }
+    //Helper method for new game screen
+    public void getBGButtonsForCustomization(JPanel newGameScreen, String context, int i, Color[] colors)
+    {
+        if(colors.length != 0)
+        if(i < 4)
+        {
+            int jPanelx = 100;
+            int jPanelY = 200;
+            int amount = colors.length;
+            final int SPACE = 10;
+            int forEach = (360 - ((amount - 1) * SPACE)) / amount;
+            int spaceAtEnds = 20 + (360 - (forEach * amount + SPACE * (amount - 1))) / 2;
+            
+            int currentX = jPanelx + spaceAtEnds;
+            final int Y = 20 + jPanelY + 200 * i;
+            final int height = 150 - 40;
+            for(int j = 0; j < amount; j++)
+            {
+                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height);
+                newGameScreen.add(colorButton);
+                currentX += SPACE + forEach;
+            }
+        }
+        else
+        {
+            int jPanelx = 550;
+            int jPanelY = 200;
+            int amount = colors.length;
+            final int SPACE = 10;
+            int forEach = (360 - ((amount - 1) * SPACE)) / amount;
+            int spaceAtEnds = 20 + (360 - (forEach * amount + SPACE * (amount - 1))) / 2;
+            
+            int currentX = jPanelx + spaceAtEnds;
+            final int Y = 20 + jPanelY + 200 * (i - 3);
+            final int height = 150 - 40;
+            for(int j = 0; j < amount; j++)
+            {
+                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height);
+                newGameScreen.add(colorButton);
+                currentX += SPACE + forEach;
+            }
+        }
+        
+
+        //Creating the background buttons
+        if(i < 3)
+        {
+            JLabel bgButton = new JLabel();
+            bgButton.setIcon(new ImageIcon("graphs/character/buttons/bg.png"));
+            bgButton.setBounds(100, 200 + 200 * i, 400, 150);
+            newGameScreen.add(bgButton);
+        }
+        else
+        {
+            JLabel bgButton = new JLabel();
+            bgButton.setIcon(new ImageIcon("graphs/character/buttons/bg.png"));
+            bgButton.setBounds(550, 200 + 200 * (i - 3), 400, 150);
+            newGameScreen.add(bgButton);
+        }
+        newGameScreen.repaint();
+    }
+    public void removePrevPanels()
+    {
+        //Remove the previous JPanel if existant
+        if(this.getContentPane().getComponents().length > 0)
+        {
+            for(Component c : this.getContentPane().getComponents())
+            {
+                if(c instanceof JPanel) this.remove(c);
+            }
+        }
     }
 
 
-    public static void removePrevPanels()
+    //Static versions of methods (S at the end representing "static")
+    public static void removePrevPanelsS()
     {
-        //Remove the previous JPanel if existant
-        if(theFrame.getContentPane().getComponents().length > 0)
-        {
-            for(Component c : theFrame.getContentPane().getComponents())
-            {
-                if(c instanceof JPanel) theFrame.remove(c);
-            }
-        }
+        theFrame.removePrevPanels();
+    }
+    public static JPanel getFirstScreenS()
+    {
+        return theFrame.getFirstScreen();
+    }
+    public static JPanel newGameScreenS()
+    {
+        return theFrame.newGameScreen();
     }
 
 

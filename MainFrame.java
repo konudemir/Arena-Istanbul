@@ -60,6 +60,8 @@ public class MainFrame extends JFrame{
         groupLogo.setForeground(Color.white);
         this.add(groupLogo);
 
+        new CharacterPanel();
+
         
         
         this.setVisible(true);
@@ -68,6 +70,7 @@ public class MainFrame extends JFrame{
     
     public JPanel getFirstScreen()
     {
+        removePrevPanels();
         JPanel firstScreen = new JPanel();
         firstScreen.setLayout(null);
         ImageIcon backgroundIcon = new ImageIcon(Main.mainScreenPath);
@@ -141,8 +144,6 @@ public class MainFrame extends JFrame{
         backButton.setHorizontalAlignment(JLabel.CENTER);
         backButton.setBounds(1500, 850, 400, 200);
 
-        CharacterPanel customizableCharacter = new CharacterPanel();
-
         getBGButtonsForCustomization(newGameScreen, "Hair", 0, new Color[]{new Color(0xF5E0B7), new Color(0x3D2B24), new Color(0x3D3D3D), new Color(0x6A4E42), new Color(0xA52A2A)});
         getBGButtonsForCustomization(newGameScreen, "Skin", 1, new Color[]{new Color(0xFFD3BA), new Color(0xDBA772), new Color(0xB87D4B), new Color(0x7C4A3A)});
         getBGButtonsForCustomization(newGameScreen, "Jacket", 2, new Color[]{});
@@ -184,8 +185,8 @@ public class MainFrame extends JFrame{
         });
 
         //Adding the labels (in descending order of showing up)
-        //newGameScreen.add(backButton);
-        newGameScreen.add(customizableCharacter);
+        newGameScreen.add(backButton);
+        newGameScreen.add(CharacterPanel.getCharPanel());
         newGameScreen.add(backgroundLabel);
 
         this.add(newGameScreen);
@@ -195,11 +196,11 @@ public class MainFrame extends JFrame{
     //Helper method for new game screen
     public void getBGButtonsForCustomization(JPanel newGameScreen, String context, int i, Color[] colors)
     {
+        int jPanelY = 220;
         if(colors.length != 0)
         if(i < 4)
         {
             int jPanelx = 100;
-            int jPanelY = 200;
             int amount = colors.length;
             final int SPACE = 10;
             int forEach = (360 - ((amount - 1) * SPACE)) / amount;
@@ -218,7 +219,6 @@ public class MainFrame extends JFrame{
         else
         {
             int jPanelx = 550;
-            int jPanelY = 200;
             int amount = colors.length;
             final int SPACE = 10;
             int forEach = (360 - ((amount - 1) * SPACE)) / amount;
@@ -241,14 +241,14 @@ public class MainFrame extends JFrame{
         {
             JLabel bgButton = new JLabel();
             bgButton.setIcon(new ImageIcon("graphs/character/buttons/bg.png"));
-            bgButton.setBounds(100, 200 + 200 * i, 400, 150);
+            bgButton.setBounds(100, jPanelY + 200 * i, 400, 150);
             newGameScreen.add(bgButton);
         }
         else
         {
             JLabel bgButton = new JLabel();
             bgButton.setIcon(new ImageIcon("graphs/character/buttons/bg.png"));
-            bgButton.setBounds(550, 200 + 200 * (i - 3), 400, 150);
+            bgButton.setBounds(550, jPanelY + 200 * (i - 3), 400, 150);
             newGameScreen.add(bgButton);
         }
         newGameScreen.repaint();

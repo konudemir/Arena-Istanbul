@@ -24,7 +24,7 @@ public class CharacterPanel extends JPanel{
         this.setBounds(1000, 300, 920, 580);
         //Default pieces
         try {
-            face = ImageIO.read(getClass().getResource("/graphs/character/face/0.png"));
+            face = ImageIO.read(getClass().getResource("/graphs/character/face/2.png"));
             hair = ImageIO.read(getClass().getResource("/graphs/character/hair/gray.png"));
             hands = ImageIO.read(getClass().getResource("/graphs/character/hands/0.png"));
             jacket = ImageIO.read(getClass().getResource("/graphs/character/jacket/navy_blue.png"));

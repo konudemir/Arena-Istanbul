@@ -14,18 +14,18 @@ public class colorPickButton extends JLabel implements MouseListener{
     private final int orgHeight;
     private final int orgX;
     private final int orgY;
+    private static final int dif = 35;
     public colorPickButton(Color c, String context, int x, int y, int width, int height){
         this.c = c;
         this.context = context;
         this.setOpaque(true);
         this.orgwidth = width;
-        this.orgHeight = height;
+        this.orgHeight = height - dif;
         this.orgX = x;
-        this.orgY = y;
+        this.orgY = y + dif;
         this.setBackground(c);
-        this.setBounds(x, y, width, height);
+        this.setBounds(orgX, orgY, orgwidth, orgHeight);
         this.addMouseListener(this);
-        
     }
 
     //Mouse methods
@@ -33,7 +33,11 @@ public class colorPickButton extends JLabel implements MouseListener{
     public void mouseClicked(MouseEvent e)
     {
         if(this.context.equalsIgnoreCase("hair"))theCharPanel.changeHair(c);
-        if(this.context.equalsIgnoreCase("skin"))theCharPanel.changeSkin(c);
+        else if(this.context.equalsIgnoreCase("skin"))theCharPanel.changeSkin(c);
+        else if(this.context.equalsIgnoreCase("jacket"))theCharPanel.changeJacket(c);
+        else if(this.context.equalsIgnoreCase("shirt"))theCharPanel.changeShirts(c);
+        else if(this.context.equalsIgnoreCase("tie"))theCharPanel.changeTie(c);
+        else if(this.context.equalsIgnoreCase("pants"))theCharPanel.changePants(c);
         theCharPanel.repaint();
     }
     @Override
@@ -53,5 +57,10 @@ public class colorPickButton extends JLabel implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e)
     {
+    }
+
+    public static String toHEXString(Color color)
+    {
+        return String.format("%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
     }
 }

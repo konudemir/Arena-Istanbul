@@ -10,6 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.*;
+import java.awt.GraphicsEnvironment;
+
 
 
 public class MainFrame extends JFrame{
@@ -144,12 +148,43 @@ public class MainFrame extends JFrame{
         backButton.setHorizontalAlignment(JLabel.CENTER);
         backButton.setBounds(1500, 850, 400, 200);
 
+        JLabel randomButton = new JLabel();
+        randomButton.setIcon(new ImageIcon("graphs/button.png"));
+        randomButton.setBounds(100, 50, 400, 200);
+        randomButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                
+            }
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                
+            }
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                
+            }
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                
+            }
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+                CharacterPanel.randomizeChar();
+            }
+        });
+
         getBGButtonsForCustomization(newGameScreen, "Hair", 0, new Color[]{new Color(0xF5E0B7), new Color(0x3D2B24), new Color(0x3D3D3D), new Color(0x6A4E42), new Color(0xA52A2A)});
         getBGButtonsForCustomization(newGameScreen, "Skin", 1, new Color[]{new Color(0xFFD3BA), new Color(0xDBA772), new Color(0xB87D4B), new Color(0x7C4A3A)});
-        getBGButtonsForCustomization(newGameScreen, "Jacket", 2, new Color[]{});
-        getBGButtonsForCustomization(newGameScreen, "Shirt", 3, new Color[]{});
-        getBGButtonsForCustomization(newGameScreen, "Tie", 4, new Color[]{});
-        getBGButtonsForCustomization(newGameScreen, "Pants", 5, new Color[]{});
+        getBGButtonsForCustomization(newGameScreen, "Jacket", 2, new Color[]{new Color(0xADADA3), new Color(0x303030), new Color(0x001438), new Color(0x672FAA), new Color(0x72A8A2), new Color(0x003FA5)});
+        getBGButtonsForCustomization(newGameScreen, "Shirt", 3, new Color[]{new Color(0xADD8E6), new Color(0xFFFDD0), new Color(0xFFFFFF)});
+        getBGButtonsForCustomization(newGameScreen, "Tie", 4, new Color[]{new Color(0x000000), new Color(0x800020), new Color(0xD6B745), new Color(0x7700FF)});
+        getBGButtonsForCustomization(newGameScreen, "Pants", 5, new Color[]{new Color(0x7A7A6E), new Color(0x000C21), new Color(0x000000)});
         
         
 
@@ -186,6 +221,7 @@ public class MainFrame extends JFrame{
 
         //Adding the labels (in descending order of showing up)
         newGameScreen.add(backButton);
+        //newGameScreen.add(randomButton); //Add this when randomizeCharacter method works fine
         newGameScreen.add(CharacterPanel.getCharPanel());
         newGameScreen.add(backgroundLabel);
 
@@ -198,7 +234,7 @@ public class MainFrame extends JFrame{
     {
         int jPanelY = 220;
         if(colors.length != 0)
-        if(i < 4)
+        if(i < 3)
         {
             int jPanelx = 100;
             int amount = colors.length;
@@ -240,6 +276,14 @@ public class MainFrame extends JFrame{
         if(i < 3)
         {
             JLabel bgButton = new JLabel();
+
+            bgButton.setText(context);
+            bgButton.setVerticalTextPosition(JLabel.TOP);
+            bgButton.setHorizontalTextPosition(JLabel.RIGHT);
+            bgButton.setIconTextGap(-380);
+            bgButton.setForeground(Color.white);
+            bgButton.setFont(new Font("Impact", Font.PLAIN, 30));
+
             bgButton.setIcon(new ImageIcon("graphs/character/buttons/bg.png"));
             bgButton.setBounds(100, jPanelY + 200 * i, 400, 150);
             newGameScreen.add(bgButton);
@@ -247,6 +291,14 @@ public class MainFrame extends JFrame{
         else
         {
             JLabel bgButton = new JLabel();
+            
+            bgButton.setText(context);
+            bgButton.setVerticalTextPosition(JLabel.TOP);
+            bgButton.setHorizontalTextPosition(JLabel.RIGHT);
+            bgButton.setIconTextGap(-380);
+            bgButton.setForeground(Color.white);
+            bgButton.setFont(new Font("Impact", Font.PLAIN, 30));
+
             bgButton.setIcon(new ImageIcon("graphs/character/buttons/bg.png"));
             bgButton.setBounds(550, jPanelY + 200 * (i - 3), 400, 150);
             newGameScreen.add(bgButton);

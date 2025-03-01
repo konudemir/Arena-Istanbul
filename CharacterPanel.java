@@ -2,11 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
+import java.io.File;
 
 import javax.imageio.ImageIO;
 //This is the class that controls the looks of the character
 public class CharacterPanel extends JPanel{
+    //Constants
+    private static final int FACE = 0;
+    private static final int HAIR = 1;
+    private static final int JACKET = 2;
+    private static final int SHIRT = 3;
+    private static final int TIES = 4;
+    private static final int PANTS = 5;
     private static CharacterPanel theCharPanel;
+    public static Random random = new Random();
+    public String[][] paths;
+    private static final String GRAPHSCHAR = "/graphs/character/";
     private boolean moveable;
     private BufferedImage face;
     private BufferedImage hair;
@@ -19,6 +31,7 @@ public class CharacterPanel extends JPanel{
 
     public CharacterPanel(boolean moveable)
     {
+        //Sthis.innitializePaths();
         theCharPanel = this;
         this.setLayout(null);
         this.setBounds(1000, 300, 920, 580);
@@ -27,11 +40,11 @@ public class CharacterPanel extends JPanel{
             face = ImageIO.read(getClass().getResource("/graphs/character/face/2.png"));
             hair = ImageIO.read(getClass().getResource("/graphs/character/hair/gray.png"));
             hands = ImageIO.read(getClass().getResource("/graphs/character/hands/0.png"));
-            jacket = ImageIO.read(getClass().getResource("/graphs/character/jacket/navy_blue.png"));
-            pants = ImageIO.read(getClass().getResource("/graphs/character/pants/navy_blue.png"));
-            shirts = ImageIO.read(getClass().getResource("/graphs/character/shirts/white.png"));
+            jacket = ImageIO.read(getClass().getResource("/graphs/character/jacket/001438.png"));
+            pants = ImageIO.read(getClass().getResource("/graphs/character/pants/000C21.png"));
+            shirts = ImageIO.read(getClass().getResource("/graphs/character/shirts/FFFFFF.png"));
             shoes = ImageIO.read(getClass().getResource("/graphs/character/shoes/black.png"));
-            tie = ImageIO.read(getClass().getResource("/graphs/character/ties/yellow.png"));
+            tie = ImageIO.read(getClass().getResource("/graphs/character/ties/D6B745.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -148,8 +161,106 @@ public class CharacterPanel extends JPanel{
         else if(c.equals(new Color(0xB87D4B))) changeSkin("2");
         else if(c.equals(new Color(0x7C4A3A))) changeSkin("3");
     }
+    public void changeJacket(Color c)
+    {
+        String hex = colorPickButton.toHEXString(c);
+        try {
+        this.jacket = ImageIO.read(getClass().getResource("/graphs/character/jacket/" + hex + ".png"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    public void changeTie(Color c)
+    {
+        String hex = colorPickButton.toHEXString(c);
+        try {
+        this.tie = ImageIO.read(getClass().getResource("/graphs/character/ties/" + hex + ".png"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void changeShirts(Color c)
+    {
+        String hex = colorPickButton.toHEXString(c);
+        try {
+        this.shirts = ImageIO.read(getClass().getResource("/graphs/character/shirts/" + hex + ".png"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    public void changePants(Color c)
+    {
+        String hex = colorPickButton.toHEXString(c);
+        try {
+        this.pants = ImageIO.read(getClass().getResource("/graphs/character/pants/" + hex + ".png"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     public static CharacterPanel getCharPanel()
     {
         return theCharPanel;
     }
+    public static void randomizeChar()
+    {
+        theCharPanel.randomizeLooks();
+    }
+    public void randomizeLooks()
+    {
+        try {
+            String faceS = returnRandomPath(FACE);
+            face = ImageIO.read(getClass().getResource(faceS));
+            hair = ImageIO.read(getClass().getResource(returnRandomPath(FACE)));
+            hands = ImageIO.read(getClass().getResource(convertFaceToHand(faceS)));
+            jacket = ImageIO.read(getClass().getResource(returnRandomPath(JACKET)));
+            pants = ImageIO.read(getClass().getResource(returnRandomPath(PANTS)));
+            shirts = ImageIO.read(getClass().getResource(returnRandomPath(SHIRT)));
+            tie = ImageIO.read(getClass().getResource(returnRandomPath(TIES)));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        this.repaint();
+    }
+    private static String returnRandomPath(int constant)
+    {
+        int randomInt = random.nextInt(theCharPanel.paths[constant].length);
+        return theCharPanel.paths[constant][randomInt];
+    }
+    private static String convertFaceToHand(String s)
+    {
+        int indexStart = s.indexOf("/face");
+        int indexEnd = s.indexOf("/", indexStart + 1);
+        return s.substring(0, indexStart) + "/hands" + s.substring(indexEnd, s.length());
+    }
+    private void innitializePaths()
+    {
+        paths = new String[6][];
+        innitializePaths(0, "face", new String[]{"0", "1", "2", "3"});
+        innitializePaths(1, "hair", new String[]{"black","blonde", "blue", "dark_brown", "gray", "light_brown", "red"});
+        innitializePaths(2, "jacket", new String[]{"ADADA3", "303030", "001438"});
+        innitializePaths(3, "shirts", new String[]{"ADD8E6", "FFFDD0", "FFFFFF"});
+        innitializePaths(4, "ties", new String[]{"0x000000", "0x800020", "0xD6B745"});
+        innitializePaths(5, "pants", new String[]{"0x7A7A6E", "0x000C21", "0x000000"});
+    }
+    /*
+    private void innitializePaths(int i, String context)
+    {
+        String path = GRAPHSCHAR + context;
+        File folder = new File(path);
+        paths[i] = new String[folder.list().length];
+        for(int j = 0; j < folder.list().length; j++)
+        {
+            paths[i][j] = folder.list()[j];
+        }
+    } */
+   private void innitializePaths(int i, String context, String[] hex)
+   {
+    String path = GRAPHSCHAR + context + "/";
+    paths[i] = new String[hex.length];
+    for(int j = 0; j < hex.length; j++)
+    {
+        paths[i][j] = path + hex[j] + ".png";
+    }
+   }
 }

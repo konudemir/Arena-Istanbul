@@ -13,12 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.*;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 
 
 
 public class MainFrame extends JFrame{
     public static MainFrame theFrame;
     public static JPanel currentPanel;
+    private static ImageIcon gameLogoImage;
+    private static ImageIcon techGladsImage;
     
     
     public MainFrame() {
@@ -52,16 +55,22 @@ public class MainFrame extends JFrame{
         mainScreenButton creditsButton = new mainScreenButton("Credits",100, 675, 400, 115, false);
         this.add(creditsButton);
 
-        JLabel gameLogo = new JLabel("ARENA ISTANBUL");
-        gameLogo.setBounds(1150, 100, 800, 300);
+        JLabel gameLogo = new JLabel();
+        gameLogoImage = new ImageIcon("graphs/gameLogo.png");
+        gameLogoImage = new ImageIcon(gameLogoImage.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH));
+        gameLogo.setBounds(1400, 0, 800, 750);
         gameLogo.setFont(new Font("Impact", Font.PLAIN, 100));
         gameLogo.setForeground(Color.white);
+        gameLogo.setIcon(gameLogoImage);
         this.add(gameLogo);
 
-        JLabel groupLogo = new JLabel("TECHGLADS");
-        groupLogo.setBounds(1300, 750, 800, 300);
+        JLabel groupLogo = new JLabel();
+        techGladsImage = new ImageIcon("graphs/techGlads.png");
+        techGladsImage = new ImageIcon(techGladsImage.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH));
+        groupLogo.setBounds(1450, 750, 800, 300);
         groupLogo.setFont(new Font("Impact", Font.PLAIN, 60));
         groupLogo.setForeground(Color.white);
+        groupLogo.setIcon(techGladsImage);
         this.add(groupLogo);
 
         new CharacterPanel();
@@ -96,16 +105,16 @@ public class MainFrame extends JFrame{
         mainScreenButton creditsButton = new mainScreenButton("Credits",100, 675, 400, 115);
         firstScreen.add(creditsButton);
 
-        JLabel gameLogo = new JLabel("ARENA ISTANBUL");
-        gameLogo.setBounds(1150, 100, 800, 300);
-        gameLogo.setFont(new Font("Impact", Font.PLAIN, 100));
+        JLabel gameLogo = new JLabel();
+        gameLogo.setBounds(1400, 0, gameLogoImage.getIconHeight(), gameLogoImage.getIconHeight());
         gameLogo.setForeground(Color.white);
+        gameLogo.setIcon(gameLogoImage);
         firstScreen.add(gameLogo);
 
-        JLabel groupLogo = new JLabel("TECHGLADS");
-        groupLogo.setBounds(1300, 750, 800, 300);
-        groupLogo.setFont(new Font("Impact", Font.PLAIN, 80));
+        JLabel groupLogo = new JLabel();
+        groupLogo.setBounds(1450, 750, 800, 300);
         groupLogo.setForeground(Color.white);
+        groupLogo.setIcon(techGladsImage);
         firstScreen.add(groupLogo);
         //Remove the fake JLabels
 

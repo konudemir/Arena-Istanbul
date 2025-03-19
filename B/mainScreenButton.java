@@ -1,3 +1,5 @@
+package B;
+import m.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 

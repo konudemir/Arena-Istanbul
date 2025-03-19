@@ -1,14 +1,18 @@
+package C;
+import B.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
-import java.io.File;
 
 import javax.imageio.ImageIO;
 //This is the class that controls the looks of the character
 public class CharacterPanel extends JPanel{
     //Constants
+    private static final int length = 500;
+    private static final int height = 500;
     private static final int FACE = 0;
     private static final int HAIR = 1;
     private static final int JACKET = 2;
@@ -262,5 +266,13 @@ public class CharacterPanel extends JPanel{
     {
         paths[i][j] = path + hex[j] + ".png";
     }
+   }
+   public void moveTo(int x, int y)
+   {
+    this.setBounds(x, y, length, height);
+   }
+   public void moveBy(int x, int y)
+   {
+    this.setBounds(this.getX() + x, this.getY() + y, length, height);
    }
 }

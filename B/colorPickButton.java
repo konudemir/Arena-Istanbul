@@ -1,7 +1,8 @@
-import javax.swing.ImageIcon;
+package B;
+import C.*;
+
 import javax.swing.JLabel;
 
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Color;

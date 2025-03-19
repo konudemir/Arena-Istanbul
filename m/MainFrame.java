@@ -1,18 +1,17 @@
+package m;
+import B.*;
+import C.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
-
-
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.*;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 
 
@@ -72,18 +71,13 @@ public class MainFrame extends JFrame{
         groupLogo.setForeground(Color.white);
         groupLogo.setIcon(techGladsImage);
         this.add(groupLogo);
-
-        new CharacterPanel();
-
-        
         
         this.setVisible(true);
         theFrame = this;
-    }
-    
+    }  
     public JPanel getFirstScreen()
     {
-        removePrevPanels();
+        removePrevPanelsAndLabels();
         JPanel firstScreen = new JPanel();
         firstScreen.setLayout(null);
         ImageIcon backgroundIcon = new ImageIcon(Main.mainScreenPath);
@@ -123,7 +117,7 @@ public class MainFrame extends JFrame{
             if(removeLabel instanceof JLabel ) this.remove(removeLabel);
         }
         //Remove the previous JPanel if existant
-        removePrevPanels();
+        removePrevPanelsAndLabels();
 
         firstScreen.add(backgroundLabel);
 
@@ -144,7 +138,7 @@ public class MainFrame extends JFrame{
         newGameScreen.setBounds(0, 0, 1920, 1080);
         
         //Remove the previous JPanel if existant
-        removePrevPanels();
+        removePrevPanelsAndLabels();
         
         //Add the exit button
         JLabel backButton = new JLabel();
@@ -156,6 +150,18 @@ public class MainFrame extends JFrame{
         backButton.setVerticalAlignment(JLabel.CENTER);
         backButton.setHorizontalAlignment(JLabel.CENTER);
         backButton.setBounds(1500, 850, 400, 200);
+
+        //Add the exit button
+        JLabel continueButton = new JLabel();
+        continueButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
+        continueButton.setText("CONTINUE");
+        continueButton.setHorizontalTextPosition(JLabel.CENTER);
+        continueButton.setForeground(Color.white);
+        continueButton.setFont(new Font("Impact", Font.PLAIN, 50));
+        continueButton.setVerticalAlignment(JLabel.CENTER);
+        continueButton.setHorizontalAlignment(JLabel.CENTER);
+        continueButton.setBounds(1500, 200, 300, 95);
+        
 
         JLabel randomButton = new JLabel();
         randomButton.setIcon(new ImageIcon("graphs/button.png"));
@@ -198,45 +204,101 @@ public class MainFrame extends JFrame{
         
 
         backButton.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            getFirstScreen();
-        }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getFirstScreen();
+            }
+    
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                backButton.setIcon(new ImageIcon("graphs/enteredArrow.png"));
+                backButton.setFont(new Font("Impact", Font.PLAIN, 50));
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                backButton.setIcon(new ImageIcon("graphs/arrow.png"));
+                backButton.setFont(new Font("Impact", Font.PLAIN, 50));
+            }
+    
+            @Override
+            public void mousePressed(MouseEvent e) {
+                backButton.setIcon(new ImageIcon("graphs/clickedArrow.png"));
+                backButton.setFont(new Font("Impact", Font.PLAIN, 46));
+            }
+    
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                backButton.setIcon(new ImageIcon("graphs/arrow.png"));
+                backButton.setFont(new Font("Impact", Font.PLAIN, 50));
+            }
+            });
 
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            backButton.setIcon(new ImageIcon("graphs/enteredArrow.png"));
-            backButton.setFont(new Font("Impact", Font.PLAIN, 50));
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            backButton.setIcon(new ImageIcon("graphs/arrow.png"));
-            backButton.setFont(new Font("Impact", Font.PLAIN, 50));
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            backButton.setIcon(new ImageIcon("graphs/clickedArrow.png"));
-            backButton.setFont(new Font("Impact", Font.PLAIN, 46));
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            backButton.setIcon(new ImageIcon("graphs/arrow.png"));
-            backButton.setFont(new Font("Impact", Font.PLAIN, 50));
-        }
-        });
+            continueButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    storeScreen();
+                }
+        
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    continueButton.setIcon(new ImageIcon("graphs/enteredFrontArrow.png"));
+                    continueButton.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+        
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    continueButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
+                    continueButton.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+        
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    continueButton.setIcon(new ImageIcon("graphs/clickedFrontArrow.png"));
+                    continueButton.setFont(new Font("Impact", Font.PLAIN, 41));
+                }
+        
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    continueButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
+                    continueButton.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+                });
 
         //Adding the labels (in descending order of showing up)
         newGameScreen.add(backButton);
+        newGameScreen.add(continueButton);
         //newGameScreen.add(randomButton); //Add this when randomizeCharacter method works fine
         newGameScreen.add(CharacterPanel.getCharPanel());
         newGameScreen.add(backgroundLabel);
+        
 
         this.add(newGameScreen);
         this.repaint();
         return newGameScreen;
+    }
+    public JPanel storeScreen()
+    {
+        JPanel storeScreen = new JPanel();
+        storeScreen.setLayout(null);
+        ImageIcon backgroundIcon = new ImageIcon("graphs/store.png");
+        JLabel backgroundLabel = new JLabel();
+        backgroundLabel.setIcon(backgroundIcon);
+        backgroundLabel.setBounds(0, 0, 1920, 1080);
+        
+        storeScreen.setBounds(0, 0, 1920, 1080);
+        
+        //Remove the previous JPanel if existant
+        removePrevPanelsAndLabels();
+        storeScreen.add(CharacterPanel.getCharPanel());
+        User.getUser().moveTo(1000, 530);
+
+        storeScreen.add(User.getCharPanel());
+        storeScreen.add(backgroundLabel);
+
+        this.add(storeScreen);
+        this.repaint();
+        return storeScreen;
     }
     //Helper method for new game screen
     public void getBGButtonsForCustomization(JPanel newGameScreen, String context, int i, Color[] colors)
@@ -325,12 +387,28 @@ public class MainFrame extends JFrame{
             }
         }
     }
+    public void removePrevLabels()
+    {
+        //Remove the previous JPanel if existant
+        if(this.getContentPane().getComponents().length > 0)
+        {
+            for(Component c : this.getContentPane().getComponents())
+            {
+                if(c instanceof JLabel) this.remove(c);
+            }
+        }
+    }
+    public void removePrevPanelsAndLabels()
+    {
+        this.removePrevLabels();
+        this.removePrevPanels();
+    }
 
 
     //Static versions of methods (S at the end representing "static")
-    public static void removePrevPanelsS()
+    public static void removePrevPanelsAndLabelsS()
     {
-        theFrame.removePrevPanels();
+        theFrame.removePrevPanelsAndLabels();
     }
     public static JPanel getFirstScreenS()
     {

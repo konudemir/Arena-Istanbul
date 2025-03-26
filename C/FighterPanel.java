@@ -10,20 +10,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class CharacterPanel extends JPanel{
-    private static final int AMOUNT_OF_CHARACTERS = 5;
-    private static String[] CHARPATHS = new String[AMOUNT_OF_CHARACTERS];
+public class FighterPanel extends JPanel{
+    private static String[] FIGHTERPATHS = new String[Fighter.AMOUNT_OF_FIGHTERS];
     private static boolean hasFilledPaths = false;
     private Image image;
-    private static CharacterPanel theCharPanel;
 
-    public CharacterPanel(int i)
+    public FighterPanel(int i)
     {
-        theCharPanel = this;
         if(!hasFilledPaths) fillPaths();
         //Get image
         try {
-        this.image = ImageIO.read(getClass().getResource(CHARPATHS[i]));
+        this.image = ImageIO.read(getClass().getResource(FIGHTERPATHS[i]));
         } catch (Exception e) {
             System.out.println("NO IMAGE FOR i:" + i);
         }
@@ -44,20 +41,12 @@ public class CharacterPanel extends JPanel{
     {
         this.setBounds(x, y, this.image.getWidth(null), this.image.getHeight(null));
     }
-    public void moveBy(int x, int y)
-    {
-        this.setBounds(this.getX() + x, this.getY() + y, this.image.getWidth(null), this.image.getHeight(null));
-    }
-    public static CharacterPanel getCharPanel()
-    {
-        return theCharPanel;
-    }
 
     public static void fillPaths()
     {
-        for(int i = 0; i < CHARPATHS.length; i++)
+        for(int i = 0; i < FIGHTERPATHS.length; i++)
         {
-            CHARPATHS[i] = "/graphs/character/" + i + ".png";
+            FIGHTERPATHS[i] = "/graphs/fighters/" + i + ".png";
         }
         hasFilledPaths = true;
     }

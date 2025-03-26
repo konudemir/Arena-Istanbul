@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.Color;
 
 public class colorPickButton extends JLabel implements MouseListener{
-    private static CharacterPanel theCharPanel = CharacterPanel.getCharPanel();
+    private static CharacterPanelOld theCharPanel = CharacterPanelOld.getCharPanel();
     private Color c;
     private String context;
     private final int orgwidth;

@@ -21,6 +21,7 @@ public class MainFrame extends JFrame{
     public static JPanel currentPanel;
     private static ImageIcon gameLogoImage;
     private static ImageIcon techGladsImage;
+    private static final ImageIcon NEW_GAME_BG_IMAGEICON = new ImageIcon("graphs/newGameGPT.png");
     
     
     public MainFrame() {
@@ -126,11 +127,11 @@ public class MainFrame extends JFrame{
         this.repaint();
         return firstScreen;
     }
-    public JPanel newGameScreen()
+    public JPanel newGameScreenOld()
     {
         JPanel newGameScreen = new JPanel();
         newGameScreen.setLayout(null);
-        ImageIcon backgroundIcon = new ImageIcon("graphs/newGameScreen.png");
+        ImageIcon backgroundIcon = NEW_GAME_BG_IMAGEICON;
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundIcon);
         backgroundLabel.setBounds(0, 0, 1920, 1080);
@@ -190,7 +191,7 @@ public class MainFrame extends JFrame{
             @Override
             public void mouseReleased(MouseEvent e)
             {
-                CharacterPanel.randomizeChar();
+                CharacterPanelOld.randomizeChar();
             }
         });
 
@@ -237,7 +238,9 @@ public class MainFrame extends JFrame{
             continueButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    storeScreen();
+                    //storeScreen();
+                    //arenaScene(User.getUser(), new Fighter(0));
+                    lobbyScene();
                 }
         
                 @Override
@@ -270,9 +273,119 @@ public class MainFrame extends JFrame{
         newGameScreen.add(continueButton);
         //newGameScreen.add(randomButton); //Add this when randomizeCharacter method works fine
         newGameScreen.add(CharacterPanel.getCharPanel());
+        CharacterPanel.getCharPanel().moveTo(1000, 480);
         newGameScreen.add(backgroundLabel);
         
 
+        this.add(newGameScreen);
+        this.repaint();
+        return newGameScreen;
+    }
+    public JPanel newGameScreen()
+    {
+        JPanel newGameScreen = new JPanel();
+        newGameScreen.setLayout(null);
+        ImageIcon backgroundIcon = NEW_GAME_BG_IMAGEICON;
+        JLabel backgroundLabel = new JLabel();
+        backgroundLabel.setIcon(backgroundIcon);
+        backgroundLabel.setBounds(0, 0, 1920, 1080);
+        
+        newGameScreen.setBounds(0, 0, 1920, 1080);
+        
+        //Remove the previous JPanel if existant
+        removePrevPanelsAndLabels();
+        
+        //Add the exit button
+        JLabel backButton = new JLabel();
+        backButton.setIcon(new ImageIcon("graphs/arrow.png"));
+        backButton.setText("BACK");
+        backButton.setHorizontalTextPosition(JLabel.CENTER);
+        backButton.setForeground(Color.white);
+        backButton.setFont(new Font("Impact", Font.PLAIN, 50));
+        backButton.setVerticalAlignment(JLabel.CENTER);
+        backButton.setHorizontalAlignment(JLabel.CENTER);
+        backButton.setBounds(1450, 850, 400, 200);
+
+        //Add the exit button
+        JLabel continueButton = new JLabel();
+        continueButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
+        continueButton.setText("CONTINUE");
+        continueButton.setHorizontalTextPosition(JLabel.CENTER);
+        continueButton.setForeground(Color.white);
+        continueButton.setFont(new Font("Impact", Font.PLAIN, 50));
+        continueButton.setVerticalAlignment(JLabel.CENTER);
+        continueButton.setHorizontalAlignment(JLabel.CENTER);
+        continueButton.setBounds(1500, 200, 300, 95);
+
+        backButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getFirstScreen();
+            }
+    
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                backButton.setIcon(new ImageIcon("graphs/enteredArrow.png"));
+                backButton.setFont(new Font("Impact", Font.PLAIN, 50));
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                backButton.setIcon(new ImageIcon("graphs/arrow.png"));
+                backButton.setFont(new Font("Impact", Font.PLAIN, 50));
+            }
+    
+            @Override
+            public void mousePressed(MouseEvent e) {
+                backButton.setIcon(new ImageIcon("graphs/clickedArrow.png"));
+                backButton.setFont(new Font("Impact", Font.PLAIN, 46));
+            }
+    
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                backButton.setIcon(new ImageIcon("graphs/arrow.png"));
+                backButton.setFont(new Font("Impact", Font.PLAIN, 50));
+            }
+            });
+
+            continueButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    //storeScreen();
+                    arenaScene(User.getUser(), new Fighter(0));
+                }
+        
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    continueButton.setIcon(new ImageIcon("graphs/enteredFrontArrow.png"));
+                    continueButton.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+        
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    continueButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
+                    continueButton.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+        
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    continueButton.setIcon(new ImageIcon("graphs/clickedFrontArrow.png"));
+                    continueButton.setFont(new Font("Impact", Font.PLAIN, 41));
+                }
+        
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    continueButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
+                    continueButton.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+                });
+
+        
+        newGameScreen.add(backButton);
+        newGameScreen.add(continueButton);
+        newGameScreen.add(backgroundLabel);
+        newGameScreen.add(CharacterPanel.getCharPanel());
+        newGameScreen.setVisible(true);
         this.add(newGameScreen);
         this.repaint();
         return newGameScreen;
@@ -290,20 +403,95 @@ public class MainFrame extends JFrame{
         
         //Remove the previous JPanel if existant
         removePrevPanelsAndLabels();
-        storeScreen.add(CharacterPanel.getCharPanel());
         User.getUser().moveTo(1000, 530);
 
-        storeScreen.add(User.getCharPanel());
+        JLabel merchant = new JLabel();
+        merchant.setIcon(new ImageIcon("graphs/merchant.png"));
+        merchant.setBounds(700, 50, 1920, 1080);
+        
+        JLabel shelf = new JLabel();
+        shelf.setIcon(new ImageIcon("graphs/storeShelf.png"));
+        shelf.setBounds(0, 0, 1920, 1080);
+        
+        storeScreen.add(CharacterPanel.getCharPanel());
+        storeScreen.add(shelf);
+        storeScreen.add(merchant);
         storeScreen.add(backgroundLabel);
-
         this.add(storeScreen);
         this.repaint();
         return storeScreen;
     }
+    public JPanel arenaScene(User user, Fighter fighter)
+    {
+        JPanel arenaScreen = new JPanel();
+        arenaScreen.setLayout(null);
+        ImageIcon backgroundIcon = new ImageIcon("graphs/arenaScene.png");
+        JLabel backgroundLabel = new JLabel();
+        backgroundLabel.setIcon(backgroundIcon);
+        backgroundLabel.setBounds(0, 0, 1920, 1080);
+        
+        arenaScreen.setBounds(0, 0, 1920, 1080);
+        
+        //Remove the previous JPanel if existant
+        removePrevPanelsAndLabels();
+        arenaScreen.add(CharacterPanel.getCharPanel());
+        this.add(user.getHealthBar());
+        User.getUser().moveTo(300, 530);
+
+        arenaScreen.add(fighter.getFighterPanel());
+        fighter.resize(500, 500);
+        fighter.moveTo(1100, 480);
+        this.add(fighter.getHealthBar());
+
+        JLabel button1 = new JLabel();
+        button1.setIcon(new ImageIcon("graphs/circle.png"));
+        button1.setBounds(460, 420, 200, 200);
+        arenaScreen.add(button1);
+        JLabel button2 = new JLabel();
+        button2.setIcon(new ImageIcon("graphs/circle.png"));
+        button2.setBounds(360, 510, 200, 200);
+        arenaScreen.add(button2);
+        JLabel button3 = new JLabel();
+        button3.setIcon(new ImageIcon("graphs/circle.png"));
+        button3.setBounds(585, 420, 200, 200);
+        arenaScreen.add(button3);
+        JLabel button4 = new JLabel();
+        button4.setIcon(new ImageIcon("graphs/circle.png"));
+        button4.setBounds(660, 510, 200, 200);
+        arenaScreen.add(button4);
+        JLabel button5 = new JLabel();
+        button5.setIcon(new ImageIcon("graphs/circle.png"));
+        button5.setBounds(660, 630, 200, 200);
+        arenaScreen.add(button5);
+
+        arenaScreen.add(backgroundLabel);
+
+        this.add(arenaScreen);
+        this.repaint();
+        return arenaScreen;
+    }
+    public JPanel lobbyScene()
+    {
+        JPanel lobbyScene = new JPanel();
+        lobbyScene.setLayout(null);
+        ImageIcon backgroundIcon = new ImageIcon("graphs/lobby.png");
+        JLabel backgroundLabel = new JLabel();
+        backgroundLabel.setIcon(backgroundIcon);
+        backgroundLabel.setBounds(0, 0, 1920, 1080);
+        removePrevPanelsAndLabels();
+        lobbyScene.setBounds(0, 0, 1920, 1080);
+        lobbyScene.add(CharacterPanel.getCharPanel());
+        CharacterPanel.getCharPanel().moveTo(100, 560);
+        lobbyScene.add(backgroundLabel);
+
+        this.add(lobbyScene);
+        this.repaint();
+        return lobbyScene;
+    }
     //Helper method for new game screen
     public void getBGButtonsForCustomization(JPanel newGameScreen, String context, int i, Color[] colors)
     {
-        int jPanelY = 220;
+        int jPanelY = 320;
         if(colors.length != 0)
         if(i < 3)
         {
@@ -416,7 +604,7 @@ public class MainFrame extends JFrame{
     }
     public static JPanel newGameScreenS()
     {
-        return theFrame.newGameScreen();
+        return theFrame.newGameScreenOld();
     }
 
 

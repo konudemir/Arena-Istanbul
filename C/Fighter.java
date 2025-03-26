@@ -1,9 +1,5 @@
 package C;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 public class Fighter extends Person{
     public static final int AMOUNT_OF_FIGHTERS = 10;
     private FighterPanel fighterPanel;

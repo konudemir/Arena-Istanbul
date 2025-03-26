@@ -2,13 +2,9 @@ package C;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class FighterPanel extends JPanel{
     private static String[] FIGHTERPATHS = new String[Fighter.AMOUNT_OF_FIGHTERS];

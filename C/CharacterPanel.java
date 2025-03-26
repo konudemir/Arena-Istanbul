@@ -2,13 +2,9 @@ package C;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class CharacterPanel extends JPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;

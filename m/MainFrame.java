@@ -172,6 +172,7 @@ public class MainFrame extends JFrame{
                 if(c instanceof JLabel) this.remove(c);
             }
         }
+        CharacterPanel.getCharPanel().setHeight(500);
     }
     public void removePrevPanelsAndLabels()
     {

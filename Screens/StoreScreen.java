@@ -1,8 +1,12 @@
 package Screens;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import C.CharacterPanel;
 import C.User;
@@ -33,8 +37,22 @@ public class StoreScreen extends JPanel{
         JLabel shelf = new JLabel();
         shelf.setIcon(new ImageIcon("graphs/storeShelf.png"));
         shelf.setBounds(0, 0, 1920, 1080);
+
+        JLabel grayBG = new JLabel();
+        grayBG.setIcon(new ImageIcon("graphs/mockupStore.png"));
+        grayBG.setBounds(0, 0, 500, 1080);
+
+        JLabel coinSpace = new JLabel();
+        coinSpace.setIcon(new ImageIcon("graphs/coinSpace0.png"));
+        coinSpace.setText("" + User.getUser().getCoins());
+        coinSpace.setFont(new Font("Impact", Font.PLAIN, 100));
+        coinSpace.setForeground(Color.white);
+        coinSpace.setBounds(1450, 120, 400, 115);
+
         
         this.add(CharacterPanel.getCharPanel());
+        this.add(grayBG);
+        this.add(coinSpace);
         this.add(shelf);
         this.add(merchant);
         this.add(backgroundLabel);

@@ -44,6 +44,15 @@ public class CharacterPanel extends JPanel{
     {
         this.setBounds(this.getX() + x, this.getY() + y, this.image.getWidth(null), this.image.getHeight(null));
     }
+    public void setSize(int width, int height)
+    {
+        this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    }
+    public void setHeight(int height)
+    {
+        int width = (int)((double)height / (double)this.image.getHeight(null) * (double)this.image.getWidth(null));
+        this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    }
     public static CharacterPanel getCharPanel()
     {
         return theCharPanel;

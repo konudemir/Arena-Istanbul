@@ -3,9 +3,11 @@ public class User extends Person{
     private static User theUser;
     private CharacterPanel charPanel;
     private HealthBar healthBar;
+    private int coins;
     public User()
     {
         theUser = this;
+        this.coins = 0;
         new CharacterPanel(0);
         this.charPanel = CharacterPanel.getCharPanel();
         this.healthBar = new HealthBar(this);
@@ -29,5 +31,9 @@ public class User extends Person{
     public HealthBar getHealthBar()
     {
         return this.healthBar;
+    }
+    public int getCoins()
+    {
+        return this.coins;
     }
 }

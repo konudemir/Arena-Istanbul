@@ -113,7 +113,7 @@ public class CustomizationScreen extends JPanel{
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new FirstMenu();
+                new LobbyScreen();
             }
     
             @Override

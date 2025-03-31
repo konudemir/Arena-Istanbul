@@ -61,7 +61,7 @@ public class LobbyScreen extends JPanel {
 
     private void goToShop() {
         System.out.println("Going to Shop...");
-        // Implement shop transition logic
+        new StoreScreen();
     }
 
     private void saveGame() {

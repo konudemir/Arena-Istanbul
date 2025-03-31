@@ -28,20 +28,28 @@ public class LobbyScreen extends JPanel {
         this.add(CharacterPanel.getCharPanel());
         CharacterPanel.getCharPanel().moveTo(100, 560);
         
-        // Add buttons
-        addButton("Arena", 100, 200, e -> goToArena());
-        addButton("Shop", 100, 300, e -> goToShop());
-        addButton("Save", 100, 400, e -> saveGame());
-        addButton("Quit", 100, 500, e -> quitGame());
+        // Adjusted button size
+        int buttonSize = 180;
+        int yPosition = 850;
+        
+        // Add buttons with resized images
+        addButton("graphs/LobyButtons/ArenaButton.png", 500, yPosition, buttonSize, e -> goToArena());
+        addButton("graphs/LobyButtons/ShopButton.png", 750, yPosition, buttonSize, e -> goToShop());
+        addButton("graphs/LobyButtons/SaveButton.png", 1000, yPosition, buttonSize, e -> saveGame());
+        addButton("graphs/LobyButtons/ExitButton.png", 1250, yPosition, buttonSize, e -> quitGame());
         
         this.add(backgroundLabel);
         theFrame.add(this);
         theFrame.repaint();
     }
 
-    private void addButton(String text, int x, int y, ActionListener action) {
-        JButton button = new JButton(text);
-        button.setBounds(x, y, 200, 50);
+    private void addButton(String imagePath, int x, int y, int size, ActionListener action) {
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH));
+        JButton button = new JButton(icon);
+        button.setBounds(x, y, size, size);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
         button.addActionListener(action);
         this.add(button);
     }

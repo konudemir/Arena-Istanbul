@@ -16,6 +16,11 @@ public class FightScreen extends JPanel{
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundIcon);
         backgroundLabel.setBounds(0, 0, 1920, 1080);
+        //CAT
+        JLabel cat = new JLabel();
+        cat.setIcon(new ImageIcon("graphs/fight/cat.png"));
+        cat.setBounds(650, 850, 200, 200);
+        this.add(cat);
         
         this.setBounds(0, 0, 1920, 1080);
         
@@ -30,26 +35,26 @@ public class FightScreen extends JPanel{
         fighter.moveTo(1100, 480);
         theFrame.add(fighter.getHealthBar());
 
-        JLabel button1 = new JLabel();
-        button1.setIcon(new ImageIcon("graphs/circle.png"));
-        button1.setBounds(460, 420, 200, 200);
-        this.add(button1);
-        JLabel button2 = new JLabel();
-        button2.setIcon(new ImageIcon("graphs/circle.png"));
-        button2.setBounds(360, 510, 200, 200);
-        this.add(button2);
-        JLabel button3 = new JLabel();
-        button3.setIcon(new ImageIcon("graphs/circle.png"));
-        button3.setBounds(585, 420, 200, 200);
-        this.add(button3);
-        JLabel button4 = new JLabel();
-        button4.setIcon(new ImageIcon("graphs/circle.png"));
-        button4.setBounds(660, 510, 200, 200);
-        this.add(button4);
-        JLabel button5 = new JLabel();
-        button5.setIcon(new ImageIcon("graphs/circle.png"));
-        button5.setBounds(660, 630, 200, 200);
-        this.add(button5);
+        JLabel moveForward = new JLabel();
+        moveForward.setIcon(new ImageIcon("graphs/fight/moveForward.png"));
+        moveForward.setBounds(460 - (140), 420 - 40, 200, 200);
+        this.add(moveForward);
+        JLabel moveBackwards = new JLabel();
+        moveBackwards.setIcon(new ImageIcon("graphs/fight/moveBackwards.png"));
+        moveBackwards.setBounds(360 - (140), 510 - 40, 200, 200);
+        this.add(moveBackwards);
+        JLabel attack = new JLabel();
+        attack.setIcon(new ImageIcon("graphs/fight/attack.png"));
+        attack.setBounds(585 - (140), 420 - 40, 200, 200);
+        this.add(attack);
+        JLabel sleep = new JLabel();
+        sleep.setIcon(new ImageIcon("graphs/fight/sleep.png"));
+        sleep.setBounds(660 - (140), 510 - 40, 200, 200);
+        this.add(sleep);
+        JLabel usePet = new JLabel();
+        usePet.setIcon(new ImageIcon("graphs/fight/usePet.png"));
+        usePet.setBounds(660 - (140), 630 - 40, 200, 200);
+        this.add(usePet);
 
         this.add(backgroundLabel);
 

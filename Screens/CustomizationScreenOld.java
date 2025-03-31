@@ -2,8 +2,6 @@ package Screens;
 
 import C.CharacterPanel;
 import C.CharacterPanelOld;
-import C.Fighter;
-import C.User;
 import m.*;
 
 import javax.swing.JPanel;
@@ -17,10 +15,10 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class CustomizationScreen extends JPanel{
+public class CustomizationScreenOld extends JPanel{
     public static MainFrame theFrame;
     private static final ImageIcon NEW_GAME_BG_IMAGEICON = new ImageIcon("graphs/newGameGPT.png");
-    public CustomizationScreen()
+    public CustomizationScreenOld()
     {
         MainFrame.currentPanel = this;
         theFrame = MainFrame.theFrame;
@@ -55,26 +53,7 @@ public class CustomizationScreen extends JPanel{
         continueButton.setFont(new Font("Impact", Font.PLAIN, 50));
         continueButton.setVerticalAlignment(JLabel.CENTER);
         continueButton.setHorizontalAlignment(JLabel.CENTER);
-        continueButton.setBounds(1550, 200, 300, 95);
-
-        //Add the exit button
-        JLabel arrowToLeft = new JLabel();
-        arrowToLeft.setIcon(new ImageIcon("graphs/arrowToLeft.png"));
-        arrowToLeft.setHorizontalTextPosition(JLabel.CENTER);
-        arrowToLeft.setForeground(Color.white);
-        arrowToLeft.setFont(new Font("Impact", Font.PLAIN, 50));
-        arrowToLeft.setVerticalAlignment(JLabel.CENTER);
-        arrowToLeft.setHorizontalAlignment(JLabel.CENTER);
-        arrowToLeft.setBounds(375, 500, 300, 190);
-
-        JLabel arrowToRight = new JLabel();
-        arrowToRight.setIcon(new ImageIcon("graphs/arrowToRight.png"));
-        arrowToRight.setHorizontalTextPosition(JLabel.CENTER);
-        arrowToRight.setForeground(Color.white);
-        arrowToRight.setFont(new Font("Impact", Font.PLAIN, 50));
-        arrowToRight.setVerticalAlignment(JLabel.CENTER);
-        arrowToRight.setHorizontalAlignment(JLabel.CENTER);
-        arrowToRight.setBounds(925, 500, 300, 190);
+        continueButton.setBounds(1500, 200, 300, 95);
         
 
         JLabel randomButton = new JLabel();
@@ -107,6 +86,13 @@ public class CustomizationScreen extends JPanel{
                 CharacterPanelOld.randomizeChar();
             }
         });
+
+        getBGButtonsForCustomization(this, "Hair", 0, new Color[]{new Color(0xF5E0B7), new Color(0x3D2B24), new Color(0x3D3D3D), new Color(0x6A4E42), new Color(0xA52A2A)});
+        getBGButtonsForCustomization(this, "Skin", 1, new Color[]{new Color(0xFFD3BA), new Color(0xDBA772), new Color(0xB87D4B), new Color(0x7C4A3A)});
+        getBGButtonsForCustomization(this, "Jacket", 2, new Color[]{new Color(0xADADA3), new Color(0x303030), new Color(0x001438), new Color(0x672FAA), new Color(0x72A8A2), new Color(0x003FA5)});
+        getBGButtonsForCustomization(this, "Shirt", 3, new Color[]{new Color(0xADD8E6), new Color(0xFFFDD0), new Color(0xFFFFFF)});
+        getBGButtonsForCustomization(this, "Tie", 4, new Color[]{new Color(0x000000), new Color(0x800020), new Color(0xD6B745), new Color(0x7700FF)});
+        getBGButtonsForCustomization(this, "Pants", 5, new Color[]{new Color(0x7A7A6E), new Color(0x000C21), new Color(0x000000)});
         
         
 
@@ -144,8 +130,9 @@ public class CustomizationScreen extends JPanel{
             continueButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    //new FightScreen(User.getUser(), new Fighter(0));
-                    new StoreScreen();
+                    //storeScreen();
+                    //arenaScene(User.getUser(), new Fighter(0));
+                    new LobbyScreen();
                 }
         
                 @Override
@@ -177,12 +164,8 @@ public class CustomizationScreen extends JPanel{
         this.add(backButton);
         this.add(continueButton);
         //this.add(randomButton); //Add theFrame when randomizeCharacter method works fine
-        CharacterPanel charPanel = CharacterPanel.getCharPanel();
-        charPanel.setHeight(650);
-        charPanel.moveTo(650, 300);
-        this.add(charPanel);
-        this.add(arrowToLeft);
-        this.add(arrowToRight);
+        this.add(CharacterPanel.getCharPanel());
+        CharacterPanel.getCharPanel().moveTo(1000, 480);
         this.add(backgroundLabel);
         
 

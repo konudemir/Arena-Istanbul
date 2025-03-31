@@ -56,7 +56,7 @@ public class LobbyScreen extends JPanel {
 
     private void goToArena() {
         System.out.println("Going to Arena...");
-        // Implement arena transition logic
+        new ArenaScreen();
     }
 
     private void goToShop() {

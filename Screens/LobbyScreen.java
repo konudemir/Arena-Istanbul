@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import C.CharacterPanel;
+import C.Fighter;
+import C.User;
 import m.MainFrame;
 
 public class LobbyScreen extends JPanel {
@@ -56,7 +58,7 @@ public class LobbyScreen extends JPanel {
 
     private void goToArena() {
         System.out.println("Going to Arena...");
-        new ArenaScreen();
+        new FightScreen(User.getUser(), new Fighter(0));
     }
 
     private void goToShop() {

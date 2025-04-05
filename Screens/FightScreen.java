@@ -26,39 +26,44 @@ public class FightScreen extends JPanel{
         
         //Remove the previous JPanel if existant
         theFrame.removePrevPanelsAndLabels();
+        CharacterPanel.getCharPanel().resizeComp(300, 132);
         this.add(CharacterPanel.getCharPanel());
         theFrame.add(user.getHealthBar());
-        User.getUser().moveTo(300, 530);
-
+        User.getUser().moveTo(300, 680);
         this.add(fighter.getFighterPanel());
-        fighter.resize(500, 500);
-        fighter.moveTo(1100, 480);
+        
+        fighter.resizeComp(300, 132);
+        fighter.moveTo(1100, 680);
         theFrame.add(fighter.getHealthBar());
 
         JLabel moveForward = new JLabel();
         moveForward.setIcon(new ImageIcon("graphs/fight/moveForward.png"));
-        moveForward.setBounds(460 - (140), 420 - 40, 200, 200);
+        moveForward.setBounds(460 - (200), 420+ 108, 200, 200);
         this.add(moveForward);
         JLabel moveBackwards = new JLabel();
         moveBackwards.setIcon(new ImageIcon("graphs/fight/moveBackwards.png"));
-        moveBackwards.setBounds(360 - (140), 510 - 40, 200, 200);
+        moveBackwards.setBounds(380 - (200), 510+ 108, 200, 200);
         this.add(moveBackwards);
         JLabel attack = new JLabel();
         attack.setIcon(new ImageIcon("graphs/fight/attack.png"));
-        attack.setBounds(585 - (140), 420 - 40, 200, 200);
+        attack.setBounds(585 - (200), 420+ 108, 200, 200);
         this.add(attack);
         JLabel sleep = new JLabel();
         sleep.setIcon(new ImageIcon("graphs/fight/sleep.png"));
-        sleep.setBounds(660 - (140), 510 - 40, 200, 200);
+        sleep.setBounds(660 - (200), 510+ 108, 200, 200);
         this.add(sleep);
         JLabel usePet = new JLabel();
         usePet.setIcon(new ImageIcon("graphs/fight/usePet.png"));
-        usePet.setBounds(660 - (140), 630 - 40, 200, 200);
+        usePet.setBounds(660 - (200), 630+ 108, 200, 200);
         this.add(usePet);
 
         this.add(backgroundLabel);
-
+        CharacterPanel.getCharPanel().breath();
         theFrame.add(this);
         theFrame.repaint();
+    }
+    public void rp()
+    {
+        this.repaint();
     }
 }

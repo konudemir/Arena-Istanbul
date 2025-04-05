@@ -197,6 +197,14 @@ public class MainFrame extends JFrame{
     {
         return new CustomizationScreen();
     }
+    public static JPanel getCurrentScreen()
+    {
+        return currentPanel;
+    }
+    public void rp()
+    {
+        this.repaint();
+    }
 
 
 }

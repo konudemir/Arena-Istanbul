@@ -18,7 +18,7 @@ public class Fighter extends Person{
     {
         this.fighterPanel.moveTo(x, y);
     }
-    public void resize(int x, int y)
+    public void resizeComp(int x, int y)
     {
         this.fighterPanel.resize(x, y);
     }

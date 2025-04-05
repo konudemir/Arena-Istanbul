@@ -2,27 +2,30 @@ package C;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
+import Screens.FightScreen;
+import m.MainFrame;
 
 public class CharacterPanel extends JPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;
     private static String[] CHARPATHS = new String[AMOUNT_OF_CHARACTERS];
-    private static boolean hasFilledPaths = false;
+    private boolean hasFilledPaths = false;
     private Image image;
     private static CharacterPanel theCharPanel;
+    private Image[] idle = new Image[3];
 
     public CharacterPanel(int i)
     {
         theCharPanel = this;
         if(!hasFilledPaths) fillPaths();
         //Get image
-        try {
-        this.image = ImageIO.read(getClass().getResource(CHARPATHS[i]));
-        } catch (Exception e) {
-            System.out.println("NO IMAGE FOR i:" + i);
-        }
+        this.image = idle[2];
         this.setBounds(1000, 300, 920, 580);
         this.setLayout(null);
         this.setVisible(true);
@@ -32,7 +35,9 @@ public class CharacterPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         g.drawImage(image, 0, 0, null);
     }
-    public void resize(int height, int width)
+    //The issue is that we create a new image object with different size so we can't see whats equal
+    //Solution resizeComp to a fixed final int size and put it in the idle array that way
+    public void resizeComp(int height, int width)
     {
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
@@ -57,13 +62,48 @@ public class CharacterPanel extends JPanel{
     {
         return theCharPanel;
     }
-
-    public static void fillPaths()
+    public void setImage(Image image)
     {
-        for(int i = 0; i < CHARPATHS.length; i++)
-        {
-            CHARPATHS[i] = "/graphs/character/" + i + ".png";
-        }
+        this.image = image;
+    }
+
+    public void fillPaths()
+    {
+        for(int i = 0; i < 3; i++)
+        try {
+            idle[i] = ImageIO.read(getClass().getResource("/graphs/character/" + i + "f.png"));
+            } catch (Exception e) {
+                System.out.println("NO IMAGE FOR i:" + i);
+            }
+
         hasFilledPaths = true;
+    }
+
+    public void breath()
+    {
+        Timer timer = new Timer(); // create the timer
+        CharacterPanel thisPanel = this;
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                CharacterPanel.setNextImageIdleOf(thisPanel);
+                System.out.println("aa");
+            }
+        };
+        timer.schedule(task, 1000, 5);
+    }
+    public static Image setNextImageIdleOf(CharacterPanel panel)
+    {
+        for(int i = 0; i < 3; i++) 
+        if(panel.image == panel.idle[i])
+        {
+            Image im = panel.image;
+            panel.image = panel.idle[(i+1) % 3];
+            System.out.println("aabbcc");
+            System.out.println(im == panel.image);
+            break;
+        }
+        panel.repaint();
+        return panel.image;
     }
 }

@@ -1,0 +1,4 @@
+default: 2
+breathing loop: 2 - 1 - 2 - 3
+walking loop:2 - (LOOP)(w1 - w2 - w3 - w2 - w4) - 2
+attack loop: 2 - a1 - a2 - a1 - 2

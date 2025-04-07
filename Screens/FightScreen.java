@@ -62,6 +62,13 @@ public class FightScreen extends JPanel{
         theFrame.add(this);
         theFrame.repaint();
     }
+    public FightScreen()
+    {
+        //ToDo : This will be a main fight screen beforehand so that the user decides if they want to fight in the story mode or the arena mode.
+        //Also make this the main fightScreen constructor and the only one that is public after you complete implementing this constructor.
+        //Temporary code:
+        this(User.getUser(), new Fighter(0));
+    }
     public void rp()
     {
         this.repaint();

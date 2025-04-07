@@ -19,6 +19,7 @@ public class CharacterPanel extends JPanel{
     private Image image;
     private static CharacterPanel theCharPanel;
     private Image[] idle = new Image[3];
+    private int charChosen = 0;
 
     public CharacterPanel(int i)
     {
@@ -71,7 +72,7 @@ public class CharacterPanel extends JPanel{
     {
         for(int i = 0; i < 3; i++)
         try {
-            idle[i] = ImageIO.read(getClass().getResource("/graphs/character/" + i + "f.png"));
+            idle[i] = ImageIO.read(getClass().getResource("/graphs/character/" + charChosen + "/" + (i + 1) + ".png"));
             } catch (Exception e) {
                 System.out.println("NO IMAGE FOR i:" + i);
             }

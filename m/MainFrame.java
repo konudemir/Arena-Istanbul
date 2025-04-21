@@ -33,7 +33,7 @@ public class MainFrame extends JFrame{
         ImageIcon frameLogo = new ImageIcon("graphs/tadic.png");
 
         this.setIconImage(frameLogo.getImage());
-        this.getContentPane().setBackground(Color.YELLOW);
+        this.getContentPane().setBackground(Color.ORANGE);
 
         //Fake labels before the panel loads
         ImageIcon backgroundIcon = new ImageIcon(Main.mainScreenPath);

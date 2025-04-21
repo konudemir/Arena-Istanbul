@@ -30,17 +30,17 @@ public class StoreScreen extends JPanel {
         theFrame.removePrevPanelsAndLabels();
         
         // Character and merchant setup
-        Main.theUser.getUser().moveTo(1000, 530);
+        Main.theUser.moveTo(1000, 530);
         JLabel merchant = new JLabel(new ImageIcon("graphs/merchant.png"));
-        merchant.setBounds(700, 50, 1920, 1080);
+        merchant.setBounds(0, 50, 1920, 1080);
         
         JLabel shelf = new JLabel(new ImageIcon("graphs/storeShelf.png"));
         shelf.setBounds(0, 0, 1920, 1080);
 
 
         // Coin display
-        coinSpace = new JLabel("" + Main.theUser.getUser().getCoins(), JLabel.CENTER);
-        coinSpace.setIcon(new ImageIcon("graphs/coinSpace0.png"));
+        coinSpace = new JLabel("" + Main.theUser.getCoins(), JLabel.CENTER);
+        coinSpace.setIcon(new ImageIcon("graphs/coinSpace.png"));
         coinSpace.setFont(new Font("Impact", Font.PLAIN, 100));
         coinSpace.setForeground(Color.white);
         coinSpace.setBounds(1450, 120, 400, 115);
@@ -64,94 +64,94 @@ public class StoreScreen extends JPanel {
         clearButtons();
         
         // Create category buttons
-        createButton("Swords", 100, 300, e -> showSwords());
-        createButton("Shields", 100, 450, e -> showShields());
-        createButton("Armory", 100, 600, e -> showArmorCategories());
+        createButton("Swords", 100, 300, _ -> showSwords());
+        createButton("Shields", 100, 450, _ -> showShields());
+        createButton("Armory", 100, 600, _ -> showArmorCategories());
     }
     
     private void showSwords() {
         clearButtons();
         
         // Sword items
-        createButton("Iron Sword - 100 coins", 100, 300, e -> purchaseItem(100));
-        createButton("Steel Sword - 250 coins", 100, 450, e -> purchaseItem(250));
-        createButton("Diamond Sword - 500 coins", 100, 600, e -> purchaseItem(500));
+        createButton("Iron Sword - 100 coins", 100, 300, _ -> purchaseItem(100));
+        createButton("Steel Sword - 250 coins", 100, 450, _ -> purchaseItem(250));
+        createButton("Diamond Sword - 500 coins", 100, 600, _ -> purchaseItem(500));
         
         // Back button
-        createButton("Back", 100, 750, e -> createCategoryButtons());
+        createButton("Back", 100, 750, _ -> createCategoryButtons());
     }
     
     private void showShields() {
         clearButtons();
         
         // Shield items
-        createButton("Wooden Shield - 80 coins", 100, 300, e -> purchaseItem(80));
-        createButton("Iron Shield - 200 coins", 100, 450, e -> purchaseItem(200));
-        createButton("Dragon Shield - 450 coins", 100, 600, e -> purchaseItem(450));
+        createButton("Wooden Shield - 80 coins", 100, 300, _ -> purchaseItem(80));
+        createButton("Iron Shield - 200 coins", 100, 450, _ -> purchaseItem(200));
+        createButton("Dragon Shield - 450 coins", 100, 600, _ -> purchaseItem(450));
         
         // Back button
-        createButton("Back", 100, 750, e -> createCategoryButtons());
+        createButton("Back", 100, 750, _ -> createCategoryButtons());
     }
     
     private void showArmorCategories() {
         clearButtons();
         
         // Armor categories
-        createButton("Helmets", 100, 300, e -> showHelmets());
-        createButton("Chestplates", 100, 450, e -> showChestplates());
-        createButton("Leggings", 100, 600, e -> showLeggings());
-        createButton("Boots", 100, 750, e -> showBoots());
+        createButton("Helmets", 100, 300, _ -> showHelmets());
+        createButton("Chestplates", 100, 450, _ -> showChestplates());
+        createButton("Leggings", 100, 600, _ -> showLeggings());
+        createButton("Boots", 100, 750, _ -> showBoots());
         
         // Back button
-        createButton("Back", 100, 900, e -> createCategoryButtons());
+        createButton("Back", 100, 900, _ -> createCategoryButtons());
     }
     
     private void showHelmets() {
         clearButtons();
         
         // Helmet items
-        createButton("Leather Helmet - 50 coins", 100, 300, e -> purchaseItem(50));
-        createButton("Iron Helmet - 150 coins", 100, 450, e -> purchaseItem(150));
-        createButton("Dragon Helmet - 400 coins", 100, 600, e -> purchaseItem(400));
+        createButton("Leather Helmet - 50 coins", 100, 300, _ -> purchaseItem(50));
+        createButton("Iron Helmet - 150 coins", 100, 450, _ -> purchaseItem(150));
+        createButton("Dragon Helmet - 400 coins", 100, 600, _ -> purchaseItem(400));
         
         // Back button
-        createButton("Back", 100, 750, e -> showArmorCategories());
+        createButton("Back", 100, 750, _ -> showArmorCategories());
     }
     
     private void showChestplates() {
         clearButtons();
         
         // Chestplate items
-        createButton("Leather Chestplate - 100 coins", 100, 300, e -> purchaseItem(100));
-        createButton("Iron Chestplate - 250 coins", 100, 450, e -> purchaseItem(250));
-        createButton("Dragon Chestplate - 600 coins", 100, 600, e -> purchaseItem(600));
+        createButton("Leather Chestplate - 100 coins", 100, 300, _ -> purchaseItem(100));
+        createButton("Iron Chestplate - 250 coins", 100, 450, _ -> purchaseItem(250));
+        createButton("Dragon Chestplate - 600 coins", 100, 600, _ -> purchaseItem(600));
         
         // Back button
-        createButton("Back", 100, 750, e -> showArmorCategories());
+        createButton("Back", 100, 750, _ -> showArmorCategories());
     }
     
     private void showLeggings() {
         clearButtons();
         
         // Legging items
-        createButton("Leather Leggings - 80 coins", 100, 300, e -> purchaseItem(80));
-        createButton("Iron Leggings - 200 coins", 100, 450, e -> purchaseItem(200));
-        createButton("Dragon Leggings - 500 coins", 100, 600, e -> purchaseItem(500));
+        createButton("Leather Leggings - 80 coins", 100, 300, _ -> purchaseItem(80));
+        createButton("Iron Leggings - 200 coins", 100, 450, _ -> purchaseItem(200));
+        createButton("Dragon Leggings - 500 coins", 100, 600, _ -> purchaseItem(500));
         
         // Back button
-        createButton("Back", 100, 750, e -> showArmorCategories());
+        createButton("Back", 100, 750, _ -> showArmorCategories());
     }
     
     private void showBoots() {
         clearButtons();
         
         // Boot items
-        createButton("Leather Boots - 60 coins", 100, 300, e -> purchaseItem(60));
-        createButton("Iron Boots - 150 coins", 100, 450, e -> purchaseItem(150));
-        createButton("Dragon Boots - 350 coins", 100, 600, e -> purchaseItem(350));
+        createButton("Leather Boots - 60 coins", 100, 300, _ -> purchaseItem(60));
+        createButton("Iron Boots - 150 coins", 100, 450, _ -> purchaseItem(150));
+        createButton("Dragon Boots - 350 coins", 100, 600, _ -> purchaseItem(350));
         
         // Back button
-        createButton("Back", 100, 750, e -> showArmorCategories());
+        createButton("Back", 100, 750, _ -> showArmorCategories());
     }
     
     private void createButton(String text, int x, int y, ActionListener action) {
@@ -178,9 +178,9 @@ public class StoreScreen extends JPanel {
     }
     
     private void purchaseItem(int cost) {
-        if (Main.theUser.getUser().getCoins() >= cost) {
-            //Main.theUser.getUser().subtractCoins(cost);
-            coinSpace.setText("" + Main.theUser.getUser().getCoins());
+        if (Main.theUser.getCoins() >= cost) {
+            //Main.theUser.subtractCoins(cost);
+            coinSpace.setText("" + Main.theUser.getCoins());
             // Here you would add the item to the user's inventory
             System.out.println("Item purchased for " + cost + " coins");
         } else {

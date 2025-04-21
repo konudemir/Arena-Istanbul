@@ -7,6 +7,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import C.CharacterPanel;
 import C.CharacterPanelOld;
 import C.Fighter;
@@ -17,10 +21,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-public class LobbyScreen extends JPanel {
+public class LobbyScreen extends JPanel{
     public static MainFrame theFrame;
+    public static LobbyScreen theLobbyScreen;
+    public EscapeScreen escScreen = null;
 
     public LobbyScreen() {
+        theLobbyScreen = this;
         MainFrame.currentPanel = this;
         theFrame = MainFrame.theFrame;
         this.setLayout(null);
@@ -42,13 +49,31 @@ public class LobbyScreen extends JPanel {
         // Adjusted button size
         int buttonSize = 180;
         int yPosition = 850;
-        
+        //
+
+        //ESC//
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "toggleEscape");
+        this.getActionMap().put("toggleEscape", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (escScreen != null) {
+                    theLobbyScreen.remove(escScreen);
+                    escScreen = null;
+                } else {
+                    escScreen = new EscapeScreen(theLobbyScreen);
+                    theLobbyScreen.add(escScreen);
+                }
+                revalidate();
+                repaint();
+            }
+        });
+        //ESC END//
         /*
         // Add buttons with resized images
-        addButton("graphs/LobyButtons/ArenaButton.png", 500, yPosition, buttonSize, e -> goToArena());
-        addButton("graphs/LobyButtons/ShopButton.png", 750, yPosition, buttonSize, e -> goToShop());
-        addButton("graphs/LobyButtons/SaveButton.png", 1000, yPosition, buttonSize, e -> saveGame());
-        addButton("graphs/LobyButtons/ExitButton.png", 1250, yPosition, buttonSize, e -> quitGame());
+        addButton("graphs/LobyButtons/ArenaButton.png", 500, yPosition, buttonSize, _ -> goToArena());
+        addButton("graphs/LobyButtons/ShopButton.png", 750, yPosition, buttonSize, _ -> goToShop());
+        addButton("graphs/LobyButtons/SaveButton.png", 1000, yPosition, buttonSize, _ -> saveGame());
+        addButton("graphs/LobyButtons/ExitButton.png", 1250, yPosition, buttonSize, _ -> quitGame());
         */
         //START OF STORE BUTTON
         JLabel store = new JLabel();

@@ -38,9 +38,9 @@ public class ArenaScreen extends JPanel {
         JButton backButton = createBackButton();
         
         // Add action listeners
-        bossButton.addActionListener(e -> startBossFight());
-        arenaButton.addActionListener(e -> startArenaFight());
-        backButton.addActionListener(e -> returnToLobby());
+        bossButton.addActionListener(_ -> startBossFight());
+        arenaButton.addActionListener(_ -> startArenaFight());
+        backButton.addActionListener(_ -> returnToLobby());
         
         // Add components to panel
         this.add(bossButton);

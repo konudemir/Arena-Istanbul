@@ -1,4 +1,7 @@
 package C;
+
+import C_ITEMS.Shield;
+
 public class User extends Person{
     private static User theUser;
     private CharacterPanel charPanel;
@@ -8,9 +11,11 @@ public class User extends Person{
     {
         theUser = this;
         this.coins = 0;
-        new CharacterPanel(0);
+        new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
+        this.panel = this.charPanel;
         this.healthBar = new HealthBar(this);
+        this.buyItem(new Shield("a", 0, 0, 0, 0));
     }
     public void moveTo(int x, int y)
     {
@@ -35,5 +40,9 @@ public class User extends Person{
     public int getCoins()
     {
         return this.coins;
+    }
+    public void changeCoins(int i)
+    {
+        this.coins += i;
     }
 }

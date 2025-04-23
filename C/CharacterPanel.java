@@ -6,22 +6,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
-import Screens.FightScreen;
-import m.MainFrame;
+import C_ITEMS.Shield;
 
-public class CharacterPanel extends JPanel{
+public class CharacterPanel extends FighterPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;
     private static String[] CHARPATHS = new String[AMOUNT_OF_CHARACTERS];
     private boolean hasFilledPaths = false;
-    private Image image;
     private static CharacterPanel theCharPanel;
     private Image[] idle = new Image[3];
     private int charChosen = 0;
 
-    public CharacterPanel(int i)
+    public CharacterPanel(Person person)
     {
         theCharPanel = this;
         if(!hasFilledPaths) fillPaths();
@@ -35,6 +31,7 @@ public class CharacterPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(image, 0, 0, null);
+        if(User.getUser().getShield() != null) g.drawImage(Shield.icons[User.getUser().getShield().getOrder()].getImage(), 0, 0, null);
     }
     //The issue is that we create a new image object with different size so we can't see whats equal
     //Solution resizeComp to a fixed final int size and put it in the idle array that way
@@ -88,7 +85,7 @@ public class CharacterPanel extends JPanel{
             @Override
             public void run() {
                 CharacterPanel.setNextImageIdleOf(thisPanel);
-                System.out.println("aa");
+                //System.out.println("aa");
             }
         };
         timer.schedule(task, 1000, 5);

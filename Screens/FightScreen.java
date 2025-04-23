@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import C.*;
 import m.MainFrame;
 public class FightScreen extends JPanel{
+    public static final int NORMAL_ATTACK_HIT = 8;
     public static MainFrame theFrame;
     public FightScreen(User user, Fighter fighter)
     {
@@ -26,10 +27,9 @@ public class FightScreen extends JPanel{
         
         //Remove the previous JPanel if existant
         theFrame.removePrevPanelsAndLabels();
-        CharacterPanel.getCharPanel().resizeComp(300, 132);
         this.add(CharacterPanel.getCharPanel());
         theFrame.add(user.getHealthBar());
-        User.getUser().moveTo(300, 680);
+        User.getUser().moveTo(300, 500);
         this.add(fighter.getFighterPanel());
         
         fighter.resizeComp(300, 132);

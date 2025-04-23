@@ -6,7 +6,7 @@ public class Fighter extends Person{
     private HealthBar healthBar;
     public Fighter(int i)
     {
-        this.fighterPanel = new FighterPanel(i);
+        this.fighterPanel = new FighterPanel(i, this);
         this.healthBar = new HealthBar(this);
     }
     

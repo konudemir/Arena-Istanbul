@@ -51,6 +51,7 @@ public class mainScreenButton extends JLabel implements MouseListener{
     {
         if(!this.clickable) return;
         if(context.equals("New Game"))MainFrame.newGameScreenS();
+        if(context.equals("Settings"))MainFrame.settingsScreenS();
     }
     @Override
     public void mousePressed(MouseEvent e)

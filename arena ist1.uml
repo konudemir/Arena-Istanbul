@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Demir/Documents/GitHub/ARENA</OriginalElement>
+  <nodes>
+    <node x="1058.9756416875223" y="1229.2886220677678">Screens.CreditsScreen</node>
+    <node x="1025.8139612819468" y="1486.0941721761799">Screens.CustomizationScreenOld</node>
+    <node x="1217.3919633237995" y="872.4627780564938">Screens.EscapeScreen</node>
+    <node x="153.84987502165785" y="1582.3842585635462">Screens.CustomizationScreen</node>
+    <node x="1385.918375664792" y="185.25667471268872">Screens.StoreScreen</node>
+    <node x="483.3142030324623" y="1719.994807832992">C_ITEMS.Sword</node>
+    <node x="1526.6259885216123" y="712.5668745218203">m.Main</node>
+    <node x="378.7651340821735" y="1096.5139190473803">C.CharacterPanelOld</node>
+    <node x="844.2695563024461" y="184.508873425545">m.MainFrame</node>
+    <node x="838.8062565926464" y="553.8038079599381">C.CharacterPanel</node>
+    <node x="938.3855357437715" y="967.3220747638672">B.colorPickButton</node>
+    <node x="714.6057813061842" y="1804.357374505179">C_ITEMS.Armor</node>
+    <node x="459.0698153318448" y="-13.922641472922379">Coloring.Coloring</node>
+    <node x="417.15859477372476" y="331.4373022506573">Screens.LobbyScreen</node>
+    <node x="-28.36048056138398" y="567.8438946826105">Screens.ArenaScreen</node>
+    <node x="436.98421026129677" y="208.3647423581658">Screens.FightScreen</node>
+    <node x="449.7037624951064" y="708.6931314638805">Screens.SettingsScreen</node>
+    <node x="715.1801846574515" y="1568.096058571401">C_ITEMS.Leggings</node>
+    <node x="1218.3450285110723" y="550.2932999680936">C.FighterPanel</node>
+    <node x="94.01033200354675" y="1209.2267187704379">C.Fighter</node>
+    <node x="523.7776934325051" y="826.7986321738376">C.Person</node>
+    <node x="177.79978860484601" y="863.5876306209138">B.mainScreenButton</node>
+    <node x="945.358192463005" y="1620.7040363209342">C_ITEMS.Helmet</node>
+    <node x="-120.2874778003757" y="1601.0576796035864">C_ITEMS.Item</node>
+    <node x="407.4657047766739" y="1915.9346533811727">C_ITEMS.Shield</node>
+    <node x="734.498375830223" y="1221.7287588850027">C.User</node>
+    <node x="222.42520935887228" y="247.40680977551733">Screens.FirstMenu</node>
+    <node x="103.36448980073743" y="390.69694397773475">C.HealthBar</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="C_ITEMS.Shield" target="C_ITEMS.Item" relationship="GENERALIZATION">
+      <point x="2.952233261339643E-4" y="-56.49965338117272" />
+      <point x="474.966" y="1875.0" />
+      <point x="-28.787" y="1875.0" />
+      <point x="4.77800375698223E-4" y="116.5003203964136" />
+    </edge>
+    <edge source="C_ITEMS.Leggings" target="C_ITEMS.Item" relationship="GENERALIZATION">
+      <point x="-67.50018465745154" y="-5.8571401041263016E-5" />
+      <point x="679.0" y="1624.596" />
+      <point x="679.0" y="1875.0" />
+      <point x="-28.787" y="1875.0" />
+      <point x="4.77800375698223E-4" y="116.5003203964136" />
+    </edge>
+    <edge source="C.User" target="C.Person" relationship="GENERALIZATION">
+      <point x="-3.758302229925903E-4" y="-104.49975888500262" />
+      <point x="838.498" y="1067.0" />
+      <point x="647.278" y="1067.0" />
+      <point x="3.0656749493118696E-4" y="104.50036782616235" />
+    </edge>
+    <edge source="C_ITEMS.Helmet" target="C_ITEMS.Item" relationship="GENERALIZATION">
+      <point x="-67.50019246300508" y="21.39196367906584" />
+      <point x="679.0" y="1698.596" />
+      <point x="679.0" y="1875.0" />
+      <point x="-28.787" y="1875.0" />
+      <point x="4.77800375698223E-4" y="116.5003203964136" />
+    </edge>
+    <edge source="C.CharacterPanel" target="C.FighterPanel" relationship="GENERALIZATION">
+      <point x="159.0" y="-124.51050799184452" />
+      <point x="-123.5" y="0.0" />
+    </edge>
+    <edge source="C_ITEMS.Sword" target="C_ITEMS.Item" relationship="GENERALIZATION">
+      <point x="-2.0303246230923833E-4" y="56.50019216700798" />
+      <point x="550.814" y="1875.0" />
+      <point x="-28.787" y="1875.0" />
+      <point x="4.77800375698223E-4" y="116.5003203964136" />
+    </edge>
+    <edge source="C_ITEMS.Armor" target="C_ITEMS.Item" relationship="GENERALIZATION">
+      <point x="-67.49978130618422" y="-3.745051790247089E-4" />
+      <point x="679.0" y="1860.857" />
+      <point x="679.0" y="1875.0" />
+      <point x="-28.787" y="1875.0" />
+      <point x="4.77800375698223E-4" y="116.5003203964136" />
+    </edge>
+    <edge source="C.Fighter" target="C.Person" relationship="GENERALIZATION">
+      <point x="-3.320035467595517E-4" y="-56.49971877043777" />
+      <point x="197.51" y="1067.0" />
+      <point x="647.278" y="1067.0" />
+      <point x="3.0656749493118696E-4" y="104.50036782616235" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.5410809500727096" showDependencies="false" x="1152.2813333213896" y="886.75612518701" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

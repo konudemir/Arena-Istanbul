@@ -208,7 +208,7 @@ public class CustomizationScreen extends JPanel{
             final int height = 150 - 40;
             for(int j = 0; j < amount; j++)
             {
-                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height);
+                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height, j);
                 newGameScreen.add(colorButton);
                 currentX += SPACE + forEach;
             }
@@ -226,7 +226,7 @@ public class CustomizationScreen extends JPanel{
             final int height = 150 - 40;
             for(int j = 0; j < amount; j++)
             {
-                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height);
+                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height, j);
                 newGameScreen.add(colorButton);
                 currentX += SPACE + forEach;
             }

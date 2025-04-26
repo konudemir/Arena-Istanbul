@@ -28,7 +28,7 @@ public class MainFrame extends JFrame{
         this.setSize(1920, 1080);
         this.setTitle("ARENA ISTANBUL");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
 
         ImageIcon frameLogo = new ImageIcon("graphs/tadic.png");
 
@@ -93,7 +93,7 @@ public class MainFrame extends JFrame{
             final int height = 150 - 40;
             for(int j = 0; j < amount; j++)
             {
-                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height);
+                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height, j);
                 newGameScreen.add(colorButton);
                 currentX += SPACE + forEach;
             }
@@ -111,7 +111,7 @@ public class MainFrame extends JFrame{
             final int height = 150 - 40;
             for(int j = 0; j < amount; j++)
             {
-                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height);
+                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height, j);
                 newGameScreen.add(colorButton);
                 currentX += SPACE + forEach;
             }
@@ -172,7 +172,6 @@ public class MainFrame extends JFrame{
                 if(c instanceof JLabel) this.remove(c);
             }
         }
-        CharacterPanel.getCharPanel().setHeight(500);
     }
     public void removePrevPanelsAndLabels()
     {
@@ -195,7 +194,7 @@ public class MainFrame extends JFrame{
     }
     public static JPanel newGameScreenS()
     {
-        return new CustomizationScreen();
+        return new CustomizationScreenOld();
     }
     public static JPanel settingsScreenS()
     {

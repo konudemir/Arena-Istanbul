@@ -11,11 +11,11 @@ public class User extends Person{
     {
         theUser = this;
         this.coins = 0;
+        this.buyItem(new Shield("a", 0, 0, 0, 0));
         new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
         this.panel = this.charPanel;
         this.healthBar = new HealthBar(this);
-        this.buyItem(new Shield("a", 0, 0, 0, 0));
     }
     public void moveTo(int x, int y)
     {

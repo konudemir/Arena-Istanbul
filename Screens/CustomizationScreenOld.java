@@ -20,6 +20,7 @@ public class CustomizationScreenOld extends JPanel{
     private static final ImageIcon NEW_GAME_BG_IMAGEICON = new ImageIcon("graphs/newGameGPT.png");
     public CustomizationScreenOld()
     {
+        CharacterPanel.getCharPanel().setImage(this);
         MainFrame.currentPanel = this;
         theFrame = MainFrame.theFrame;
         this.setLayout(null);
@@ -90,9 +91,7 @@ public class CustomizationScreenOld extends JPanel{
         getBGButtonsForCustomization(this, "Hair", 0, new Color[]{new Color(0xF5E0B7), new Color(0x3D2B24), new Color(0x3D3D3D), new Color(0x6A4E42), new Color(0xA52A2A)});
         getBGButtonsForCustomization(this, "Skin", 1, new Color[]{new Color(0xFFD3BA), new Color(0xDBA772), new Color(0xB87D4B), new Color(0x7C4A3A)});
         getBGButtonsForCustomization(this, "Jacket", 2, new Color[]{new Color(0xADADA3), new Color(0x303030), new Color(0x001438), new Color(0x672FAA), new Color(0x72A8A2), new Color(0x003FA5)});
-        getBGButtonsForCustomization(this, "Shirt", 3, new Color[]{new Color(0xADD8E6), new Color(0xFFFDD0), new Color(0xFFFFFF)});
-        getBGButtonsForCustomization(this, "Tie", 4, new Color[]{new Color(0x000000), new Color(0x800020), new Color(0xD6B745), new Color(0x7700FF)});
-        getBGButtonsForCustomization(this, "Pants", 5, new Color[]{new Color(0x7A7A6E), new Color(0x000C21), new Color(0x000000)});
+        getBGButtonsForCustomization(this, "Pants", 3, new Color[]{new Color(0x7A7A6E), new Color(0x000C21), new Color(0x000000)});
         
         
 
@@ -175,40 +174,40 @@ public class CustomizationScreenOld extends JPanel{
     //Helper method for new game screen
     public void getBGButtonsForCustomization(JPanel newGameScreen, String context, int i, Color[] colors)
     {
-        int jPanelY = 320;
+        int jPanelY = 200;
         if(colors.length != 0)
-        if(i < 3)
+        if(i <= 3)
         {
-            int jPanelx = 100;
+            int jPanelx = 450;
             int amount = colors.length;
             final int SPACE = 10;
-            int forEach = (360 - ((amount - 1) * SPACE)) / amount;
+            int forEach = (660 - ((amount - 1) * SPACE)) / amount;
             int spaceAtEnds = 20 + (360 - (forEach * amount + SPACE * (amount - 1))) / 2;
             
             int currentX = jPanelx + spaceAtEnds;
             final int Y = 20 + jPanelY + 200 * i;
-            final int height = 150 - 40;
+            final int height = 110;
             for(int j = 0; j < amount; j++)
             {
-                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height);
+                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height, i);
                 newGameScreen.add(colorButton);
                 currentX += SPACE + forEach;
             }
         }
         else
         {
-            int jPanelx = 550;
+            int jPanelx = 750;
             int amount = colors.length;
             final int SPACE = 10;
-            int forEach = (360 - ((amount - 1) * SPACE)) / amount;
-            int spaceAtEnds = 20 + (360 - (forEach * amount + SPACE * (amount - 1))) / 2;
+            int forEach = (7 - ((amount - 1) * SPACE)) / amount;
+            int spaceAtEnds = 20 + (660 - (forEach * amount + SPACE * (amount - 1))) / 2;
             
             int currentX = jPanelx + spaceAtEnds;
             final int Y = 20 + jPanelY + 200 * (i - 3);
             final int height = 150 - 40;
             for(int j = 0; j < amount; j++)
             {
-                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height);
+                colorPickButton colorButton = new colorPickButton(colors[j], context, currentX, Y, forEach, height, i);
                 newGameScreen.add(colorButton);
                 currentX += SPACE + forEach;
             }
@@ -216,11 +215,11 @@ public class CustomizationScreenOld extends JPanel{
         
 
         //Creating the background buttons
-        if(i < 3)
+        if(i <= 3)
         {
             JLabel bgButton = new JLabel();
 
-            bgButton.setText(context);
+            bgButton.setText(context + " DO NOT CLICK FOR NOW!!!");
             bgButton.setVerticalTextPosition(JLabel.TOP);
             bgButton.setHorizontalTextPosition(JLabel.RIGHT);
             bgButton.setIconTextGap(-380);
@@ -228,7 +227,7 @@ public class CustomizationScreenOld extends JPanel{
             bgButton.setFont(new Font("Impact", Font.PLAIN, 30));
 
             bgButton.setIcon(new ImageIcon("graphs/character/buttons/bg.png"));
-            bgButton.setBounds(100, jPanelY + 200 * i, 400, 150);
+            bgButton.setBounds(300, jPanelY + 200 * i, 700, 150);
             newGameScreen.add(bgButton);
         }
         else
@@ -243,7 +242,7 @@ public class CustomizationScreenOld extends JPanel{
             bgButton.setFont(new Font("Impact", Font.PLAIN, 30));
 
             bgButton.setIcon(new ImageIcon("graphs/character/buttons/bg.png"));
-            bgButton.setBounds(550, jPanelY + 200 * (i - 3), 400, 150);
+            bgButton.setBounds(750, jPanelY + 200 * (i - 3), 700, 150);
             newGameScreen.add(bgButton);
         }
         newGameScreen.repaint();

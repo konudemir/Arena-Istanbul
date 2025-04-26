@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import C.CharacterPanel;
 import m.Main;
 import m.MainFrame;
 
@@ -17,6 +18,7 @@ public class StoreScreen extends JPanel {
     private JLabel coinSpace;
     
     public StoreScreen() {
+        CharacterPanel.getCharPanel().setImage(this);
         MainFrame.currentPanel = this;
         theFrame = MainFrame.theFrame;
         this.setLayout(null);

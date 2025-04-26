@@ -1,43 +1,61 @@
 package C;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
+import C_ITEMS.Item;
 import C_ITEMS.Shield;
+import Coloring.Coloring;
+import Screens.CustomizationScreen;
+import Screens.CustomizationScreenOld;
+import Screens.FightScreen;
+import Screens.FirstMenu;
+import Screens.LobbyScreen;
+import Screens.StoreScreen;
 
 public class CharacterPanel extends FighterPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;
     private static String[] CHARPATHS = new String[AMOUNT_OF_CHARACTERS];
     private boolean hasFilledPaths = false;
     private static CharacterPanel theCharPanel;
-    private Image[] idle = new Image[3];
-    private int charChosen = 0;
+    private Image[] images = new Image[10];
+    private int currentPhoto = 1; //0-9
+    public static final int CUSTSCREEN = 8;
+    public static final int LOBBY = 9;
 
     public CharacterPanel(Person person)
     {
+        this.person = person;
         theCharPanel = this;
         if(!hasFilledPaths) fillPaths();
         //Get image
-        this.image = idle[2];
-        this.setBounds(1000, 300, 920, 580);
+        this.image = images[1];
+        this.setBounds(1000, 300, 700, 700);
         this.setLayout(null);
         this.setVisible(true);
         this.setOpaque(false);
     }
     @Override
     protected void paintComponent(Graphics g) {
+        this.image = images[currentPhoto];
+        moveAccordingToCurrentPhoto();
         g.drawImage(image, 0, 0, null);
-        if(User.getUser().getShield() != null) g.drawImage(Shield.icons[User.getUser().getShield().getOrder()].getImage(), 0, 0, null);
-    }
-    //The issue is that we create a new image object with different size so we can't see whats equal
-    //Solution resizeComp to a fixed final int size and put it in the idle array that way
-    public void resizeComp(int height, int width)
-    {
-        this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        if(this.person.itemsList.size() == 0)
+        {
+            System.out.println("len 0");
+            return;
+        }
+        for(Item item : this.person.itemsList)
+        {
+            g.drawImage(item.getImage(), 0, 0, null);
+            System.out.println("DREW in CHARPANEL " + item + ", image: " + item.getImage());
+        }
     }
     public void moveTo(int x, int y)
     {
@@ -69,11 +87,34 @@ public class CharacterPanel extends FighterPanel{
     {
         for(int i = 0; i < 3; i++)
         try {
-            idle[i] = ImageIO.read(getClass().getResource("/graphs/character/" + charChosen + "/" + (i + 1) + ".png"));
+        this.images[i] = ImageIO.read(getClass().getResource("/graphs/character/current/" + (i + 1) + ".png"));
+        } catch (Exception e) {
+            System.out.println("NO IMAGE FOR FILL PATH " + (i+1));
+        }
+        for(int i = 0; i < 2; i++)
+        try {
+        this.images[i + 3] = ImageIO.read(getClass().getResource("/graphs/character/current/a" + (i + 1) + ".png"));
+        } catch (Exception e) {
+            System.out.println("NO IMAGE FOR FILL PATH a" + (i+1));
+        }
+        for(int i = 0; i < 4; i++)
+        try {
+        this.images[i + 4] = ImageIO.read(getClass().getResource("/graphs/character/current/w" + (i + 1) + ".png"));
+        } catch (Exception e) {
+            System.out.println("NO IMAGE FOR FILL PATH w" + (i+1));
+        }
+        try {
+            this.images[8] = ImageIO.read(getClass().getResource("/graphs/character/current/custScreen.png"));
             } catch (Exception e) {
-                System.out.println("NO IMAGE FOR i:" + i);
+                System.out.println("NO IMAGE FOR FILL PATH custScreen");
             }
-
+        try {
+            this.images[9] = ImageIO.read(getClass().getResource("/graphs/character/current/lobby.png"));
+            } catch (Exception e) {
+            System.out.println("NO IMAGE FOR FILL PATH lobby");
+            }
+        System.out.println("FILL PATHS IN CHARPANEL " + this.images);
+        this.image = this.images[1];
         hasFilledPaths = true;
     }
 
@@ -93,15 +134,46 @@ public class CharacterPanel extends FighterPanel{
     public static Image setNextImageIdleOf(CharacterPanel panel)
     {
         for(int i = 0; i < 3; i++) 
-        if(panel.image == panel.idle[i])
+        if(panel.image == panel.images[i])
         {
             Image im = panel.image;
-            panel.image = panel.idle[(i+1) % 3];
+            panel.image = panel.images[(i+1) % 3];
             System.out.println("aabbcc");
             System.out.println(im == panel.image);
             break;
         }
         panel.repaint();
         return panel.image;
+    }
+    public void setImage(JPanel panel)
+    {
+        if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)
+        {
+            this.image = images[8];
+            currentPhoto = 8;
+        } 
+        else if(panel instanceof LobbyScreen || panel instanceof StoreScreen) {
+            this.image = images[9];
+            currentPhoto = 9;
+        } 
+        else if(panel instanceof FightScreen)
+        {
+            this.image = images[1];
+            currentPhoto = 1;
+        }
+        this.repaint();
+    }
+    public void moveAccordingToCurrentPhoto()
+    {
+        if(this.currentPhoto == CUSTSCREEN) this.moveTo(500, -100);
+        else if(this.currentPhoto == LOBBY) this.moveTo(-100, 325);
+
+    }
+
+    // CHANGE STUFF
+    public void change(Color[] colors)
+    {
+        this.images = Coloring.createImagesByCommand(colors);
+        this.fillPaths();    
     }
 }

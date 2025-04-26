@@ -27,6 +27,7 @@ public class LobbyScreen extends JPanel{
     public EscapeScreen escScreen = null;
 
     public LobbyScreen() {
+        CharacterPanel.getCharPanel().setImage(this);
         theLobbyScreen = this;
         MainFrame.currentPanel = this;
         theFrame = MainFrame.theFrame;

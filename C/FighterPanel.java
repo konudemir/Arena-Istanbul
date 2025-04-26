@@ -27,14 +27,14 @@ public class FighterPanel extends JPanel{
         } catch (Exception e) {
             System.out.println("NO IMAGE FOR i:" + i);
         }
-        this.setBounds(1000, 300, 920, 580);
+        this.setBounds(1000, 300, 256, 256);
         this.setLayout(null);
         this.setVisible(true);
         this.setOpaque(false);
     }
     public FighterPanel()//Just to allow characterpanel having a empty constructor //NON USABLE
     {
-        this(0, null);
+        //this(0, null);
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -46,13 +46,9 @@ public class FighterPanel extends JPanel{
         }
         for(Item item : this.person.itemsList)
         {
-            g.drawImage(item.getImage(), item.getX(person), item.getY(person), null);
+            g.drawImage(item.getImage(), 0, 0, null);
             System.out.println("DREW " + item);
         }
-    }
-    public void resize(int height, int width)
-    {
-        this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
     public void moveTo(int x, int y)
     {

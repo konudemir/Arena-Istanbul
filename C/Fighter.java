@@ -18,10 +18,6 @@ public class Fighter extends Person{
     {
         this.fighterPanel.moveTo(x, y);
     }
-    public void resizeComp(int x, int y)
-    {
-        this.fighterPanel.resize(x, y);
-    }
     public HealthBar getHealthBar()
     {
         return this.healthBar;

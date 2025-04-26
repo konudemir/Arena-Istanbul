@@ -1,21 +1,20 @@
 package C_ITEMS;
-import C.*;
-import m.Main;
-
-import java.awt.Image;
-import java.io.File;
 
 import javax.swing.ImageIcon;
 
-public class Shield extends Item{
+import C.Person;
+import m.Main;
+import java.awt.Image;
+
+public class Sword extends Item{
     public static final int AMOUNT_OF_ICONS = 1;
     public int level;
     public static Image[][] icons = new Image[AMOUNT_OF_ICONS][Main.AMOUNT_OF_CHARACTER_PHOTOS];
-    public Shield(String name, int level, int price, double attack, double defense)
+    public Sword(String name, int level, int price, double attack, double defense)
     {
         this(name, level, price, attack, defense, null);
     }
-    public Shield(String name, int level, int price, double attack, double defense, Person owner)
+    public Sword(String name, int level, int price, double attack, double defense, Person owner)
     {
         this.image = icons[level][0];
         //this.setIcon(image);
@@ -45,6 +44,7 @@ public class Shield extends Item{
             
         }
     }
+
     public void setImage(int i)
     {
         this.image = icons[this.level][i];
@@ -57,4 +57,5 @@ public class Shield extends Item{
     public void setLevel(int level) {
         this.level = level;
     }
+    
 }

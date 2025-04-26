@@ -14,7 +14,7 @@ public abstract class Item{
     protected Person owner = null;
     protected double defenseBoost = 0;
     protected double offenseBoost = 0;
-    protected ImageIcon image;
+    protected Image image;
     
 
 
@@ -62,7 +62,7 @@ public abstract class Item{
 
     public Image getImage()
     {
-        return this.image.getImage();
+        return this.image;
     }
 
 
@@ -76,4 +76,5 @@ public abstract class Item{
         //ToDo : Return the constants for the item's positions.
         return 100;
     }
+    
 }

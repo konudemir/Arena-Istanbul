@@ -11,6 +11,7 @@ public class Person {
     protected ArrayList<Item> itemsList = new ArrayList<>();
     protected FighterPanel panel;
     public static final double RANDOMNESS_IN_FIGHTS = 0.2;
+    protected int currentPhoto = 1; //0 to 9
     public Person()
     {
         this.health = 100;
@@ -51,13 +52,15 @@ public class Person {
     }
     public void buyItem(Item item)
     {
-        if(this.itemsList.size() == 0)return;
-        if(this.itemsList.contains(item))return;
-        for(Item i : itemsList)
+        if(this.itemsList.size() > 0)
         {
-            if(i.getClass() == item.getClass() )
+            if(this.itemsList.contains(item))return;
+            for(Item i : itemsList)
             {
-                this.sellItem(i);
+                if(i.getClass() == item.getClass() )
+                {
+                    this.sellItem(i);
+                }
             }
         }
         itemsList.add(item);
@@ -67,7 +70,7 @@ public class Person {
             User u = (User)this;
             u.changeCoins(- item.getPrice());
         }
-
+        System.out.println("BOUGHT " + item);
     }
     public void sellItem(Item item)
     {
@@ -85,6 +88,10 @@ public class Person {
                 }
             }
         }
+    }
+    public int getCurrentCharacterPhoto()
+    {
+        return this.currentPhoto;
     }
 
     public void changeHealth(int i)

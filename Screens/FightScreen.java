@@ -10,6 +10,8 @@ public class FightScreen extends JPanel{
     public static MainFrame theFrame;
     public FightScreen(User user, Fighter fighter)
     {
+        CharacterPanel.getCharPanel().setImage(this);
+        CharacterPanel.getCharPanel().moveTo(0, 500);
         MainFrame.currentPanel = this;
         theFrame = MainFrame.theFrame;
         this.setLayout(null);
@@ -29,10 +31,9 @@ public class FightScreen extends JPanel{
         theFrame.removePrevPanelsAndLabels();
         this.add(CharacterPanel.getCharPanel());
         theFrame.add(user.getHealthBar());
-        User.getUser().moveTo(300, 500);
         this.add(fighter.getFighterPanel());
         
-        fighter.resizeComp(300, 132);
+        //fighter.resizeComp(300, 132);
         fighter.moveTo(1100, 680);
         theFrame.add(fighter.getHealthBar());
 

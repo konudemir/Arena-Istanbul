@@ -3,6 +3,8 @@ import m.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import Screens.StoryScreen;
+
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -52,6 +54,7 @@ public class mainScreenButton extends JLabel implements MouseListener{
         if(!this.clickable) return;
         if(context.equals("New Game"))MainFrame.newGameScreenS();
         if(context.equals("Settings"))MainFrame.settingsScreenS();
+        if(context.equals("Credits"))MainFrame.creditsScreenS();
     }
     @Override
     public void mousePressed(MouseEvent e)

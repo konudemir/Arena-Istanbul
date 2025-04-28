@@ -1,23 +1,20 @@
 package C_ITEMS;
-import C.*;
-import m.Main;
-import m.MainFrame;
-
-import java.awt.Image;
-import java.io.File;
-import Coloring.*;
 
 import javax.swing.ImageIcon;
 
-public class Shield extends Item{
+import C.Person;
+import m.Main;
+import java.awt.Image;
+
+public class Cat extends Item{
     public static final int AMOUNT_OF_ICONS = 1;
     public int level;
     public static Image[][] icons = new Image[AMOUNT_OF_ICONS][Main.AMOUNT_OF_CHARACTER_PHOTOS];
-    public Shield(String name, int level, int price, double attack, double defense)
+    public Cat(String name, int level, int price, double attack, double defense)
     {
         this(name, level, price, attack, defense, null);
     }
-    public Shield(String name, int level, int price, double attack, double defense, Person owner)
+    public Cat(String name, int level, int price, double attack, double defense, Person owner)
     {
         this.image = icons[level][0];
         //this.setIcon(image);
@@ -39,7 +36,7 @@ public class Shield extends Item{
             {
                 System.out.println("trying " + i + " " + j);
                 try {
-                    icons[i][j] = new ImageIcon("graphs/character/items/shields/" + (i) + "/" + Coloring.names[j] + ".png").getImage();
+                    icons[i][j] = new ImageIcon("graphs/character/items/armor/" + (i) + "/" + (j) + ".png").getImage();
                     } catch (Exception e) {
                         System.out.println("NO SHIELD IMAGE FOR i,j:" + i + " " + j);
                     }
@@ -47,6 +44,7 @@ public class Shield extends Item{
             
         }
     }
+
     public void setImage(int i)
     {
         this.image = icons[this.level][i];

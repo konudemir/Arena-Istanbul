@@ -14,14 +14,13 @@ import javax.imageio.ImageIO;
 
 public class Coloring {
     public static final int AMOUNT = 10;
-    
+    public static final String[] names = new String[]{"1", "2", "3", "a1", "a2", "w1", "w2", "w3", "w4", "custScreen", "lobby"};
     public static void createImages(Map<Integer, Integer> colorMap)
     {
         try {
             // Load the image
             BufferedImage[] originals = new BufferedImage[AMOUNT];
             BufferedImage[] results = new BufferedImage[AMOUNT];
-            String[] names = new String[]{"1", "2", "3", "a1", "a2", "w1", "w2", "w3", "w4", "custScreen", "lobby"};
             int widths[] = new int[AMOUNT];
             int heights[] = new int[AMOUNT];
             for(int i = 0; i < AMOUNT; i++)

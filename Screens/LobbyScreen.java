@@ -61,7 +61,7 @@ public class LobbyScreen extends JPanel{
                     theLobbyScreen.remove(escScreen);
                     escScreen = null;
                 } else {
-                    escScreen = new EscapeScreen(theLobbyScreen);
+                    escScreen = new EscapeScreen(1920, 1080);
                     theLobbyScreen.add(escScreen);
                 }
                 revalidate();
@@ -219,7 +219,7 @@ public class LobbyScreen extends JPanel{
 
                     if (alpha > 0) {
                         //ToDo : 
-                        MainFrame.currentPanel = new FightScreen();
+                        MainFrame.currentPanel = new ArenaScreen();
                     }
                 }
             }

@@ -5,6 +5,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import C.*;
 
@@ -15,6 +16,7 @@ public abstract class Item{
     protected double defenseBoost = 0;
     protected double offenseBoost = 0;
     protected Image image;
+    
     
 
 
@@ -65,16 +67,9 @@ public abstract class Item{
         return this.image;
     }
 
+    public void setImage(int i)
+    {
 
-    public int getX(Person p)
-    {
-        //ToDo : Return the constants for the item's positions.
-        return 100;
-    }
-    public int getY(Person p)
-    {
-        //ToDo : Return the constants for the item's positions.
-        return 100;
     }
     
 }

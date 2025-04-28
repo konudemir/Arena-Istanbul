@@ -196,6 +196,10 @@ public class MainFrame extends JFrame{
     {
         return new CustomizationScreenOld();
     }
+    public static JPanel creditsScreenS()
+    {
+        return new CreditsScreen();
+    }
     public static JPanel settingsScreenS()
     {
         return new SettingsScreen();

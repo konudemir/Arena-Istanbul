@@ -131,7 +131,7 @@ public class CustomizationScreenOld extends JPanel{
                 public void mouseClicked(MouseEvent e) {
                     //storeScreen();
                     //arenaScene(User.getUser(), new Fighter(0));
-                    new LobbyScreen();
+                    new StoryScreen(true);
                 }
         
                 @Override

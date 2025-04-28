@@ -18,6 +18,7 @@ import Screens.FightScreen;
 import Screens.FirstMenu;
 import Screens.LobbyScreen;
 import Screens.StoreScreen;
+import Screens.StoryScreen;
 
 public class CharacterPanel extends FighterPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;
@@ -138,8 +139,8 @@ public class CharacterPanel extends FighterPanel{
         {
             Image im = panel.image;
             panel.image = panel.images[(i+1) % 3];
-            System.out.println("aabbcc");
-            System.out.println(im == panel.image);
+            //System.out.println("aabbcc");
+            //System.out.println(im == panel.image);
             break;
         }
         panel.repaint();
@@ -147,19 +148,28 @@ public class CharacterPanel extends FighterPanel{
     }
     public void setImage(JPanel panel)
     {
-        if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)
+        if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)//1500x1500
         {
             this.image = images[8];
             currentPhoto = 8;
         } 
-        else if(panel instanceof LobbyScreen || panel instanceof StoreScreen) {
+        else if(panel instanceof LobbyScreen || panel instanceof StoreScreen) {//1000x1000
             this.image = images[9];
             currentPhoto = 9;
         } 
-        else if(panel instanceof FightScreen)
+        else if(panel instanceof FightScreen || panel instanceof StoryScreen)//700x700
         {
             this.image = images[1];
             currentPhoto = 1;
+        }
+
+        //ITEMS
+        if(User.getUser().itemsList.size() != 0)
+        for(Item i : User.getUser().itemsList)
+        {
+            if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)i.setImage(5);
+            else if(panel instanceof LobbyScreen || panel instanceof StoreScreen)i.setImage(6);
+            else if(panel instanceof FightScreen)i.setImage(1);
         }
         this.repaint();
     }

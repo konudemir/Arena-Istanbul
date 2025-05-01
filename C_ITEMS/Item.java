@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import C.*;
 
 public abstract class Item{
+    public static final int AMOUNT_OF_ICONS = 4;//WOODEN IRON GOLD DIOMAND
     protected int price = 0;
     protected String name;
     protected Person owner = null;
@@ -69,7 +70,60 @@ public abstract class Item{
 
     public void setImage(int i)
     {
-
+        if(this instanceof Shield)
+        {
+            Shield item = (Shield)this;
+            item.setImage(i);
+        }
+        else if(this instanceof Armor)
+        {
+            Armor item = (Armor)this;
+            item.setImage(i);
+        }
+        else if(this instanceof Leggings)
+        {
+            Leggings item = (Leggings)this;
+            item.setImage(i);
+        }
+        else if(this instanceof Helmet)
+        {
+            Helmet item = (Helmet)this;
+            item.setImage(i);
+        }
+        else if(this instanceof Sword)
+        {
+            Sword item = (Sword)this;
+            item.setImage(i);
+        }
+    }
+    public int getImageOrder()
+    {
+        if(this instanceof Shield)
+        {
+            Shield item = (Shield)this;
+            return item.getImageOrder();
+        }
+        else if(this instanceof Armor)
+        {
+            Armor item = (Armor)this;
+            return item.getImageOrder();
+        }
+        else if(this instanceof Leggings)
+        {
+            Leggings item = (Leggings)this;
+            return item.getImageOrder();
+        }
+        else if(this instanceof Helmet)
+        {
+            Helmet item = (Helmet)this;
+            return item.getImageOrder();
+        }
+        else if(this instanceof Sword)
+        {
+            Sword item = (Sword)this;
+            return item.getImageOrder();
+        }
+        return -2;
     }
     
 }

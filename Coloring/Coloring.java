@@ -13,8 +13,8 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Coloring {
-    public static final int AMOUNT = 10;
-    public static final String[] names = new String[]{"1", "2", "3", "a1", "a2", "w1", "w2", "w3", "w4", "custScreen", "lobby"};
+    public static final int AMOUNT = 11;
+    public static final String[] names = new String[]{"1", "2", "3", "a1", "a2", "w1", "w2", "w3", "w4", "lobby", "custScreen"};
     public static void createImages(Map<Integer, Integer> colorMap)
     {
         try {
@@ -36,21 +36,6 @@ public class Coloring {
                 heights[i] = originals[i].getHeight();
                 results[i] = new BufferedImage(widths[i], heights[i], BufferedImage.TYPE_INT_ARGB);
             }
-
-            
-            int folderLocation = -1;
-            for(int i = 0; i >= 0; i++)
-            {
-                File folder1 = new File("graphs/character/" + i);
-                File folder = new File("Coloring/" + i);
-                File folderE = new File("Coloring/" + i + "e");
-                if (!folder1.exists() && !folder.exists()) {
-                    folder.mkdirs();
-                    folderE.mkdirs();
-                    folderLocation = i;
-                    break;
-                }
-            }
             
             for(int i = 0; i < AMOUNT; i++)
             {
@@ -66,13 +51,7 @@ public class Coloring {
                         results[i].setRGB(x, y, newRGB);
                     }
                 }
-                ImageIO.write(results[i], "png", new File("Coloring/" + folderLocation + "/" + names[i] + ".png"));
-                System.out.println("Image processed and saved as" + names[i] + ".png");
-            }
-            for(int i = 0; i < AMOUNT; i++)
-            {
-                BufferedImage result = flipImage(originals[i]);
-                ImageIO.write(result, "png", new File("Coloring/" + folderLocation + "e/" + names[i] + ".png"));
+                ImageIO.write(results[i], "png", new File("graphs/character/current/" + names[i] + ".png"));
                 System.out.println("Image processed and saved as" + names[i] + ".png");
             }
         } catch (Exception e) {
@@ -93,7 +72,6 @@ public class Coloring {
         BufferedImage[] results = new BufferedImage[AMOUNT];
         try {
             // Load the image
-            String[] names = new String[]{"1", "2", "3", "a1", "a2", "w1", "w2", "w3", "w4" ,"custScreen"};
             int widths[] = new int[AMOUNT];
             int heights[] = new int[AMOUNT];
             for(int i = 0; i < AMOUNT; i++)
@@ -134,7 +112,7 @@ public class Coloring {
         return results;
     }
 
-    public static BufferedImage flipImage(Image i) {
+    public static BufferedImage flipImagea(Image i) {
         // Convert Image to BufferedImage
         BufferedImage original = new BufferedImage(i.getWidth(null), i.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = original.createGraphics();
@@ -152,6 +130,11 @@ public class Coloring {
     public static Color[] getOriginalColors()
     {
         return new Color[] {Color.decode("#000000"), Color.decode("#FFB570"), Color.decode("#57294B"), Color.decode("#BA6156")};
+    }
+    public static void fillOriginalCurrents()
+    {
+        createImages(new HashMap<>());
+        //createImagesByCommand(getOriginalColors());
     }
 
     //HELPER

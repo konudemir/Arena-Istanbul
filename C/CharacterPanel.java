@@ -25,9 +25,9 @@ public class CharacterPanel extends FighterPanel{
     private static String[] CHARPATHS = new String[AMOUNT_OF_CHARACTERS];
     private boolean hasFilledPaths = false;
     private static CharacterPanel theCharPanel;
-    private Image[] images = new Image[10];
+    private Image[] images = new Image[11];
     private int currentPhoto = 1; //0-9
-    public static final int CUSTSCREEN = 8;
+    public static final int CUSTSCREEN = 10;
     public static final int LOBBY = 9;
 
     public CharacterPanel(Person person)
@@ -40,22 +40,27 @@ public class CharacterPanel extends FighterPanel{
         this.setBounds(1000, 300, 700, 700);
         this.setLayout(null);
         this.setVisible(true);
-        this.setOpaque(false);
     }
     @Override
     protected void paintComponent(Graphics g) {
-        this.image = images[currentPhoto];
         moveAccordingToCurrentPhoto();
+        this.image = images[currentPhoto];
         g.drawImage(image, 0, 0, null);
         if(this.person.itemsList.size() == 0)
         {
             System.out.println("len 0");
             return;
         }
-        for(Item item : this.person.itemsList)
+        for(Item item : this.person.listItemsInPriorityOfShowing())
         {
             g.drawImage(item.getImage(), 0, 0, null);
             System.out.println("DREW in CHARPANEL " + item + ", image: " + item.getImage());
+        }
+        g.setColor(Color.WHITE);
+        g.drawString("Character Image: " + currentPhoto, 100, 10);
+        for(int i = 0; i < this.person.itemsList.size(); i++)
+        {
+            g.drawString("Item " + this.person.itemsList.get(i) + " image: " + this.person.itemsList.get(i).getImageOrder(), 100, 10 * i + 20);
         }
     }
     public void moveTo(int x, int y)
@@ -86,31 +91,31 @@ public class CharacterPanel extends FighterPanel{
 
     public void fillPaths()
     {
-        for(int i = 0; i < 3; i++)
+        for(int i = 1; i <= 3; i++)
         try {
-        this.images[i] = ImageIO.read(getClass().getResource("/graphs/character/current/" + (i + 1) + ".png"));
+        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/current/" + (i) + ".png"));
         } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH " + (i+1));
         }
-        for(int i = 0; i < 2; i++)
+        for(int i = 4; i <= 5; i++)
         try {
-        this.images[i + 3] = ImageIO.read(getClass().getResource("/graphs/character/current/a" + (i + 1) + ".png"));
+        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/current/a" + (i - 3) + ".png"));
         } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH a" + (i+1));
         }
-        for(int i = 0; i < 4; i++)
+        for(int i = 6; i <= 9; i++)
         try {
-        this.images[i + 4] = ImageIO.read(getClass().getResource("/graphs/character/current/w" + (i + 1) + ".png"));
+        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/current/w" + (i - 5) + ".png"));
         } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH w" + (i+1));
         }
         try {
-            this.images[8] = ImageIO.read(getClass().getResource("/graphs/character/current/custScreen.png"));
+            this.images[CUSTSCREEN] = ImageIO.read(getClass().getResource("/graphs/character/current/custScreen.png"));
             } catch (Exception e) {
                 System.out.println("NO IMAGE FOR FILL PATH custScreen");
             }
         try {
-            this.images[9] = ImageIO.read(getClass().getResource("/graphs/character/current/lobby.png"));
+            this.images[LOBBY] = ImageIO.read(getClass().getResource("/graphs/character/current/lobby.png"));
             } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH lobby");
             }
@@ -146,19 +151,23 @@ public class CharacterPanel extends FighterPanel{
         panel.repaint();
         return panel.image;
     }
-    public void setImage(JPanel panel)
+    public void setImage(JPanel panel)//Used when a new panel is created (add manually to the panel constructor)
     {
+        System.out.println("SETTING IMAGE FOR PANEL: "+ panel);
         if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)//1500x1500
         {
-            this.image = images[8];
-            currentPhoto = 8;
+            System.out.println("SET THE CHAR IMAGE FOR CUST SCREEN");
+            this.image = images[CUSTSCREEN];
+            currentPhoto = CUSTSCREEN;
         } 
         else if(panel instanceof LobbyScreen || panel instanceof StoreScreen) {//1000x1000
-            this.image = images[9];
-            currentPhoto = 9;
+            System.out.println("SET THE CHAR IMAGE FOR LOBBY / STORE");
+            this.image = images[LOBBY];
+            currentPhoto = LOBBY;
         } 
         else if(panel instanceof FightScreen || panel instanceof StoryScreen)//700x700
         {
+            System.out.println("SET THE CHAR IMAGE FOR FIGHT / STORY");
             this.image = images[1];
             currentPhoto = 1;
         }
@@ -167,9 +176,9 @@ public class CharacterPanel extends FighterPanel{
         if(User.getUser().itemsList.size() != 0)
         for(Item i : User.getUser().itemsList)
         {
-            if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)i.setImage(5);
-            else if(panel instanceof LobbyScreen || panel instanceof StoreScreen)i.setImage(6);
-            else if(panel instanceof FightScreen)i.setImage(1);
+            if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)i.setImage(CUSTSCREEN);
+            else if(panel instanceof LobbyScreen || panel instanceof StoreScreen)i.setImage(LOBBY);
+            else if(panel instanceof FightScreen || panel instanceof StoryScreen)i.setImage(1);
         }
         this.repaint();
     }
@@ -179,6 +188,7 @@ public class CharacterPanel extends FighterPanel{
         else if(this.currentPhoto == LOBBY) this.moveTo(-100, 325);
 
     }
+    
 
     // CHANGE STUFF
     public void change(Color[] colors)

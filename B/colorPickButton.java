@@ -38,6 +38,7 @@ public class colorPickButton extends JLabel implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent e)
     {
+        colors[order] = this.c;
         for(int i = 0; i < 4; i++)
         {
             if(colors[i] == null)

@@ -1,6 +1,6 @@
 package C;
 
-import C_ITEMS.Shield;
+import C_ITEMS.*;
 
 public class User extends Person{
     private static User theUser;
@@ -11,7 +11,11 @@ public class User extends Person{
     {
         theUser = this;
         this.coins = 0;
-        this.buyItem(new Shield("a", 0, 0, 0, 0));
+        this.buyItem(new Shield("a", 2, 0, 0, 0));
+        this.buyItem(new Armor("a", 0, 0, 0, 0));
+        this.buyItem(new Leggings("a", 1, 0, 0, 0));
+        this.buyItem(new Sword("a", 2, 0, 0, 0));
+        this.buyItem(new Helmet("a", 3, 0, 0, 0));
         new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
         this.panel = this.charPanel;
@@ -45,4 +49,5 @@ public class User extends Person{
     {
         this.coins += i;
     }
+    
 }

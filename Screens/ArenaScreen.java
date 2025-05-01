@@ -1,18 +1,21 @@
 package Screens;
 
 import javax.swing.*;
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import C.CharacterPanel;
+import C.Fighter;
+import C.User;
 import m.MainFrame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ArenaScreen extends JPanel {
     public static MainFrame theFrame;
     private static final ImageIcon ARENA_BG_IMAGE = new ImageIcon("graphs/arenaScene.png");
-    private static final ImageIcon BOSS_BUTTON_IMAGE = new ImageIcon("graphs/bossButton.png");
-    private static final ImageIcon ARENA_BUTTON_IMAGE = new ImageIcon("graphs/arenaButton.png");
-    private static final ImageIcon BACK_BUTTON_IMAGE = new ImageIcon("graphs/arrow.png");
     
     public ArenaScreen() {
         MainFrame.currentPanel = this;
@@ -27,77 +30,111 @@ public class ArenaScreen extends JPanel {
         theFrame.removePrevPanelsAndLabels();
         this.setBounds(0, 0, 1920, 1080);
         
+        JLabel storyDebugButton = new JLabel();
+        storyDebugButton.setIcon(new ImageIcon("graphs/Arrow.png"));
+        storyDebugButton.setText("BACK");
+        storyDebugButton.setHorizontalTextPosition(JLabel.CENTER);
+        storyDebugButton.setForeground(Color.white);
+        storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 50));
+        storyDebugButton.setVerticalAlignment(JLabel.CENTER);
+        storyDebugButton.setHorizontalAlignment(JLabel.CENTER);
+        storyDebugButton.setBounds(1500, 800, 300, 95);
+        storyDebugButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //new FightScreen(User.getUser(), new Fighter(0));
+                //new StoreScreen();
+                new LobbyScreen();
+            }
+    
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                storyDebugButton.setIcon(new ImageIcon("graphs/enteredArrow.png"));
+                storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 45));
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                storyDebugButton.setIcon(new ImageIcon("graphs/Arrow.png"));
+                storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 45));
+            }
+    
+            @Override
+            public void mousePressed(MouseEvent e) {
+                storyDebugButton.setIcon(new ImageIcon("graphs/clickedArrow.png"));
+                storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 41));
+            }
+    
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                storyDebugButton.setIcon(new ImageIcon("graphs/Arrow.png"));
+                storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 45));
+            }
+            });
+        this.add(storyDebugButton);
+
+        JLabel storyFightButton = createChoiceButton(true);
+        JLabel duelFightButton = createChoiceButton(false);
+        this.add(storyFightButton);
+        this.add(duelFightButton);
+
+
+
         // Add character panel
         CharacterPanel charPanel = CharacterPanel.getCharPanel();
-        charPanel.moveTo(100, 560);
         this.add(charPanel);
-        
-        // Create buttons
-        JButton bossButton = createMenuButton("Story Mode", 600, 300, BOSS_BUTTON_IMAGE);
-        JButton arenaButton = createMenuButton("Arena Mode", 600, 500, ARENA_BUTTON_IMAGE);
-        JButton backButton = createBackButton();
-        
-        // Add action listeners
-        bossButton.addActionListener(_ -> startBossFight());
-        arenaButton.addActionListener(_ -> startArenaFight());
-        backButton.addActionListener(_ -> returnToLobby());
-        
-        // Add components to panel
-        this.add(bossButton);
-        this.add(arenaButton);
-        this.add(backButton);
         this.add(backgroundLabel);
         
         theFrame.add(this);
         theFrame.repaint();
     }
+    public JLabel createChoiceButton(boolean isStory)
+    {
+        JLabel fightButton = new JLabel();
+        fightButton.setIcon(new ImageIcon("graphs/bigButton.png"));
+        if(isStory)fightButton.setText("<html>STORY MOD FIGHT<br>Current Enemy: " + (FightScreen.wonAgainstEnemies + 1) + "</html>");
+        else fightButton.setText("SIDE DUEL MOD FIGHT");
+
+        fightButton.setHorizontalTextPosition(JLabel.CENTER);
+        fightButton.setForeground(Color.white);
+        fightButton.setFont(new Font("Impact", Font.PLAIN, 40));
+        fightButton.setVerticalAlignment(JLabel.CENTER);
+        fightButton.setHorizontalAlignment(JLabel.CENTER);
+        if(isStory)fightButton.setBounds(1100, 100, 800, 400);
+        else fightButton.setBounds(300, 100, 800, 400);
+        fightButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //new FightScreen(User.getUser(), new Fighter(0));
+                //new StoreScreen();
+                if(isStory)new FightScreen(User.getUser(), new Fighter(FightScreen.wonAgainstEnemies));
+                else new FightScreen();
+            }
     
-    private JButton createMenuButton(String text, int width, int yPos, ImageIcon icon) {
-        JButton button = new JButton(text, icon);
-        button.setBounds(width, yPos, 300, 150);
-        button.setVerticalTextPosition(SwingConstants.BOTTOM);
-        button.setHorizontalTextPosition(SwingConstants.CENTER);
-        button.setFont(new Font("Impact", Font.BOLD, 24));
-        button.setForeground(Color.WHITE);
-        button.setBackground(new Color(70, 70, 70, 200));
-        button.setOpaque(true);
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        return button;
-    }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                fightButton.setIcon(new ImageIcon("graphs/bigEnteredButton.png"));
+                fightButton.setFont(new Font("Impact", Font.PLAIN, 40));
+            }
     
-    private JButton createBackButton() {
-        JButton button = new JButton(BACK_BUTTON_IMAGE);
-        button.setBounds(1500, 850, 200, 100);
-        button.setBorderPainted(false);
-        button.setContentAreaFilled(false);
-        button.setFocusPainted(false);
-        return button;
-    }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                fightButton.setIcon(new ImageIcon("graphs/bigButton.png"));
+                fightButton.setFont(new Font("Impact", Font.PLAIN, 40));
+            }
     
-    private void startBossFight() {
-        // Implement boss fight logic
-        // This would typically create a FightScreen with a specific boss
-        System.out.println("Starting boss fight...");
-        // Example: new FightScreen(User.getUser(), BossFactory.getNextBoss());
-    }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                fightButton.setIcon(new ImageIcon("graphs/bigClickedButton.png"));
+                fightButton.setFont(new Font("Impact", Font.PLAIN, 33));
+            }
     
-    private void startArenaFight() {
-        // Implement random arena fight logic
-        System.out.println("Starting arena fight...");
-        // Example: new FightScreen(User.getUser(), EnemyFactory.getRandomEnemy());
-    }
-    
-    private void returnToLobby() {
-        new LobbyScreen();
-    }
-    
-    // Helper method to create styled labels
-    private JLabel createLabel(String text, int x, int y, int size) {
-        JLabel label = new JLabel(text);
-        label.setBounds(x, y, 500, 100);
-        label.setFont(new Font("Impact", Font.BOLD, size));
-        label.setForeground(Color.WHITE);
-        return label;
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                fightButton.setIcon(new ImageIcon("graphs/bigButton.png"));
+                fightButton.setFont(new Font("Impact", Font.PLAIN, 40));
+            }
+            });
+            return fightButton;
     }
 }

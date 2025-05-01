@@ -55,43 +55,12 @@ public class CustomizationScreenOld extends JPanel{
         continueButton.setVerticalAlignment(JLabel.CENTER);
         continueButton.setHorizontalAlignment(JLabel.CENTER);
         continueButton.setBounds(1500, 200, 300, 95);
+
+        getBGButtonsForCustomization(this, "Eye", 0, new Color[]{new Color(0x000000), new Color(0x3B2F2F), new Color(0x5B4B3A), new Color(0x1E1E1E), new Color(0x223A5E)});
+        getBGButtonsForCustomization(this, "Skin", 1, new Color[]{new Color(0xFFB570), new Color(0xD6A77A), new Color(0xC68642), new Color(0xB97A57), new Color(0x8E5A30)});
+        getBGButtonsForCustomization(this, "Body", 2, new Color[]{new Color(0x57294B), new Color(0x4B3B47), new Color(0x6B4226), new Color(0x2F4F4F), new Color(0x7B3530)});
+        getBGButtonsForCustomization(this, "Legs", 3, new Color[]{new Color(0xBA6156), new Color(0x7B3F00), new Color(0x466D1D), new Color(0x8B5A2B), new Color(0x0F3B57)});
         
-
-        JLabel randomButton = new JLabel();
-        randomButton.setIcon(new ImageIcon("graphs/button.png"));
-        randomButton.setBounds(100, 50, 400, 200);
-        randomButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e)
-            {
-                
-            }
-            @Override
-            public void mouseExited(MouseEvent e)
-            {
-                
-            }
-            @Override
-            public void mousePressed(MouseEvent e)
-            {
-                
-            }
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                
-            }
-            @Override
-            public void mouseReleased(MouseEvent e)
-            {
-                CharacterPanelOld.randomizeChar();
-            }
-        });
-
-        getBGButtonsForCustomization(this, "Hair", 0, new Color[]{new Color(0xF5E0B7), new Color(0x3D2B24), new Color(0x3D3D3D), new Color(0x6A4E42), new Color(0xA52A2A)});
-        getBGButtonsForCustomization(this, "Skin", 1, new Color[]{new Color(0xFFD3BA), new Color(0xDBA772), new Color(0xB87D4B), new Color(0x7C4A3A)});
-        getBGButtonsForCustomization(this, "Jacket", 2, new Color[]{new Color(0xADADA3), new Color(0x303030), new Color(0x001438), new Color(0x672FAA), new Color(0x72A8A2), new Color(0x003FA5)});
-        getBGButtonsForCustomization(this, "Pants", 3, new Color[]{new Color(0x7A7A6E), new Color(0x000C21), new Color(0x000000)});
         
         
 

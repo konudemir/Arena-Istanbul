@@ -1,6 +1,7 @@
 package C;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import C_ITEMS.*;
@@ -97,5 +98,18 @@ public class Person {
     public void changeHealth(int i)
     {
         this.health += i;
+    }
+    public Item[] listItemsInPriorityOfShowing()
+    {
+        List<Item> ordered = new ArrayList<>();
+        for (Class<?> type : new Class[]{Leggings.class, Armor.class, Helmet.class, Shield.class, Sword.class}) {
+            for (Item item : itemsList) {
+                if (type.isInstance(item)) {
+                    ordered.add(item);
+                    break;
+                }
+            }
+        }
+        return ordered.toArray(new Item[0]);
     }
 }

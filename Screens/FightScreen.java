@@ -8,6 +8,7 @@ import m.MainFrame;
 public class FightScreen extends JPanel{
     public static final int NORMAL_ATTACK_HIT = 8;
     public static MainFrame theFrame;
+    public static int wonAgainstEnemies = 0;
     public FightScreen(User user, Fighter fighter)
     {
         CharacterPanel.getCharPanel().setImage(this);

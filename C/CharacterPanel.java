@@ -34,11 +34,12 @@ public class CharacterPanel extends FighterPanel{
     {
         this.person = person;
         theCharPanel = this;
-        if(!hasFilledPaths) fillPaths();
+        if(!hasFilledPaths) fillPathsCharPanel();
         //Get image
         this.image = images[1];
         this.setBounds(1000, 300, 700, 700);
         this.setLayout(null);
+        this.setOpaque(false);
         this.setVisible(true);
     }
     @Override
@@ -53,6 +54,7 @@ public class CharacterPanel extends FighterPanel{
         }
         for(Item item : this.person.listItemsInPriorityOfShowing())
         {
+            //item.setImage(this.person.currentPhoto);
             g.drawImage(item.getImage(), 0, 0, null);
             System.out.println("DREW in CHARPANEL " + item + ", image: " + item.getImage());
         }
@@ -89,7 +91,7 @@ public class CharacterPanel extends FighterPanel{
         this.image = image;
     }
 
-    public void fillPaths()
+    public void fillPathsCharPanel()
     {
         for(int i = 1; i <= 3; i++)
         try {
@@ -123,34 +125,6 @@ public class CharacterPanel extends FighterPanel{
         this.image = this.images[1];
         hasFilledPaths = true;
     }
-
-    public void breath()
-    {
-        Timer timer = new Timer(); // create the timer
-        CharacterPanel thisPanel = this;
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                CharacterPanel.setNextImageIdleOf(thisPanel);
-                //System.out.println("aa");
-            }
-        };
-        timer.schedule(task, 1000, 5);
-    }
-    public static Image setNextImageIdleOf(CharacterPanel panel)
-    {
-        for(int i = 0; i < 3; i++) 
-        if(panel.image == panel.images[i])
-        {
-            Image im = panel.image;
-            panel.image = panel.images[(i+1) % 3];
-            //System.out.println("aabbcc");
-            //System.out.println(im == panel.image);
-            break;
-        }
-        panel.repaint();
-        return panel.image;
-    }
     public void setImage(JPanel panel)//Used when a new panel is created (add manually to the panel constructor)
     {
         System.out.println("SETTING IMAGE FOR PANEL: "+ panel);
@@ -178,7 +152,10 @@ public class CharacterPanel extends FighterPanel{
         {
             if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)i.setImage(CUSTSCREEN);
             else if(panel instanceof LobbyScreen || panel instanceof StoreScreen)i.setImage(LOBBY);
-            else if(panel instanceof FightScreen || panel instanceof StoryScreen)i.setImage(1);
+            else if(panel instanceof FightScreen || panel instanceof StoryScreen)
+            {
+                i.setImage(1);
+            }
         }
         this.repaint();
     }
@@ -188,12 +165,10 @@ public class CharacterPanel extends FighterPanel{
         else if(this.currentPhoto == LOBBY) this.moveTo(-100, 325);
 
     }
-    
-
     // CHANGE STUFF
     public void change(Color[] colors)
     {
         this.images = Coloring.createImagesByCommand(colors);
-        this.fillPaths();    
+        this.fillPathsCharPanel(); 
     }
 }

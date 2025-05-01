@@ -9,6 +9,7 @@ import Screens.FightScreen;
 
 public class Person {
     protected int health;
+    protected int stamina;
     protected ArrayList<Item> itemsList = new ArrayList<>();
     protected FighterPanel panel;
     public static final double RANDOMNESS_IN_FIGHTS = 0.2;
@@ -65,6 +66,7 @@ public class Person {
             }
         }
         itemsList.add(item);
+        item.setOwner(this);
         //this.panel.updateItems();
         if(this instanceof User)
         {

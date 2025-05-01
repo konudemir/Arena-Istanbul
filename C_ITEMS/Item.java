@@ -65,7 +65,37 @@ public abstract class Item{
 
     public Image getImage()
     {
-        return this.image;
+        if(this instanceof Shield)
+        {
+            Shield item = (Shield)this;
+            return item.getAppropriateImage();
+        }
+        else if(this instanceof Armor)
+        {
+            Armor item = (Armor)this;
+            return item.getAppropriateImage();
+        }
+        else if(this instanceof Leggings)
+        {
+            Leggings item = (Leggings)this;
+            return item.getAppropriateImage();
+        }
+        else if(this instanceof Helmet)
+        {
+            Helmet item = (Helmet)this;
+            return item.getAppropriateImage();
+        }
+        else if(this instanceof Sword)
+        {
+            Sword item = (Sword)this;
+            return item.getAppropriateImage();
+        }
+        return null;
+    }
+    public static String itemsFolder(Person person)
+    {
+        if(person instanceof User)return "items";
+        else return "itemsForOpponents";
     }
 
     public void setImage(int i)

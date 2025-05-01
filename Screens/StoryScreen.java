@@ -20,14 +20,12 @@ public class StoryScreen extends JPanel {
     private int dialogueIndex = 0;
     private String[] firstSceneDialogues = {
             "Father: My son, I have reached the twilight of my life...",
-            /*
             "Father: And I have failed to leave a legacy...",
             "Father: It is now your duty to achieve what I could not.",
             "Father: It is now your duty to become a strong and powerful man",
             "Father: a man who the cruel fear, but the oppressed seek for help...",
             "Father: From now on, you will carry the family name!..",
             "You: I promise, father. I will make you proud."
-            */
     };
     private String[] secondSceneDialogues = {
             "Mother: Son... tragedy has struck.",

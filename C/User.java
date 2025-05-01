@@ -11,11 +11,11 @@ public class User extends Person{
     {
         theUser = this;
         this.coins = 0;
-        this.buyItem(new Shield("a", 2, 0, 0, 0));
-        this.buyItem(new Armor("a", 0, 0, 0, 0));
-        this.buyItem(new Leggings("a", 1, 0, 0, 0));
-        this.buyItem(new Sword("a", 2, 0, 0, 0));
-        this.buyItem(new Helmet("a", 3, 0, 0, 0));
+        this.buyItem(new Shield(0));
+        this.buyItem(new Armor(0));
+        this.buyItem(new Leggings(0));
+        this.buyItem(new Sword(0));
+        this.buyItem(new Helmet(0));
         new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
         this.panel = this.charPanel;

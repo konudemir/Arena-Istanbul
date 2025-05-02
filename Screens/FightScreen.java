@@ -2,6 +2,7 @@ package Screens;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import C.*;
 import m.MainFrame;
@@ -11,6 +12,116 @@ public class FightScreen extends JPanel{
     public static int wonAgainstEnemies = 0;
     public User theUser;
     public Fighter theFighter;
+
+    /* 
+     * NOTES: This is an inner class to animate player movement in three modes: IDLE, MOVING, ATTACKING. Player mode is switched when fighter
+     * moves/attacks, and returns back to IDLE after the movement is done. Enum is used for more robust and flexible implementation.
+     * CAUTION: Image paths might not be correct and if this class is to be used with both fighters, it might be better to implement a constructor
+     * with images as arguments. This class uses javax.swing.Timer which starts running after the class' instance is created and doesn't stop.
+     * Instead of adding the fighter directly into this frame, it is necessary to create a correspondent FighterAnimation instance.
+     */
+    class FighterAnimation {
+        private enum FighterState { IDLE, /* Breathing animation */ MOVING, /* Movement animation */ ATTACKING /* For future expansion */ }
+        
+        private FighterState currentState = FighterState.IDLE;
+        private int currentFrame = 0;
+        private Timer animationTimer;
+        private JLabel fighterLabel; // The component displaying your fighter
+        
+        // Animation frame arrays
+        private final ImageIcon[] breathingFrames = {
+            new ImageIcon("graphs/1.png"),
+            new ImageIcon("graphs/2.png"),
+            new ImageIcon("graphs/3.png")
+        };
+        private final ImageIcon[] movingFrames = {
+            new ImageIcon("graphs/w1.png"),
+            new ImageIcon("graphs/w2.png"),
+            new ImageIcon("graphs/w3.png"),
+            new ImageIcon("graphs/w4.png")
+        };
+        private final ImageIcon[] attackingFrames = {
+            new ImageIcon("graphs/a1.png"),
+            new ImageIcon("graphs/a2.png")
+        };
+        
+        public FighterAnimation(JLabel fighterLabel) {
+            this.fighterLabel = fighterLabel;
+            setupTimer();
+        }
+        
+        private void setupTimer() {
+            animationTimer = new Timer(100, _ -> { // 100ms between frames, subject to change.
+                switch(currentState) {
+                    case IDLE:
+                        animateBreathing();
+                        break;
+                    case MOVING:
+                        animateMovement();
+                        break;
+                    case ATTACKING:
+                        animateAttack();
+                    default:
+                        break;
+                }
+            });
+            animationTimer.start();
+        }
+        
+        private void animateBreathing() {
+            currentFrame = (currentFrame + 1) % breathingFrames.length;
+            fighterLabel.setIcon(breathingFrames[currentFrame]);
+        }
+        
+        private void animateMovement() {
+            currentFrame = (currentFrame + 1) % movingFrames.length;
+            fighterLabel.setIcon(movingFrames[currentFrame]);
+        }
+
+        public void animateAttack() {
+            switch(currentFrame) {
+                case 0: // First frame (a1)
+                    fighterLabel.setIcon(attackingFrames[0]);
+                    currentFrame = 1;
+                    break;
+                case 1: // Second frame (a2)
+                    fighterLabel.setIcon(attackingFrames[1]);
+                    currentFrame = 2;
+                    break;
+                case 2: // Back to first frame (a1)
+                    fighterLabel.setIcon(attackingFrames[0]);
+                    setState(FighterState.IDLE); // Return to idle
+                    break;
+            }
+        }
+        
+        public void setState(FighterState newState) {
+            if (this.currentState != newState) {
+                this.currentState = newState;
+                currentFrame = 0; // Reset animation frame when state changes
+            }
+        }
+        
+        // Call this when movement starts
+        public void startMoving() {
+            setState(FighterState.MOVING);
+        }
+        
+        // Call this when movement ends
+        public void stopMoving() {
+            setState(FighterState.IDLE);
+        }
+
+        /* just in case. */
+        public void startAttacking() {
+            setState(FighterState.ATTACKING);
+        }
+
+        public void stopAttacking() {
+            setState(FighterState.IDLE);
+        }
+    }
+
     public FightScreen(User user, Fighter fighter)
     {
         theUser = user;

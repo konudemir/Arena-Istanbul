@@ -31,11 +31,13 @@ public class FightScreen extends JPanel{
         theFrame.removePrevPanelsAndLabels();
         this.add(CharacterPanel.getCharPanel());
         theFrame.add(user.getHealthBar());
+        theFrame.add(user.getStaminaBar());
         this.add(fighter.getFighterPanel());
         
         //fighter.resizeComp(300, 132);
         fighter.moveTo(1100, 500);
         theFrame.add(fighter.getHealthBar());
+        theFrame.add(fighter.getStaminaBar());
 
         JLabel moveForward = new JLabel();
         moveForward.setIcon(new ImageIcon("graphs/fight/moveForward.png"));

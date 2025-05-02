@@ -17,8 +17,13 @@ public class Person {
     public Person()
     {
         this.health = 100;
+        this.stamina = 100;
     }
     public int getHealth()
+    {
+        return this.health;
+    }
+    public int getStamina()
     {
         return this.health;
     }

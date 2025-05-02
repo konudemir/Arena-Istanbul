@@ -7,6 +7,7 @@ public class User extends Person{
     private CharacterPanel charPanel;
     private HealthBar healthBar;
     private int coins;
+    protected StaminaBar staminaBar;
     public User()
     {
         theUser = this;
@@ -20,6 +21,7 @@ public class User extends Person{
         this.charPanel = CharacterPanel.getCharPanel();
         this.panel = this.charPanel;
         this.healthBar = new HealthBar(this);
+        this.staminaBar = new StaminaBar(this);
     }
     public void moveTo(int x, int y)
     {
@@ -40,6 +42,10 @@ public class User extends Person{
     public HealthBar getHealthBar()
     {
         return this.healthBar;
+    }
+    public StaminaBar getStaminaBar()
+    {
+        return this.staminaBar;
     }
     public int getCoins()
     {

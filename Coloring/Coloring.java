@@ -14,20 +14,61 @@ import javax.imageio.ImageIO;
 
 public class Coloring {
     public static void main(String[] args) {
-        String[] namesOfItems = new String[] {"armor", "helmet", "leggings", "shields", "swords"};
+        System.exit(0);
+        @SuppressWarnings("unchecked")
+        HashMap<Integer, Integer>[] colorMaps = (HashMap<Integer, Integer>[]) new HashMap[5];
+        Color[] originalColors = getAllOriginalColors();
         for(int i = 0; i < 5; i++)
         {
-            for(int j = 0; j < 4; j++)
-            {
-                for(int k = 0; k < 11; k++)
-                {
-                    try {
-                        BufferedImage original = ImageIO.read(new File("graphs/character/items/" + namesOfItems[i] + "/" + j + "/" + names[k] +  ".png"));
-                        ImageIO.write(flipImage(original), "png", new File("graphs/character/itemsForOpponents/" + namesOfItems[i] + "/" + j + "/" + names[k] +  ".png"));
-                    }catch (Exception e){}
-                }
-            }
+            colorMaps[i] = new HashMap<>();
         }
+        colorMaps[0].put(originalColors[0].getRGB(), rgb("DB9960"));//FACE1
+        colorMaps[0].put(originalColors[1].getRGB(), rgb("DB7A57"));//FACE2
+        colorMaps[0].put(originalColors[2].getRGB(), rgb("000000"));//EYES
+        colorMaps[0].put(originalColors[3].getRGB(), rgb("007F46"));//BODY1
+        colorMaps[0].put(originalColors[4].getRGB(), rgb("009652"));//BODY2
+        colorMaps[0].put(originalColors[5].getRGB(), rgb("3E2347"));//PANTS1
+        colorMaps[0].put(originalColors[6].getRGB(), rgb("57294B"));//PANTS2
+
+        colorMaps[1].put(originalColors[0].getRGB(), rgb("FFB570"));//FACE1
+        colorMaps[1].put(originalColors[1].getRGB(), rgb("FF9166"));//FACE2
+        colorMaps[1].put(originalColors[2].getRGB(), rgb("000000"));//EYES
+        colorMaps[1].put(originalColors[3].getRGB(), rgb("000770"));//BODY1
+        colorMaps[1].put(originalColors[4].getRGB(), rgb("000A96"));//BODY2
+        colorMaps[1].put(originalColors[5].getRGB(), rgb("005109"));//PANTS1
+        colorMaps[1].put(originalColors[6].getRGB(), rgb("00770B"));//PANTS2
+
+        colorMaps[2].put(originalColors[0].getRGB(), rgb("A07046"));//FACE1
+        colorMaps[2].put(originalColors[1].getRGB(), rgb("96543C"));//FACE2
+        colorMaps[2].put(originalColors[2].getRGB(), rgb("000000"));//EYES
+        colorMaps[2].put(originalColors[3].getRGB(), rgb("440011"));//BODY1
+        colorMaps[2].put(originalColors[4].getRGB(), rgb("72001C"));//BODY2
+        colorMaps[2].put(originalColors[5].getRGB(), rgb("4C3C49"));//PANTS1
+        colorMaps[2].put(originalColors[6].getRGB(), rgb("70586B"));//PANTS2
+
+        colorMaps[3].put(originalColors[0].getRGB(), rgb("DB9960"));//FACE1
+        colorMaps[3].put(originalColors[1].getRGB(), rgb("DB7A57"));//FACE2
+        colorMaps[3].put(originalColors[2].getRGB(), rgb("000000"));//EYES
+        colorMaps[3].put(originalColors[3].getRGB(), rgb("57294B"));//BODY1
+        colorMaps[3].put(originalColors[4].getRGB(), rgb("874075"));//BODY2
+        colorMaps[3].put(originalColors[5].getRGB(), rgb("8C3F5D"));//PANTS1
+        colorMaps[3].put(originalColors[6].getRGB(), rgb("BA6156"));//PANTS2
+
+        colorMaps[4].put(originalColors[0].getRGB(), rgb("A07046"));//FACE1
+        colorMaps[4].put(originalColors[1].getRGB(), rgb("96543C"));//FACE2
+        colorMaps[4].put(originalColors[2].getRGB(), rgb("000000"));//EYES
+        colorMaps[4].put(originalColors[3].getRGB(), rgb("000770"));//BODY1
+        colorMaps[4].put(originalColors[4].getRGB(), rgb("000A96"));//BODY2
+        colorMaps[4].put(originalColors[5].getRGB(), rgb("005109"));//PANTS1
+        colorMaps[4].put(originalColors[6].getRGB(), rgb("00770B"));//PANTS2
+        for(int i = 0; i < 5; i++)
+        {
+            createImages(colorMaps[i], i);
+        }
+    }
+    public static int rgb(String hex)
+    {
+        return Color.decode("#" + hex).getRGB();
     }
     public static final int AMOUNT = 11;
     public static final String[] names = new String[]{"1", "2", "3", "a1", "a2", "w1", "w2", "w3", "w4", "lobby", "custScreen"};
@@ -127,6 +168,7 @@ colorMap10.put(new Color(0xffb570).getRGB(), new Color(0xa895b3).getRGB());
     }
     public static void createImagesForOpponent(Map<Integer, Integer> colorMap, int order)
     {
+        order++;
         try {
             // Load the image
             BufferedImage[] originals = new BufferedImage[AMOUNT];
@@ -171,7 +213,7 @@ colorMap10.put(new Color(0xffb570).getRGB(), new Color(0xa895b3).getRGB());
             e.printStackTrace();
         }
     }
-    public static void createImages(Map<Integer, Integer> colorMap)
+    public static void createImages(Map<Integer, Integer> colorMap, int no)
     {
         try {
             // Load the image
@@ -182,7 +224,7 @@ colorMap10.put(new Color(0xffb570).getRGB(), new Color(0xa895b3).getRGB());
             for(int i = 0; i < AMOUNT; i++)
             {
                 System.out.println("Reading " + i);
-                originals[i] = ImageIO.read(new File("graphs/character/original/" + names[i] + ".png"));
+                originals[i] = ImageIO.read(new File("graphs/character/current/" + names[i] + ".png"));
                 System.out.println("READ " + i);
             }
             
@@ -207,7 +249,9 @@ colorMap10.put(new Color(0xffb570).getRGB(), new Color(0xa895b3).getRGB());
                         results[i].setRGB(x, y, newRGB);
                     }
                 }
-                ImageIO.write(results[i], "png", new File("graphs/character/current/" + names[i] + ".png"));
+                File directory = new File("Coloring/" + no);
+                if (!directory.exists())directory.mkdirs();
+                ImageIO.write(results[i], "png", new File("Coloring/" + no + "/" + names[i] + ".png"));
                 System.out.println("Image processed and saved as" + names[i] + ".png");
             }
         } catch (Exception e) {
@@ -286,9 +330,13 @@ colorMap10.put(new Color(0xffb570).getRGB(), new Color(0xa895b3).getRGB());
     {
         return new Color[] {Color.decode("#000000"), Color.decode("#FFB570"), Color.decode("#57294B"), Color.decode("#BA6156")};
     }
+    public static Color[] getAllOriginalColors()
+    {
+        return new Color[] {Color.decode("#FFB570"), Color.decode("#FF9166"), Color.decode("#000000"),  Color.decode("#3E2347"), Color.decode("#57294B"),  Color.decode("#8C3F5D"), Color.decode("#BA6156")};
+    }
     public static void fillOriginalCurrents()
     {
-        createImages(new HashMap<>());
+        createImages(new HashMap<>(), -1);
         //createImagesByCommand(getOriginalColors());
     }
 

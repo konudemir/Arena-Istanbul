@@ -194,7 +194,7 @@ public class MainFrame extends JFrame{
     }
     public static JPanel newGameScreenS()
     {
-        return new CustomizationScreenOld();
+        return new CustomizationScreen();
     }
     public static JPanel creditsScreenS()
     {

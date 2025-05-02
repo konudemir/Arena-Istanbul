@@ -11,12 +11,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 
 import C_ITEMS.Item;
-import Screens.CustomizationScreen;
-import Screens.CustomizationScreenOld;
-import Screens.FightScreen;
-import Screens.LobbyScreen;
-import Screens.StoreScreen;
-import Screens.StoryScreen;
+import Screens.*;
 
 public class FighterPanel extends JPanel{
     private final int characterNo;

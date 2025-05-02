@@ -22,6 +22,7 @@ public class CustomizationScreen extends JPanel{
     private static final ImageIcon NEW_GAME_BG_IMAGEICON = new ImageIcon("graphs/newGameGPT.png");
     public CustomizationScreen()
     {
+        CharacterPanel.getCharPanel().setImage(this);
         MainFrame.currentPanel = this;
         theFrame = MainFrame.theFrame;
         this.setLayout(null);
@@ -75,6 +76,70 @@ public class CustomizationScreen extends JPanel{
         arrowToRight.setVerticalAlignment(JLabel.CENTER);
         arrowToRight.setHorizontalAlignment(JLabel.CENTER);
         arrowToRight.setBounds(925, 500, 300, 190);
+
+        //Add mouse listeners to the arrow buttons
+        arrowToRight.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //ToDo : Change the character
+                User.getCharPanel().fillPathsCharPanel(User.getCharPanel().getNextFolderName());
+            }
+    
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                arrowToRight.setIcon(new ImageIcon("graphs/enteredArrowToRight.png"));
+                arrowToRight.setFont(new Font("Impact", Font.PLAIN, 45));
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                arrowToRight.setIcon(new ImageIcon("graphs/arrowToRight.png"));
+                arrowToRight.setFont(new Font("Impact", Font.PLAIN, 45));
+            }
+    
+            @Override
+            public void mousePressed(MouseEvent e) {
+                arrowToRight.setIcon(new ImageIcon("graphs/clickedArrowToRight.png"));
+                arrowToRight.setFont(new Font("Impact", Font.PLAIN, 41));
+            }
+    
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                arrowToRight.setIcon(new ImageIcon("graphs/arrowToRight.png"));
+                arrowToRight.setFont(new Font("Impact", Font.PLAIN, 45));
+            }
+            });
+            arrowToLeft.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    //ToDo : Change the character
+                    User.getCharPanel().fillPathsCharPanel(User.getCharPanel().getPreviousFolderName());
+                }
+        
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    arrowToLeft.setIcon(new ImageIcon("graphs/enteredArrowToLeft.png"));
+                    arrowToLeft.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+        
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    arrowToLeft.setIcon(new ImageIcon("graphs/arrowToLeft.png"));
+                    arrowToLeft.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+        
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    arrowToLeft.setIcon(new ImageIcon("graphs/clickedArrowToLeft.png"));
+                    arrowToLeft.setFont(new Font("Impact", Font.PLAIN, 41));
+                }
+        
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    arrowToLeft.setIcon(new ImageIcon("graphs/arrowToLeft.png"));
+                    arrowToLeft.setFont(new Font("Impact", Font.PLAIN, 45));
+                }
+                });
         
 
         JLabel randomButton = new JLabel();
@@ -146,7 +211,7 @@ public class CustomizationScreen extends JPanel{
                 public void mouseClicked(MouseEvent e) {
                     //new FightScreen(User.getUser(), new Fighter(0));
                     //new StoreScreen();
-                    new LobbyScreen();
+                    new StoryScreen(true);
                 }
         
                 @Override

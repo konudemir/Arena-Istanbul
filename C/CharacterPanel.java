@@ -12,17 +12,12 @@ import javax.swing.JPanel;
 import C_ITEMS.Item;
 import C_ITEMS.Shield;
 import Coloring.Coloring;
-import Screens.CustomizationScreen;
-import Screens.CustomizationScreenOld;
-import Screens.FightScreen;
-import Screens.FirstMenu;
-import Screens.LobbyScreen;
-import Screens.StoreScreen;
-import Screens.StoryScreen;
+import Screens.*;
 
 public class CharacterPanel extends FighterPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;
     private static String[] CHARPATHS = new String[AMOUNT_OF_CHARACTERS];
+    private int currentFolderOrder = 0;
     private boolean hasFilledPaths = false;
     private static CharacterPanel theCharPanel;
     private Image[] images = new Image[11];
@@ -93,31 +88,35 @@ public class CharacterPanel extends FighterPanel{
 
     public void fillPathsCharPanel()
     {
+        fillPathsCharPanel("current");
+    }
+    public void fillPathsCharPanel(String folder)
+    {
         for(int i = 1; i <= 3; i++)
         try {
-        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/current/" + (i) + ".png"));
+        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/" + folder + "/" + (i) + ".png"));
         } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH " + (i+1));
         }
         for(int i = 4; i <= 5; i++)
         try {
-        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/current/a" + (i - 3) + ".png"));
+        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/" + folder + "/a" + (i - 3) + ".png"));
         } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH a" + (i+1));
         }
         for(int i = 6; i <= 9; i++)
         try {
-        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/current/w" + (i - 5) + ".png"));
+        this.images[i - 1] = ImageIO.read(getClass().getResource("/graphs/character/" + folder + "/w" + (i - 5) + ".png"));
         } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH w" + (i+1));
         }
         try {
-            this.images[CUSTSCREEN] = ImageIO.read(getClass().getResource("/graphs/character/current/custScreen.png"));
+            this.images[CUSTSCREEN] = ImageIO.read(getClass().getResource("/graphs/character/" + folder + "/custScreen.png"));
             } catch (Exception e) {
                 System.out.println("NO IMAGE FOR FILL PATH custScreen");
             }
         try {
-            this.images[LOBBY] = ImageIO.read(getClass().getResource("/graphs/character/current/lobby.png"));
+            this.images[LOBBY] = ImageIO.read(getClass().getResource("/graphs/character/" + folder + "/lobby.png"));
             } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH lobby");
             }
@@ -128,7 +127,7 @@ public class CharacterPanel extends FighterPanel{
     public void setImage(JPanel panel)//Used when a new panel is created (add manually to the panel constructor)
     {
         System.out.println("SETTING IMAGE FOR PANEL: "+ panel);
-        if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)//1500x1500
+        if(panel instanceof CustomizationScreen || panel instanceof CustomizationScreen)//1500x1500
         {
             System.out.println("SET THE CHAR IMAGE FOR CUST SCREEN");
             this.image = images[CUSTSCREEN];
@@ -150,7 +149,7 @@ public class CharacterPanel extends FighterPanel{
         if(User.getUser().itemsList.size() != 0)
         for(Item i : User.getUser().itemsList)
         {
-            if(panel instanceof CustomizationScreenOld || panel instanceof CustomizationScreen)i.setImage(CUSTSCREEN);
+            if(panel instanceof CustomizationScreen || panel instanceof CustomizationScreen)i.setImage(CUSTSCREEN);
             else if(panel instanceof LobbyScreen || panel instanceof StoreScreen)i.setImage(LOBBY);
             else if(panel instanceof FightScreen || panel instanceof StoryScreen)
             {
@@ -161,7 +160,7 @@ public class CharacterPanel extends FighterPanel{
     }
     public void moveAccordingToCurrentPhoto()
     {
-        if(this.currentPhoto == CUSTSCREEN) this.moveTo(500, -100);
+        if(this.currentPhoto == CUSTSCREEN) this.moveTo(25, -100);
         else if(this.currentPhoto == LOBBY) this.moveTo(-100, 325);
 
     }
@@ -170,5 +169,16 @@ public class CharacterPanel extends FighterPanel{
     {
         this.images = Coloring.createImagesByCommand(colors);
         this.fillPathsCharPanel(); 
+    }
+
+    public String getNextFolderName()
+    {
+        currentFolderOrder ++;
+        return "" + ((currentFolderOrder) % 5);
+    }
+    public String getPreviousFolderName()
+    {
+        currentFolderOrder --;
+        return "" + ((currentFolderOrder) % 5);
     }
 }

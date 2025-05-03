@@ -334,11 +334,6 @@ colorMap10.put(new Color(0xffb570).getRGB(), new Color(0xa895b3).getRGB());
     {
         return new Color[] {Color.decode("#FFB570"), Color.decode("#FF9166"), Color.decode("#000000"),  Color.decode("#3E2347"), Color.decode("#57294B"),  Color.decode("#8C3F5D"), Color.decode("#BA6156")};
     }
-    public static void fillOriginalCurrents()
-    {
-        createImages(new HashMap<>(), -1);
-        //createImagesByCommand(getOriginalColors());
-    }
 
     //HELPER
     public static Color darkenColor(Color color) {

@@ -92,6 +92,18 @@ public class FighterPanel extends JPanel{
     {
         this.image = image;
     }
+    public void setImage(int photoOrder)
+    {
+        this.currentPhoto = photoOrder;
+        this.image = images[currentPhoto];
+
+        if(this.person.itemsList.size() > 0)
+        for(Item item : this.person.itemsList)
+        {
+            item.setImage(currentPhoto);
+        }
+        this.repaint();
+    }
 
     public void fillPaths()
     {

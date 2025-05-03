@@ -7,11 +7,21 @@ import javax.swing.Timer;
 import C.*;
 import m.MainFrame;
 public class FightScreen extends JPanel{
+    //CONSTANTS
+    public static final int ATTACK1 = 3;
+    public static final int ATTACK2 = 4;
+    public static final int WALK1 = 5;
+    public static final int WALK2 = 6;
+    public static final int WALK3 = 7;
+    public static final int WALK4 = 8;
+    //END OF CONSTANTS
     public static final int NORMAL_ATTACK_HIT = 8;
     public static MainFrame theFrame;
     public static int wonAgainstEnemies = 0;
     public User theUser;
     public Fighter theFighter;
+    public FighterAnimation fightersAnimation;
+    public FighterAnimation usersAnimation;
 
     /* 
      * NOTES: This is an inner class to animate player movement in three modes: IDLE, MOVING, ATTACKING. Player mode is switched when fighter
@@ -26,27 +36,18 @@ public class FightScreen extends JPanel{
         private FighterState currentState = FighterState.IDLE;
         private int currentFrame = 0;
         private Timer animationTimer;
-        private JLabel fighterLabel; // The component displaying your fighter
+        private FighterPanel fighterPanel; // The component displaying your fighter
         
         // Animation frame arrays
-        private final ImageIcon[] breathingFrames = {
-            new ImageIcon("graphs/1.png"),
-            new ImageIcon("graphs/2.png"),
-            new ImageIcon("graphs/3.png")
+        private final int[] breathingFrames = { 1, 0, 1, 2
         };
-        private final ImageIcon[] movingFrames = {
-            new ImageIcon("graphs/w1.png"),
-            new ImageIcon("graphs/w2.png"),
-            new ImageIcon("graphs/w3.png"),
-            new ImageIcon("graphs/w4.png")
+        private final int[] movingFrames = { 1, WALK1, WALK2, WALK3, WALK4, WALK2
         };
-        private final ImageIcon[] attackingFrames = {
-            new ImageIcon("graphs/a1.png"),
-            new ImageIcon("graphs/a2.png")
+        private final int[] attackingFrames = {1,  ATTACK1, ATTACK2, ATTACK1
         };
         
-        public FighterAnimation(JLabel fighterLabel) {
-            this.fighterLabel = fighterLabel;
+        public FighterAnimation(FighterPanel fighterPanel) {
+            this.fighterPanel = fighterPanel;
             setupTimer();
         }
         
@@ -55,12 +56,16 @@ public class FightScreen extends JPanel{
                 switch(currentState) {
                     case IDLE:
                         animateBreathing();
+                        System.out.println("IDLE INITIATED");
                         break;
                     case MOVING:
                         animateMovement();
+                        System.out.println("MOVING INITIATED");
                         break;
                     case ATTACKING:
                         animateAttack();
+                        System.out.println("ATTACKING INITIATED");
+                        break;
                     default:
                         break;
                 }
@@ -70,26 +75,29 @@ public class FightScreen extends JPanel{
         
         private void animateBreathing() {
             currentFrame = (currentFrame + 1) % breathingFrames.length;
-            fighterLabel.setIcon(breathingFrames[currentFrame]);
+            System.out.println("FRAME CHANGED FOR IDLE");
+            fighterPanel.setImage(breathingFrames[currentFrame]);
         }
         
         private void animateMovement() {
             currentFrame = (currentFrame + 1) % movingFrames.length;
-            fighterLabel.setIcon(movingFrames[currentFrame]);
+            System.out.println("FRAME CHANGED FOR WALK");
+            fighterPanel.setImage(movingFrames[currentFrame]);
         }
 
         public void animateAttack() {
+            System.out.println("FRAME CHANGED FOR ATTACK");
             switch(currentFrame) {
                 case 0: // First frame (a1)
-                    fighterLabel.setIcon(attackingFrames[0]);
+                    fighterPanel.setImage(attackingFrames[0]);
                     currentFrame = 1;
                     break;
                 case 1: // Second frame (a2)
-                    fighterLabel.setIcon(attackingFrames[1]);
+                    fighterPanel.setImage(attackingFrames[1]);
                     currentFrame = 2;
                     break;
                 case 2: // Back to first frame (a1)
-                    fighterLabel.setIcon(attackingFrames[0]);
+                    fighterPanel.setImage(attackingFrames[0]);
                     setState(FighterState.IDLE); // Return to idle
                     break;
             }
@@ -126,6 +134,8 @@ public class FightScreen extends JPanel{
     {
         theUser = user;
         theFighter = fighter;
+        fightersAnimation = new FighterAnimation(theFighter.getFighterPanel());
+        usersAnimation = new FighterAnimation(User.getCharPanel());
         CharacterPanel.getCharPanel().setImage(this);
         CharacterPanel.getCharPanel().moveTo(0, 500);
         MainFrame.currentPanel = this;

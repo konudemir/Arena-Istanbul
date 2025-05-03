@@ -12,7 +12,6 @@ public class Main {
     public static User theUser;
     private static Font font;
     public static void main(String[] args) {
-        Coloring.fillOriginalCurrents();
         fillItemIcons();
         theUser = new User();
         MainFrame frame = new MainFrame();

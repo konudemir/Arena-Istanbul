@@ -172,7 +172,7 @@ public class CharacterPanel extends FighterPanel{
     }
 
     public String getNextFolderName()
-    {
+    {  
         currentFolderOrder ++;
         return "" + ((currentFolderOrder) % 5);
     }
@@ -180,5 +180,18 @@ public class CharacterPanel extends FighterPanel{
     {
         currentFolderOrder --;
         return "" + ((currentFolderOrder) % 5);
+    }
+
+    public void setImage(int photoOrder)
+    {
+        this.currentPhoto = photoOrder;
+        this.image = images[currentPhoto];
+
+        if(this.person.itemsList.size() > 0)
+        for(Item item : this.person.itemsList)
+        {
+            item.setImage(currentPhoto);
+        }
+        this.repaint();
     }
 }

@@ -8,15 +8,15 @@ public class User extends Person{
     private HealthBar healthBar;
     private int coins;
     protected StaminaBar staminaBar;
-    public User()
+    public User()  
     {
         theUser = this;
         this.coins = 0;
         this.buyItem(new Shield(0));
-        //this.buyItem(new Armor(0));
-        //this.buyItem(new Leggings(0));
+        this.buyItem(new Armor(0));
+        this.buyItem(new Leggings(0));
         this.buyItem(new Sword(0));
-        //this.buyItem(new Helmet(0));
+        this.buyItem(new Helmet(0));
         new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
         this.panel = this.charPanel;

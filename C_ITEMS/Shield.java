@@ -1,11 +1,7 @@
 package C_ITEMS;
 import C.*;
-import m.Main;
-import m.MainFrame;
 
-import java.awt.Color;
 import java.awt.Image;
-import java.io.File;
 import Coloring.*;
 
 import javax.swing.ImageIcon;

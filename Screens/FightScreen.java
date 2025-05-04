@@ -52,7 +52,7 @@ public class FightScreen extends JPanel{
         }
         
         private void setupTimer() {
-            animationTimer = new Timer(100, _ -> { // 100ms between frames, subject to change.
+            animationTimer = new Timer(150, _ -> { // 100ms between frames, subject to change.
                 switch(currentState) {
                     case IDLE:
                         animateBreathing();
@@ -128,11 +128,12 @@ public class FightScreen extends JPanel{
         public void stopAttacking() {
             setState(FighterState.IDLE);
         }
+
     }
 
     public FightScreen(User user, Fighter fighter)
     {
-        theUser = user;
+        theUser = user;  
         theFighter = fighter;
         fightersAnimation = new FighterAnimation(theFighter.getFighterPanel());
         usersAnimation = new FighterAnimation(User.getCharPanel());

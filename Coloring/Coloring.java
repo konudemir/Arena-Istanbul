@@ -2,7 +2,9 @@ package Coloring;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -14,21 +16,52 @@ import javax.imageio.ImageIO;
 
 public class Coloring {
     public static void main(String[] args) {
-        System.exit(0);
+        String[] itemTypes = {"armor", "helmet", "leggings", "shields", "swords"};
+        String baseInput = "graph/character/items/";
+        String baseOutput = "graph/character/itemsForOpponents/";
+
+        List<String> validNames = Arrays.asList(
+                "1.png", "2.png", "3.png", "a1.png", "a2.png",
+                "custScreen.png", "lobby.png", "w1.png", "w2.png", "w3.png", "w4.png"
+        );
+
+        for (String type : itemTypes) {
+            for (int i = 0; i <= 3; i++) {
+                File inputFolder = new File(baseInput + type + "/" + i);
+                File outputFolder = new File(baseOutput + type + "/" + i);
+
+                if (!inputFolder.exists()) continue;
+                outputFolder.mkdirs();
+
+                File[] imageFiles = inputFolder.listFiles((dir, name) -> validNames.contains(name));
+                if (imageFiles == null) continue;
+
+                for (File imgFile : imageFiles) {
+                    try {
+                        BufferedImage original = ImageIO.read(imgFile);
+                        BufferedImage flipped = flipImage(original);
+                        File outputFile = new File(outputFolder, imgFile.getName());
+                        ImageIO.write(flipped, "png", outputFile);
+                    } catch (Exception e) {
+                        System.out.println("Failed to process " + imgFile.getName() + ": " + e.getMessage());
+                    }
+                }
+            }
+        }
+
+        System.out.println("Flipping completed.");
+    }
+    /*
+    public static void main(String[] args) {
         @SuppressWarnings("unchecked")
         HashMap<Integer, Integer>[] colorMaps = (HashMap<Integer, Integer>[]) new HashMap[5];
         Color[] originalColors = getAllOriginalColors();
         for(int i = 0; i < 5; i++)
         {
-            colorMaps[i] = new HashMap<>();
+            
         }
-        colorMaps[0].put(originalColors[0].getRGB(), rgb("DB9960"));//FACE1
-        colorMaps[0].put(originalColors[1].getRGB(), rgb("DB7A57"));//FACE2
-        colorMaps[0].put(originalColors[2].getRGB(), rgb("000000"));//EYES
-        colorMaps[0].put(originalColors[3].getRGB(), rgb("007F46"));//BODY1
-        colorMaps[0].put(originalColors[4].getRGB(), rgb("009652"));//BODY2
-        colorMaps[0].put(originalColors[5].getRGB(), rgb("3E2347"));//PANTS1
-        colorMaps[0].put(originalColors[6].getRGB(), rgb("57294B"));//PANTS2
+        colorMaps[0].put(originalColors[0].getRGB(), rgb("DB9960"));
+        colorMaps[0].put(originalColors[1].getRGB(), rgb("DB7A57"));
 
         colorMaps[1].put(originalColors[0].getRGB(), rgb("FFB570"));//FACE1
         colorMaps[1].put(originalColors[1].getRGB(), rgb("FF9166"));//FACE2
@@ -66,6 +99,7 @@ public class Coloring {
             createImages(colorMaps[i], i);
         }
     }
+    */
     public static int rgb(String hex)
     {
         return Color.decode("#" + hex).getRGB();
@@ -252,6 +286,54 @@ colorMap10.put(new Color(0xffb570).getRGB(), new Color(0xa895b3).getRGB());
                 File directory = new File("Coloring/" + no);
                 if (!directory.exists())directory.mkdirs();
                 ImageIO.write(results[i], "png", new File("Coloring/" + no + "/" + names[i] + ".png"));
+                System.out.println("Image processed and saved as" + names[i] + ".png");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void createImagesForHelmet(Map<Integer, Integer> colorMap, int no)
+    {
+        try {
+            // Load the image
+            BufferedImage[] originals = new BufferedImage[AMOUNT];
+            BufferedImage[] results = new BufferedImage[AMOUNT];
+            int widths[] = new int[AMOUNT];
+            int heights[] = new int[AMOUNT];
+            for(int i = 0; i < AMOUNT; i++)
+            {
+                System.out.println("Reading " + i);
+                originals[i] = ImageIO.read(new File("graphs/character/items/helmet/0/" + names[i] + ".png"));
+                System.out.println("READ " + i);
+            }
+            
+            for(int i = 0; i < AMOUNT; i++)
+            {
+                widths[i] = originals[i].getWidth();
+                heights[i] = originals[i].getHeight();
+                results[i] = new BufferedImage(widths[i], heights[i], BufferedImage.TYPE_INT_ARGB);
+            }
+            
+            for(int i = 0; i < AMOUNT; i++)
+            {
+                // Loop through all pixels
+                for (int y = 0; y < heights[i]; y++) {
+                    for (int x = 0; x < widths[i]; x++) {
+                        int originalRGB = originals[i].getRGB(x, y);
+
+                        // Replace color if in map
+                        int newRGB = colorMap.getOrDefault(originalRGB, originalRGB);
+
+                        // Set the new RGB value
+                        results[i].setRGB(x, y, newRGB);
+                    }
+                }
+                File directory = new File("Coloring/items/helmet/" + no);
+                if (!directory.exists())directory.mkdirs();
+                File directory2 = new File("Coloring/itemsForOpponents/helmet/" + no);
+                if (!directory2.exists())directory2.mkdirs();
+                ImageIO.write(results[i], "png", new File("Coloring/items/helmet/" + no + "/" + names[i] + ".png"));
+                ImageIO.write(flipImage(results[i]), "png", new File("Coloring/itemsForOpponents/helmet/" + no + "/" + names[i] + ".png"));
                 System.out.println("Image processed and saved as" + names[i] + ".png");
             }
         } catch (Exception e) {

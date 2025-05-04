@@ -22,7 +22,6 @@ public class Sword extends Item{
     public Sword(int level,Person owner)
     {
         this.image = icons[level][0];
-        //this.setIcon(image);
         this.level = level;
         this.price = getPriceForLevel(level);
         this.offenseBoost = getAttackForLevel(level);
@@ -93,18 +92,9 @@ public class Sword extends Item{
     }
     public void setImage(int i)
     {
-        if(this.owner instanceof Fighter)
-        {
-            this.image = iconsForOpponents[this.level][i];
-            System.out.println("set sword for opponent!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        }
-        else if(this.owner instanceof User)
-        {
-            this.image = icons[this.level][i]; 
-            System.out.print("owner is user");
-        }
-        else System.out.print("owner is null!!!!!!!!!!!!!!!!!!!!this.image = icons[this.level][i];this.image = icons[this.level][i];");
-        System.out.println("Shield set image to " + i + " image: " + this.image);
+        if(this.owner instanceof Fighter)this.image = iconsForOpponents[this.level][i];
+        else this.image = icons[this.level][i];
+        System.out.println("Sword set image to " + i + " image: " + this.image);
     }
 
     public int getLevel() {

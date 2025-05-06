@@ -96,7 +96,7 @@ public class Armor extends Item{
     {
         if(this.owner instanceof Fighter)this.image = iconsForOpponents[this.level][i];
         else this.image = icons[this.level][i];
-        System.out.println("Shield set image to " + i + " image: " + this.image);
+        //System.out.println("Shield set image to " + i + " image: " + this.image);
     }
 
     public int getLevel() {

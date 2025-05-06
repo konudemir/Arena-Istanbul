@@ -4,9 +4,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import B.FightButton;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import C.*;
 import m.MainFrame;
 public class FightScreen extends JPanel{
+    public static boolean usersTurn = true;
+    public static FightScreen theFightScreen;
     //CONSTANTS
     public static final int ATTACK1 = 3;
     public static final int ATTACK2 = 4;
@@ -14,14 +21,17 @@ public class FightScreen extends JPanel{
     public static final int WALK2 = 6;
     public static final int WALK3 = 7;
     public static final int WALK4 = 8;
-    //END OF CONSTANTS
     public static final int NORMAL_ATTACK_HIT = 8;
+    public static final int FRAME_LENGTH = 150;
+    //END OF CONSTANTS
     public static MainFrame theFrame;
     public static int wonAgainstEnemies = 0;
     public User theUser;
     public Fighter theFighter;
     public FighterAnimation fightersAnimation;
     public FighterAnimation usersAnimation;
+
+    
 
     /* 
      * NOTES: This is an inner class to animate player movement in three modes: IDLE, MOVING, ATTACKING. Player mode is switched when fighter
@@ -30,7 +40,7 @@ public class FightScreen extends JPanel{
      * with images as arguments. This class uses javax.swing.Timer which starts running after the class' instance is created and doesn't stop.
      * Instead of adding the fighter directly into this frame, it is necessary to create a correspondent FighterAnimation instance.
      */
-    class FighterAnimation {
+    public class FighterAnimation {
         private enum FighterState { IDLE, /* Breathing animation */ MOVING, /* Movement animation */ ATTACKING /* For future expansion */ }
         
         private FighterState currentState = FighterState.IDLE;
@@ -52,19 +62,19 @@ public class FightScreen extends JPanel{
         }
         
         private void setupTimer() {
-            animationTimer = new Timer(150, _ -> { // 100ms between frames, subject to change.
+            animationTimer = new Timer(FRAME_LENGTH, _ -> { // 100ms between frames, subject to change.
                 switch(currentState) {
                     case IDLE:
                         animateBreathing();
-                        System.out.println("IDLE INITIATED");
+                        //System.out.println("IDLE INITIATED");
                         break;
                     case MOVING:
                         animateMovement();
-                        System.out.println("MOVING INITIATED");
+                        //System.out.println("MOVING INITIATED");
                         break;
                     case ATTACKING:
                         animateAttack();
-                        System.out.println("ATTACKING INITIATED");
+                        //System.out.println("ATTACKING INITIATED");
                         break;
                     default:
                         break;
@@ -75,18 +85,18 @@ public class FightScreen extends JPanel{
         
         private void animateBreathing() {
             currentFrame = (currentFrame + 1) % breathingFrames.length;
-            System.out.println("FRAME CHANGED FOR IDLE");
+            //System.out.println("FRAME CHANGED FOR IDLE");
             fighterPanel.setImage(breathingFrames[currentFrame]);
         }
         
         private void animateMovement() {
             currentFrame = (currentFrame + 1) % movingFrames.length;
-            System.out.println("FRAME CHANGED FOR WALK");
+            //System.out.println("FRAME CHANGED FOR WALK");
             fighterPanel.setImage(movingFrames[currentFrame]);
         }
 
         public void animateAttack() {
-            System.out.println("FRAME CHANGED FOR ATTACK");
+            //System.out.println("FRAME CHANGED FOR ATTACK");
             switch(currentFrame) {
                 case 0: // First frame (a1)
                     fighterPanel.setImage(attackingFrames[0]);
@@ -133,8 +143,12 @@ public class FightScreen extends JPanel{
 
     public FightScreen(User user, Fighter fighter)
     {
+        theFightScreen = this;
+        FightButton.theFightScreen = this;
         theUser = user;  
         theFighter = fighter;
+        user.changeHealth(100);
+        fighter.changeHealth(100);
         fightersAnimation = new FighterAnimation(theFighter.getFighterPanel());
         usersAnimation = new FighterAnimation(User.getCharPanel());
         CharacterPanel.getCharPanel().setImage(this);
@@ -156,36 +170,15 @@ public class FightScreen extends JPanel{
         theFrame.add(user.getStaminaBar());
         this.add(fighter.getFighterPanel());
         
-        //fighter.resizeComp(300, 132);
         fighter.moveTo(1100, 500);
         theFrame.add(fighter.getHealthBar());
         theFrame.add(fighter.getStaminaBar());
-
-        JLabel moveForward = new JLabel();
-        moveForward.setIcon(new ImageIcon("graphs/fight/moveForward.png"));
-        moveForward.setBounds(460 - (200), 420+ 108, 200, 200);
-        this.add(moveForward);
-        JLabel moveBackwards = new JLabel();
-        moveBackwards.setIcon(new ImageIcon("graphs/fight/moveBackwards.png"));
-        moveBackwards.setBounds(380 - (200), 510+ 108, 200, 200);
-        this.add(moveBackwards);
-        JLabel attack = new JLabel();
-        attack.setIcon(new ImageIcon("graphs/fight/attack.png"));
-        attack.setBounds(585 - (200), 420+ 108, 200, 200);
-        this.add(attack);
-        JLabel sleep = new JLabel();
-        sleep.setIcon(new ImageIcon("graphs/fight/sleep.png"));
-        sleep.setBounds(660 - (200), 510+ 108, 200, 200);
-        this.add(sleep);
-        JLabel usePet = new JLabel();
-        usePet.setIcon(new ImageIcon("graphs/fight/usePet.png"));
-        usePet.setBounds(660 - (200), 630+ 108, 200, 200);
-        this.add(usePet);
 
         this.add(backgroundLabel);
         theFrame.add(this);
         theFrame.repaint();
     }
+    
     public FightScreen()
     {
         //This is the side dual fight which calls the fight after deciding a random opponent
@@ -194,5 +187,80 @@ public class FightScreen extends JPanel{
     public void rp()
     {
         this.repaint();
+    }
+
+    //Buttons' results
+    public void attack(Person person)
+    {
+        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.ATTACKING;
+        person.lowerStamina(20);
+        if(person instanceof User)
+        {
+            User.getCharPanel().attack();
+        }
+        else
+        {
+            Fighter fighter = (Fighter)person;
+            fighter.getFighterPanel().attack();
+        }
+    }
+    public void moveForward(Person person)
+    {
+        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
+        person.lowerStamina(10);
+        if(person instanceof User)
+        {
+            User.getCharPanel().moveForward();
+            User.getCharPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+        }
+        else
+        {
+            Fighter fighter = (Fighter)person;
+            fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+        }
+    }
+    public void moveBackwards(Person person)
+    {
+        person.lowerStamina(10);
+        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
+        if(person instanceof User)
+        {
+            User.getCharPanel().moveBackwards();
+            User.getCharPanel().moveBy(-80, 0, 5 * FRAME_LENGTH);
+        }
+        else
+        {
+            Fighter fighter = (Fighter)person;
+            fighter.getFighterPanel().moveBackwards();
+            fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+        }
+    }
+    public void sleep(Person person)
+    {
+        person.increaseStamina(20);
+        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
+    }
+    public void usePet(Person person)
+    {
+        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
+        if(person instanceof User)
+        {
+            User.getCharPanel().usePet();
+        }
+        else
+        {
+            Fighter fighter = (Fighter)person;
+            fighter.getFighterPanel().usePet();
+        }
+    }
+    public void setFightersAnimationToIdle()
+    {
+        this.fightersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
+        //System.out.println("FIGHTER SET TO IDLE BECAUSE OF THE END OF AN ANIMATION");
+    }
+    public void setUsersAnimationToIdle()
+    {
+        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
+        //System.out.println("USER SET TO IDLE BECAUSE OF THE END OF AN ANIMATION");
     }
 }

@@ -44,10 +44,10 @@ public class HealthBar extends JLabel{
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor((person instanceof Fighter) ? new Color(0x1355A9) : new Color(0xE37D3D));
-        g.fillRect(positionsXY[0] + 95, positionsXY[1] + 55, (int)(person.getHealth() * 4.38), 33);
+        g.fillRect(positionsXY[0] + 95, positionsXY[1] + 55, (int)(person.health * 4.38), 33);
         g.setColor(Color.white);
         g.setFont(new Font("Impact", Font.PLAIN, 30));
-        g.drawString("HEALTH", positionsXY[0] + 95 + 25, positionsXY[1] + 55 + 28);
+        g.drawString("HEALTH " + this.person.health, positionsXY[0] + 95 + 25, positionsXY[1] + 55 + 28);
         g.drawImage(this.bar, positionsXY[0], positionsXY[1], null);
     }
 }

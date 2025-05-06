@@ -44,10 +44,14 @@ public class StaminaBar extends JLabel{
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor((person instanceof Fighter) ? new Color(0x1355A9) : new Color(0xE37D3D));
-        g.fillRect(positionsXY[0] + 62, positionsXY[1] + 35, (int)(person.getStamina() * 2.78), 21);
+        g.fillRect(positionsXY[0] + 62, positionsXY[1] + 35, (int)(person.stamina * 2.78), 21);
         g.setColor(Color.white);
         g.setFont(new Font("Impact", Font.PLAIN, 20));
-        g.drawString("STAMINA", positionsXY[0] + 95 - 20, positionsXY[1] + 55 - 3);
+        g.drawString("STAMINA " + this.person.stamina, positionsXY[0] + 95 - 20, positionsXY[1] + 55 - 3);
         g.drawImage(this.bar, positionsXY[0], positionsXY[1], null);
+    }
+    public void repaintIt()
+    {
+        this.repaint();
     }
 }

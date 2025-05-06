@@ -2,7 +2,10 @@ package C;
 
 import java.util.Random;
 
+import javax.swing.Timer;
+
 import C_ITEMS.*;
+import Screens.FightScreen;
 
 public class Fighter extends Person{
     public static final int AMOUNT_OF_FIGHTERS = 10;
@@ -25,6 +28,26 @@ public class Fighter extends Person{
         if(random.nextBoolean())this.itemsList.add(new Armor(random.nextInt(4)));
         this.itemsList.add(new Sword(random.nextInt(4)));
         this.staminaBar = new StaminaBar(this);
+    }
+    public void fightersTurn()
+    {
+        //wait for a sec
+        System.out.println("WAITING FOR A SEC");
+        Timer timer = new Timer(1000, _ -> {
+            // Code to run after 1 second
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+    public void whatShouldItDo()
+    {
+        //IMPORTANT ToDo : 
+        //WRITE WHAT SHOULD THE AI DO
+        System.out.println("IT IS AI'S TURN");
+
+
+        //At the end make sure to give the turn to the user
+        FightScreen.usersTurn = true;
     }
     
     public FighterPanel getFighterPanel()

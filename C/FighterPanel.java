@@ -8,10 +8,13 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import java.awt.Color;
 
 import C_ITEMS.Item;
 import Screens.*;
+import Screens.FightScreen.FighterAnimation;
 
 public class FighterPanel extends JPanel{
     private final int characterNo;
@@ -74,6 +77,27 @@ public class FighterPanel extends JPanel{
     public void moveTo(int x, int y)
     {
         this.setBounds(x, y, this.image.getWidth(null), this.image.getHeight(null));
+    }
+    public void moveBy(int x, int y, int time) {
+        int steps = 5;
+        int delay = time / steps;
+        int deltaX = ((this.getX() >= 1500 && x > 0) || (this.getX() == 826 && x < 0) ? 0 : x / steps);
+        int deltaY = ((this.getX() >= 1500 && x > 0) || (this.getX() == 826 && x < 0) ? 0 : y / steps);
+    
+        Timer moveTimer = new Timer(delay, null);
+        final int[] counter = {0};
+    
+        moveTimer.addActionListener(_ -> {
+            if (counter[0]++ >= steps) {
+                moveTimer.stop();
+                FightScreen.theFightScreen.setFightersAnimationToIdle();
+                return;
+            }
+            this.setBounds(this.getX() + deltaX, this.getY() + deltaY,
+                           this.image.getWidth(null), this.image.getHeight(null));
+        });
+    
+        moveTimer.start();
     }
     public void moveBy(int x, int y)
     {
@@ -162,5 +186,29 @@ public class FighterPanel extends JPanel{
         if(this.currentPhoto == CharacterPanel.CUSTSCREEN) this.moveTo(500, -100);
         else if(this.currentPhoto == CharacterPanel.LOBBY) this.moveTo(-100, 325);
 
+    }
+
+    //EMPTY
+    public void attack()
+    {
+        
+        FightScreen.theFightScreen.theUser.didItGetHit(this.person.getAttackPower());
+        System.out.println("attacked");
+    }
+    public void moveForward()
+    {
+        
+    }
+    public void moveBackwards()
+    {
+        
+    }
+    public void sleep()
+    {
+        
+    }
+    public void usePet()
+    {
+        
     }
 }

@@ -107,10 +107,7 @@ public class LobbyScreen extends JPanel{
                     if (alpha > 0) {
                         // Mouse is over a visible part of the image
                         store.setIcon(new ImageIcon("graphs/lobbyStoreEntered.png"));
-                        System.out.println("VISIBLE");
                     }
-                    else 
-                    System.out.println("NON-VISIBLE");
                 }
             }
             @Override

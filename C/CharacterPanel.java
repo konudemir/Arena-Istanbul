@@ -3,16 +3,22 @@ package C;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import C_ITEMS.Item;
 import C_ITEMS.Shield;
 import Coloring.Coloring;
 import Screens.*;
+import javax.swing.Timer;
+
+import B.FightButton;
+
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.awt.event.ActionEvent;
 
 public class CharacterPanel extends FighterPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;
@@ -24,6 +30,13 @@ public class CharacterPanel extends FighterPanel{
     private int currentPhoto = 1; //0-9
     public static final int CUSTSCREEN = 10;
     public static final int LOBBY = 9;
+
+    //Buttons
+    public JLabel moveForward;
+    public JLabel moveBackwards;
+    public JLabel attack;
+    public JLabel sleep;
+    public JLabel usePet;
 
     public CharacterPanel(Person person)
     {
@@ -64,9 +77,55 @@ public class CharacterPanel extends FighterPanel{
     {
         this.setBounds(x, y, this.image.getWidth(null), this.image.getHeight(null));
     }
+    public void moveBy(int x, int y, int time) {
+        int steps = 5;
+        int delay = time / steps;
+        int deltaX = ((this.getX() >= 400 && x > 0) || (this.getX() == 0 && x < 0) ? 0 : x / steps);
+        int deltaY = ((this.getX() >= 400 && x > 0) || (this.getX() == 0 && x < 0) ? 0 : y / steps);
+    
+        Timer moveTimer = new Timer(delay, null);
+        final int[] counter = {0};
+    
+        moveTimer.addActionListener(_ -> {
+            if (counter[0]++ >= steps) {
+                moveTimer.stop();
+                FightScreen.theFightScreen.setUsersAnimationToIdle();
+                return;
+            }
+            this.setBounds(this.getX() + deltaX, this.getY() + deltaY,
+                           this.image.getWidth(null), this.image.getHeight(null));
+        });
+    
+        moveTimer.start();
+    }
     public void moveBy(int x, int y)
     {
         this.setBounds(this.getX() + x, this.getY() + y, this.image.getWidth(null), this.image.getHeight(null));
+    }
+    public void addTheButtons()
+    {
+        moveForward = new FightButton("moveForward", 260, 528);
+        this.add(moveForward);
+
+        moveBackwards = new FightButton("moveBackwards", 180, 618);
+        this.add(moveBackwards);
+
+        attack = new FightButton("attack", 385, 528);
+        this.add(attack);
+
+        sleep = new FightButton("sleep", 460, 618);
+        this.add(sleep);
+
+        usePet = new FightButton("usePet", 460, 738);
+        this.add(usePet);
+    }
+    public void removeTheButtons()
+    {
+        if(moveForward != null && Arrays.asList(this.getComponents()).contains(moveForward))this.remove(moveForward);
+        if(moveBackwards != null && Arrays.asList(this.getComponents()).contains(moveBackwards))this.remove(moveBackwards);
+        if(attack != null && Arrays.asList(this.getComponents()).contains(attack))this.remove(attack);
+        if(sleep != null && Arrays.asList(this.getComponents()).contains(sleep))this.remove(sleep);
+        if(usePet != null && Arrays.asList(this.getComponents()).contains(usePet))this.remove(usePet);
     }
     public void setSize(int width, int height)
     {
@@ -129,18 +188,28 @@ public class CharacterPanel extends FighterPanel{
         System.out.println("SETTING IMAGE FOR PANEL: "+ panel);
         if(panel instanceof CustomizationScreen || panel instanceof CustomizationScreen)//1500x1500
         {
+            this.removeTheButtons();
             System.out.println("SET THE CHAR IMAGE FOR CUST SCREEN");
             this.image = images[CUSTSCREEN];
             currentPhoto = CUSTSCREEN;
         } 
         else if(panel instanceof LobbyScreen || panel instanceof StoreScreen) {//1000x1000
+            this.removeTheButtons();
             System.out.println("SET THE CHAR IMAGE FOR LOBBY / STORE");
             this.image = images[LOBBY];
             currentPhoto = LOBBY;
         } 
-        else if(panel instanceof FightScreen || panel instanceof StoryScreen)//700x700
+        else if(panel instanceof FightScreen)//700x700
         {
-            System.out.println("SET THE CHAR IMAGE FOR FIGHT / STORY");
+            this.addTheButtons();
+            System.out.println("SET THE CHAR IMAGE FOR FIGHT");
+            this.image = images[1];
+            currentPhoto = 1;
+        }
+        else if(panel instanceof StoryScreen)//700x700
+        {
+            this.removeTheButtons();
+            System.out.println("SET THE CHAR IMAGE FOR STORY");
             this.image = images[1];
             currentPhoto = 1;
         }
@@ -193,5 +262,28 @@ public class CharacterPanel extends FighterPanel{
             item.setImage(currentPhoto);
         }
         this.repaint();
+    }
+
+    //EMPTY
+    public void attack()
+    {
+        FightScreen.theFightScreen.theFighter.didItGetHit(this.person.getAttackPower());
+        System.out.println("attacked");
+    }
+    public void moveForward()
+    {
+        
+    }
+    public void moveBackwards()
+    {
+        
+    }
+    public void sleep()
+    {
+        
+    }
+    public void usePet()
+    {
+        
     }
 }

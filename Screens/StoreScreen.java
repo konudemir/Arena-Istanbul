@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import C_ITEMS.*;
 import m.Main;
 import m.MainFrame;
 
@@ -74,10 +76,10 @@ public class StoreScreen extends JPanel {
         clearButtons();
 
         // Sword items
-        createButton("Wooden Sword - 100 coins", 100, 150, _ -> purchaseItem(100));
-        createButton("Iron Sword - 250 coins", 100, 300, _ -> purchaseItem(250));
-        createButton("Gold Sword - 500 coins", 100, 450, _ -> purchaseItem(500));
-        createButton("Diamond Sword - 1000 coins", 100, 600, _ -> purchaseItem(1000));
+        createButton("Wooden Sword - 100 coins", 100, 150, _ -> purchaseItem(new Sword(1)));
+        createButton("Iron Sword - 250 coins", 100, 300, _ -> purchaseItem(new Sword(2)));
+        createButton("Gold Sword - 500 coins", 100, 450, _ -> purchaseItem(new Sword(3)));
+        createButton("Diamond Sword - 1000 coins", 100, 600, _ -> purchaseItem(new Sword(4)));
 
         // Back button
         createButton("Back", 100, 750, _ -> createCategoryButtons());
@@ -88,10 +90,10 @@ public class StoreScreen extends JPanel {
         clearButtons();
 
         // Shield items
-        createButton("Wooden Shield - 80 coins", 100, 150, _ -> purchaseItem(80));
-        createButton("Iron Shield - 200 coins", 100, 300, _ -> purchaseItem(200));
-        createButton("Gold Shield - 450 coins", 100, 450, _ -> purchaseItem(450));
-        createButton("Diamond Shield - 900 coins", 100, 600, _ -> purchaseItem(900));
+        createButton("Wooden Shield - 80 coins", 100, 150, _ -> purchaseItem(new Shield(1)));
+        createButton("Iron Shield - 200 coins", 100, 300, _ -> purchaseItem(new Shield(2)));
+        createButton("Gold Shield - 450 coins", 100, 450, _ -> purchaseItem(new Shield(3)));
+        createButton("Diamond Shield - 900 coins", 100, 600, _ -> purchaseItem(new Shield(4)));
 
         // Back button
         createButton("Back", 100, 750, _ -> createCategoryButtons());
@@ -101,10 +103,10 @@ public class StoreScreen extends JPanel {
         clearButtons();
 
         // Helmet items
-        createButton("Leather Helmet - 50 coins", 100, 150, _ -> purchaseItem(50));
-        createButton("Iron Helmet - 150 coins", 100, 300, _ -> purchaseItem(150));
-        createButton("Gold Helmet - 400 coins", 100, 450, _ -> purchaseItem(400));
-        createButton("Diamond Helmet - 800 coins", 100, 600, _ -> purchaseItem(800));
+        createButton("Leather Helmet - 50 coins", 100, 150, _ -> purchaseItem(new Helmet(1)));
+        createButton("Iron Helmet - 150 coins", 100, 300, _ -> purchaseItem(new Helmet(2)));
+        createButton("Gold Helmet - 400 coins", 100, 450, _ -> purchaseItem(new Helmet(3)));
+        createButton("Diamond Helmet - 800 coins", 100, 600, _ -> purchaseItem(new Helmet(4)));
 
         // Back button
         createButton("Back", 100, 750, _ -> createCategoryButtons());
@@ -114,10 +116,10 @@ public class StoreScreen extends JPanel {
         clearButtons();
 
         // Legging items
-        createButton("Leather Leggings - 80 coins", 100, 150, _ -> purchaseItem(80));
-        createButton("Iron Leggings - 200 coins", 100, 300, _ -> purchaseItem(200));
-        createButton("Gold Leggings - 500 coins", 100, 450, _ -> purchaseItem(500));
-        createButton("Diamond Leggings - 1000 coins", 100, 600, _ -> purchaseItem(1000));
+        createButton("Leather Leggings - 80 coins", 100, 150, _ -> purchaseItem(new Leggings(1)));
+        createButton("Iron Leggings - 200 coins", 100, 300, _ -> purchaseItem(new Leggings(2)));
+        createButton("Gold Leggings - 500 coins", 100, 450, _ -> purchaseItem(new Leggings(3)));
+        createButton("Diamond Leggings - 1000 coins", 100, 600, _ -> purchaseItem(new Leggings(4)));
 
         // Back button
         createButton("Back", 100, 750, _ -> createCategoryButtons());
@@ -127,10 +129,10 @@ public class StoreScreen extends JPanel {
         clearButtons();
 
         // Armory items
-        createButton("Wooden Armor - 120 coins", 100, 150, _ -> purchaseItem(120));
-        createButton("Iron Armor - 300 coins", 100, 300, _ -> purchaseItem(300));
-        createButton("Gold Armor - 600 coins", 100, 450, _ -> purchaseItem(600));
-        createButton("Diamond Armor - 1200 coins", 100, 600, _ -> purchaseItem(1200));
+        createButton("Wooden Armor - 120 coins", 100, 150, _ -> purchaseItem(new Armor(1)));
+        createButton("Iron Armor - 300 coins", 100, 300, _ -> purchaseItem(new Armor(2)));
+        createButton("Gold Armor - 600 coins", 100, 450, _ -> purchaseItem(new Armor(3)));
+        createButton("Diamond Armor - 1200 coins", 100, 600, _ -> purchaseItem(new Armor(4)));
 
         // Back button
         createButton("Back", 100, 750, _ -> createCategoryButtons());
@@ -159,26 +161,20 @@ public class StoreScreen extends JPanel {
         repaint();
     }
 
-    private void purchaseItem(int cost) {
-        if (Main.theUser.getCoins() >= cost) {
-            //Main.theUser.subtractCoins(cost);
+    private void purchaseItem(Item item) {
+        if (Main.theUser.getCoins() >= item.getPrice()) {
+            item.setOwner(Main.theUser);
+            Main.theUser.buyItem(item); // Handles coin deduction and inventory
             coinSpace.setText("" + Main.theUser.getCoins());
-            // Here you would add the item to the user's inventory
-            System.out.println("Item purchased for " + cost + " coins");
+            System.out.println(item.getName() + " purchased for " + item.getPrice() + " coins");
         } else {
             System.out.println("Not enough coins!");
         }
     }
 
+
     private void returnToLobby() {
         new LobbyScreen();
     }
-    private JButton createBackButton() {
-        JButton button = new JButton(BACK_BUTTON_IMAGE);
-        button.setBounds(1500, 850, 200, 100);
-        button.setBorderPainted(false);
-        button.setContentAreaFilled(false);
-        button.setFocusPainted(false);
-        return button;
-    }
+
 }

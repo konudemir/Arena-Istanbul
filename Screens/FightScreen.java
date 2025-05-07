@@ -212,11 +212,13 @@ public class FightScreen extends JPanel{
         {
             User.getCharPanel().moveForward();
             User.getCharPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+            FightScreen.usersTurn = false;
         }
         else
         {
             Fighter fighter = (Fighter)person;
             fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+            FightScreen.usersTurn = true;
         }
     }
     public void moveBackwards(Person person)
@@ -227,18 +229,27 @@ public class FightScreen extends JPanel{
         {
             User.getCharPanel().moveBackwards();
             User.getCharPanel().moveBy(-80, 0, 5 * FRAME_LENGTH);
+            FightScreen.usersTurn = false;
         }
         else
         {
             Fighter fighter = (Fighter)person;
             fighter.getFighterPanel().moveBackwards();
             fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+            FightScreen.usersTurn = true;
         }
     }
     public void sleep(Person person)
     {
         person.increaseStamina(20);
-        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
+        if(person instanceof User)
+        {
+            this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
+            FightScreen.usersTurn = false;
+            return;
+        }
+        this.fightersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
+        FightScreen.usersTurn = true;
     }
     public void usePet(Person person)
     {
@@ -246,12 +257,9 @@ public class FightScreen extends JPanel{
         if(person instanceof User)
         {
             User.getCharPanel().usePet();
+            FightScreen.usersTurn = false;
         }
-        else
-        {
-            Fighter fighter = (Fighter)person;
-            fighter.getFighterPanel().usePet();
-        }
+        //Fighters dont have pets
     }
     public void setFightersAnimationToIdle()
     {

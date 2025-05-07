@@ -267,6 +267,8 @@ public class CharacterPanel extends FighterPanel{
     //EMPTY
     public void attack()
     {
+        if(this.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750);//it is close enough
+        else return;
         FightScreen.theFightScreen.theFighter.didItGetHit(this.person.getAttackPower());
         System.out.println("attacked");
     }

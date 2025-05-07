@@ -191,24 +191,21 @@ public class FighterPanel extends JPanel{
     //EMPTY
     public void attack()
     {
-        
+        if(this.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750);//it is close enough
+        else return;
         FightScreen.theFightScreen.theUser.didItGetHit(this.person.getAttackPower());
         System.out.println("attacked");
     }
     public void moveForward()
     {
-        
+        FightScreen.theFightScreen.moveForward(FightScreen.theFightScreen.theFighter);
     }
     public void moveBackwards()
     {
-        
+        FightScreen.theFightScreen.moveBackwards(FightScreen.theFightScreen.theFighter);
     }
     public void sleep()
     {
-        
-    }
-    public void usePet()
-    {
-        
+        FightScreen.theFightScreen.sleep(FightScreen.theFightScreen.theFighter);
     }
 }

@@ -34,7 +34,7 @@ public class Fighter extends Person{
         //wait for a sec
         System.out.println("WAITING FOR A SEC");
         Timer timer = new Timer(1000, _ -> {
-            // Code to run after 1 second
+            this.whatShouldItDo();
         });
         timer.setRepeats(false);
         timer.start();
@@ -44,8 +44,6 @@ public class Fighter extends Person{
         //IMPORTANT ToDo : 
         //WRITE WHAT SHOULD THE AI DO
         System.out.println("IT IS AI'S TURN");
-
-
         //At the end make sure to give the turn to the user
         FightScreen.usersTurn = true;
     }
@@ -66,4 +64,17 @@ public class Fighter extends Person{
     {
         return this.healthBar;
     }
+
+    public boolean isAtLeftEdge()
+    {
+        if(this.fighterPanel.getX() == 700)return true;
+        return false;
+    }
+    public boolean isAtRightEdge()
+    {
+        if(this.fighterPanel.getX() == 1100)return true;
+        return false;
+    }
+
+    
 }

@@ -217,7 +217,7 @@ public class FightScreen extends JPanel{
         else
         {
             Fighter fighter = (Fighter)person;
-            fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+            fighter.getFighterPanel().moveBy(-80, 0, 5 * FRAME_LENGTH);
             FightScreen.usersTurn = true;
         }
     }

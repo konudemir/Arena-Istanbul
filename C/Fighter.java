@@ -47,7 +47,7 @@ public class Fighter extends Person{
         //At the end make sure to give the turn to the user
         FightScreen.usersTurn = true;
     }
-    
+        
     public FighterPanel getFighterPanel()
     {
         return this.fighterPanel;
@@ -75,6 +75,4 @@ public class Fighter extends Person{
         if(this.fighterPanel.getX() == 1100)return true;
         return false;
     }
-
-    
 }

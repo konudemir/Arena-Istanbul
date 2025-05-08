@@ -172,7 +172,6 @@ public class StoreScreen extends JPanel {
         }
     }
 
-
     private void returnToLobby() {
         new LobbyScreen();
     }

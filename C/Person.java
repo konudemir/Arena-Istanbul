@@ -35,6 +35,7 @@ public class Person {
         if(totalDefensePower > 1) totalDefensePower = 1.0;
         //Decide if it got hit (randomness 2)
         double randomDouble = random.nextDouble(1.0);
+        //TODO substract defense
         if(randomDouble <= totalDefensePower)
         {
             this.changeHealth((int)(- attackPower * HIT_COEFFICIENT));

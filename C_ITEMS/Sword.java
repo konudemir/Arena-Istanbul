@@ -30,17 +30,17 @@ public class Sword extends Item{
     }
     public static int getPriceForLevel(int level)
     {
-        //ToDo fill out the prices for each level
+        // TODO fill out the prices for each level
         return 0;
     }
     public static double getAttackForLevel(int level)
     {
-        //ToDo fill out for each level
+        //TODO fill out for each level
         return 0;
     }
     public static double getDefenceForLevel(int level)
     {
-        //ToDo fill out for each level
+        //TODO fill out for each level
         return 0;
     }
     public void setOwner(Person owner) {

@@ -188,11 +188,12 @@ public class FighterPanel extends JPanel{
 
     }
 
-    //EMPTY
+    // TODO: ? EMPTY
     public void attack()
     {
-        if(this.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750);//it is close enough
-        else return;
+        // E: Don't think these should be in here. You can find them in fighter whatShouldItDo().
+        // if(this.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750);//it is close enough
+        // else return;
         FightScreen.theFightScreen.theUser.didItGetHit(this.person.getAttackPower());
         System.out.println("attacked");
     }

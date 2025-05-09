@@ -85,7 +85,6 @@ public class StoreScreen extends JPanel {
         createButton("Back", 100, 750, _ -> createCategoryButtons());
     }
 
-
     private void showShields() {
         clearButtons();
 
@@ -175,5 +174,4 @@ public class StoreScreen extends JPanel {
     private void returnToLobby() {
         new LobbyScreen();
     }
-
 }

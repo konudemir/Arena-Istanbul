@@ -321,8 +321,10 @@ public class FightScreen extends JPanel {
     public void checkGameOver() {
         if (theUser.getHealth() <= 0) {
             showEndGamePanel("You Lose!");
+            //TODO lose money
         } else if (theFighter.getHealth() <= 0) {
             showEndGamePanel("You Win!");
+            //TODO add money
         }
     }
         public void showEndGamePanel(String message) {

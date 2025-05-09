@@ -1,17 +1,18 @@
 package Screens;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 import B.FightButton;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import C.*;
 import m.MainFrame;
-public class FightScreen extends JPanel{
+
+
+public class FightScreen extends JPanel {
     public static boolean usersTurn = true;
     public static FightScreen theFightScreen;
     //CONSTANTS
@@ -143,9 +144,10 @@ public class FightScreen extends JPanel{
 
     public FightScreen(User user, Fighter fighter)
     {
+
         theFightScreen = this;
         FightButton.theFightScreen = this;
-        theUser = user;  
+        theUser = user;
         theFighter = fighter;
         user.changeHealth(100);
         fighter.changeHealth(100);
@@ -160,16 +162,16 @@ public class FightScreen extends JPanel{
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundIcon);
         backgroundLabel.setBounds(0, 0, 1920, 1080);
-        
+
         this.setBounds(0, 0, 1920, 1080);
-        
+
         //Remove the previous JPanel if existant
         theFrame.removePrevPanelsAndLabels();
         this.add(CharacterPanel.getCharPanel());
         theFrame.add(user.getHealthBar());
         theFrame.add(user.getStaminaBar());
         this.add(fighter.getFighterPanel());
-        
+
         fighter.moveTo(1100, 500);
         theFrame.add(fighter.getHealthBar());
         theFrame.add(fighter.getStaminaBar());
@@ -177,8 +179,43 @@ public class FightScreen extends JPanel{
         this.add(backgroundLabel);
         theFrame.add(this);
         theFrame.repaint();
+        // grab your real frame and size
+        theFrame = MainFrame.theFrame;
+        Dimension dim = theFrame.getContentPane().getSize();
+
+        // Existing fight setup...
+        this.setLayout(null);
+        this.setBounds(0, 0, dim.width, dim.height);
+        // add background, fighters, HUD, etc.
+
+        // 1) Create & size the EscapeScreen overlay
+        EscapeScreen esc = new EscapeScreen(dim.width, dim.height);
+        esc.setBounds(0, 0, dim.width, dim.height);
+
+        // Resume button action (redundant since default hides)
+        esc.setResumeAction(new AbstractAction() {
+            @Override public void actionPerformed(ActionEvent e) {
+                esc.setVisible(false);
+            }
+        });
+
+        // Exit to Map action: remove fight screen and show map
+        esc.setExitToMenuAction(new AbstractAction() {
+            @Override public void actionPerformed(ActionEvent e) {
+                new LobbyScreen();
+                esc.setVisible(false);
+            }
+        });
+
+        // Add overlay in popup layer
+        theFrame.getLayeredPane().add(esc, JLayeredPane.POPUP_LAYER);
+
+        // Bind ESC key
+        esc.registerKeyBinding(theFrame.getRootPane());
     }
-    
+
+
+
     public FightScreen()
     {
         //This is the side dual fight which calls the fight after deciding a random opponent
@@ -217,7 +254,7 @@ public class FightScreen extends JPanel{
         else
         {
             Fighter fighter = (Fighter)person;
-            fighter.getFighterPanel().moveBy(-80, 0, 5 * FRAME_LENGTH);
+            fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
             FightScreen.usersTurn = true;
         }
     }
@@ -270,5 +307,44 @@ public class FightScreen extends JPanel{
     {
         this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
         //System.out.println("USER SET TO IDLE BECAUSE OF THE END OF AN ANIMATION");
+    }
+
+    public class MainMenuPanel extends JPanel {
+        public MainMenuPanel() {
+            this.setLayout(new BorderLayout());
+            JLabel label = new JLabel("Main Menu", SwingConstants.CENTER);
+            label.setFont(new Font("Arial", Font.BOLD, 36));
+            this.add(label, BorderLayout.CENTER);
+        }
+    }
+
+    public void checkGameOver() {
+        if (theUser.getHealth() <= 0) {
+            showEndGamePanel("You Lose!");
+        } else if (theFighter.getHealth() <= 0) {
+            showEndGamePanel("You Win!");
+        }
+    }
+        public void showEndGamePanel(String message) {
+        JPanel endPanel = new JPanel();
+        endPanel.setLayout(null);
+        endPanel.setBounds(0, 0, 1920, 1080);
+
+        JLabel resultLabel = new JLabel(message, JLabel.CENTER);
+        resultLabel.setBounds(760, 400, 400, 100);
+        resultLabel.setFont(resultLabel.getFont().deriveFont(36.0f));
+        endPanel.add(resultLabel);
+
+        // Optional: restart or exit buttons
+        // JButton restartButton = new JButton("Restart");
+        // restartButton.setBounds(860, 520, 200, 50);
+        // endPanel.add(restartButton);
+
+        this.add(endPanel);
+        this.repaint();
+
+        // Disable all interactions or timers if needed
+        usersAnimation.animationTimer.stop();
+        fightersAnimation.animationTimer.stop();
     }
 }

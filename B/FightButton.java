@@ -86,6 +86,8 @@ public class FightButton extends JLabel implements MouseListener{
         this.setVisible(false);
         Timer timer = new Timer(2000, _ -> {
             this.setVisible(true);
+            FightScreen.theFightScreen.setFightersAnimationToIdle();
+            FightScreen.theFightScreen.setUsersAnimationToIdle();
         });
         timer.setRepeats(false);
         timer.start();

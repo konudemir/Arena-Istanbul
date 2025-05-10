@@ -30,6 +30,7 @@ public class LobbyScreen extends JPanel{
 
     public LobbyScreen() {
         CharacterPanel.getCharPanel().setImage(this);
+        CharacterPanel.getCharPanel().repaint();
         theLobbyScreen = this;
         MainFrame.currentPanel = this;
         theFrame = MainFrame.theFrame;

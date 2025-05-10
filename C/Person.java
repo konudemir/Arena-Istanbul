@@ -7,6 +7,9 @@ import java.util.Random;
 import C_ITEMS.*;
 import Screens.FightScreen;
 import Screens.LobbyScreen;
+import Screens.StoreScreen;
+import m.Main;
+import m.MainFrame;
 
 public class Person {
     protected int health;
@@ -86,6 +89,10 @@ public class Person {
             u.changeCoins(- item.getPrice());
         }
         System.out.println("BOUGHT " + item);
+        if(MainFrame.currentPanel instanceof StoreScreen)
+        {
+            StoreScreen.theStoreScreen.coinSpace.setText("" + Main.theUser.getCoins());
+        }
     }
     public void sellItem(Item item)
     {

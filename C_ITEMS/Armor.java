@@ -41,6 +41,14 @@ public class Armor extends Item{
         //ToDo fill out for each level<
         return 0;
     }
+    public String getName()
+    {
+        return Item.getTypeOfLevel(this.level) + " " + "Armor";
+    }
+    public int getPrice()
+    {
+        return Item.getPriceForLevel(this.level);
+    }
     public static double getDefenceForLevel(int level)
     {
         //ToDo fill out for each level

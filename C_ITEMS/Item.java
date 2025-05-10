@@ -104,6 +104,20 @@ public abstract class Item{
         if(person instanceof User)return "items";
         else return "itemsForOpponents";
     }
+    public static String getTypeOfLevel(int level)
+    {
+        switch (level) {
+            case 0:
+                return "Wooden";
+            case 1:
+                return "Silver";
+            case 2:
+                return "Golden";
+            case 3:
+                return "Diomand";
+        }
+        return "";
+    }
 
     public void setImage(int i)
     {

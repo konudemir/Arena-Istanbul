@@ -39,6 +39,14 @@ public class Sword extends Item{
         if(level == 2)return 0.26;
         return 0.30;
     }
+    public String getName()
+    {
+        return Item.getTypeOfLevel(this.level) + " " + "Sword";
+    }
+    public int getPrice()
+    {
+        return Item.getPriceForLevel(this.level);
+    }
     public static double getDefenceForLevel(int level)
     {
         return 0;

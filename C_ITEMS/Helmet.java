@@ -37,6 +37,14 @@ public class Helmet extends Item{
     {
         return 0;
     }
+    public int getPrice()
+    {
+        return Item.getPriceForLevel(this.level);
+    }
+    public String getName()
+    {
+        return Item.getTypeOfLevel(this.level) + " " + "Helmet";
+    }
     public static double getDefenceForLevel(int level)
     {
         if(level == 0)return 0.03;

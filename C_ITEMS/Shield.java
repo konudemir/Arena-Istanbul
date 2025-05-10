@@ -35,6 +35,10 @@ public class Shield extends Item{
     {
         return 0;
     }
+    public int getPrice()
+    {
+        return Item.getPriceForLevel(this.level);
+    }
     public static double getDefenceForLevel(int level)
     {
         if(level == 0)return 0.06;
@@ -44,6 +48,10 @@ public class Shield extends Item{
     }
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+    public String getName()
+    {
+        return Item.getTypeOfLevel(this.level) + " " + "Shield";
     }
 
     public static void fillIcons()

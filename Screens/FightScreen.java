@@ -64,6 +64,11 @@ public class FightScreen extends JPanel {
         
         private void setupTimer() {
             animationTimer = new Timer(FRAME_LENGTH, _ -> { // 100ms between frames, subject to change.
+                if(!(MainFrame.currentPanel instanceof FightScreen))
+                {
+                    animationTimer.stop();
+                    return;
+                }
                 switch(currentState) {
                     case IDLE:
                         animateBreathing();
@@ -264,23 +269,24 @@ public class FightScreen extends JPanel {
         {
             this.fightersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
             Fighter fighter = (Fighter)person;
-            fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+            fighter.getFighterPanel().moveBy(-80, 0, 5 * FRAME_LENGTH);
             FightScreen.usersTurn = true;
         }
     }
     public void moveBackwards(Person person)
     {
         person.lowerStamina(5);
-        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
         if(person instanceof User)
         {
             User.getCharPanel().moveBy(-80, 0, 5 * FRAME_LENGTH);
+            this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
             FightScreen.usersTurn = false;
         }
         else
         {
             Fighter fighter = (Fighter)person;
             fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
+            this.fightersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
             FightScreen.usersTurn = true;
         }
     }

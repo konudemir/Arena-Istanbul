@@ -35,6 +35,14 @@ public class Leggings extends Item{
     {
         return Item.getPriceForLevel(level);
     }
+    public int getPrice()
+    {
+        return Item.getPriceForLevel(this.level);
+    }
+    public String getName()
+    {
+        return Item.getTypeOfLevel(this.level) + " " + "Leggings";
+    }
     public static double getAttackForLevel(int level)
     {
         return 0;

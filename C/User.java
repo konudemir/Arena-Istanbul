@@ -18,6 +18,7 @@ public class User extends Person{
         this.panel = this.charPanel;
         this.healthBar = new HealthBar(this);
         this.staminaBar = new StaminaBar(this);
+        this.stamina = 10;
     }
     public void moveTo(int x, int y)
     {

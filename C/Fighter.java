@@ -111,7 +111,7 @@ public class Fighter extends Person {
         Random random = new Random();
         if(super.stamina <= LOWER_STAMINA_THRESHOLD){
             fighterPanel.sleep();
-        }else if(fighterPanel.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750){ // means they're close
+        }else if(User.getCharPanel().getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750){ // means they're close
             int randomNumber = random.nextInt(100);
             if(randomNumber < CLOSE_RANGE_ATTACK_RATIO){
                 fighterPanel.attack();
@@ -122,14 +122,19 @@ public class Fighter extends Person {
             }
         }else{ // ie. proxy
             int randomNumber = random.nextInt(100);
+            System.out.println("RANDOM NUMBER: " + randomNumber);
             if(randomNumber < PROXY_ATTACK_RATIO){
                 fighterPanel.attack();
+            System.out.println("RANDOM NUMBER is smaller than " + PROXY_ATTACK_RATIO + ", attack!");
             }else if(randomNumber < PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO){
                 fighterPanel.sleep();
+            System.out.println("RANDOM NUMBER is smaller than " + (PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO) + ", sleep!");
             }else if(randomNumber < PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO + PROXY_MOVE_BACKWARDS_RATIO){
                 fighterPanel.moveBackwards();
+            System.out.println("RANDOM NUMBER is smaller than " + (PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO + PROXY_MOVE_BACKWARDS_RATIO) + ", move backwards!");
             }else{
                 fighterPanel.moveForward();
+            System.out.println("RANDOM NUMBER is bigger than " + (PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO + PROXY_MOVE_BACKWARDS_RATIO) + ", move forwards!");
             }
         }
 

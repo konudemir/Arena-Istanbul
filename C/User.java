@@ -11,12 +11,8 @@ public class User extends Person{
     public User()  
     {
         theUser = this;
-        this.coins = 0;
-        this.buyItem(new Shield(0));
-        this.buyItem(new Armor(0));
-        this.buyItem(new Leggings(0));
+        this.coins = 200;
         this.buyItem(new Sword(0));
-        this.buyItem(new Helmet(0));
         new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
         this.panel = this.charPanel;
@@ -54,6 +50,14 @@ public class User extends Person{
     public void changeCoins(int i)
     {
         this.coins += i;
+    }
+    public boolean hasPet()
+    {
+        if(itemsList.size() > 0)
+        for(Item item : this.itemsList)
+        {
+            if(item instanceof Cat)return true;
+        }return false;
     }
     
 }

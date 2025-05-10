@@ -26,7 +26,7 @@ public class FightScreen extends JPanel {
     public static final int FRAME_LENGTH = 150;
     //END OF CONSTANTS
     public static MainFrame theFrame;
-    public static int wonAgainstEnemies = 0;
+    public static int wonAgainstEnemies = 0;//Story Mode Only
     public User theUser;
     public Fighter theFighter;
     public FighterAnimation fightersAnimation;
@@ -229,30 +229,40 @@ public class FightScreen extends JPanel {
     //Buttons' results
     public void attack(Person person)
     {
-        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.ATTACKING;
-        person.lowerStamina(20);
+        System.out.println("START OF THE ATTACK METHOD IN FIGHTERPANEL!!!");
+        person.lowerStamina(10);
         if(person instanceof User)
         {
-            User.getCharPanel().attack();
+            System.out.println("SET THE ATTACKING STATE FOR USER!!!");
+            this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.ATTACKING;
+            System.out.println("GOING TO ATTACK THE FIGHTER!!!");
+            User.getCharPanel().attackTo(this.theFighter);
+            System.out.println("FINISHED ATTACKING THE FIGHTER!!!");
+            FightScreen.usersTurn = false;
         }
         else
         {
+            System.out.println("SET THE ATTACKING STATE FOR USER!!!");
+            this.fightersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.ATTACKING;
+            System.out.println("GOING TO ATTACK THE FIGHTER!!!");
             Fighter fighter = (Fighter)person;
-            fighter.getFighterPanel().attack();
+            fighter.getFighterPanel().attackTo(this.theUser);
+            System.out.println("FINISHED ATTACKING THE FIGHTER!!!");
+            FightScreen.usersTurn = true;
         }
     }
     public void moveForward(Person person)
     {
-        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
-        person.lowerStamina(10);
+        person.lowerStamina(5);
         if(person instanceof User)
         {
-            User.getCharPanel().moveForward();
+            this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
             User.getCharPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
             FightScreen.usersTurn = false;
         }
         else
         {
+            this.fightersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
             Fighter fighter = (Fighter)person;
             fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
             FightScreen.usersTurn = true;
@@ -260,18 +270,16 @@ public class FightScreen extends JPanel {
     }
     public void moveBackwards(Person person)
     {
-        person.lowerStamina(10);
+        person.lowerStamina(5);
         this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.MOVING;
         if(person instanceof User)
         {
-            User.getCharPanel().moveBackwards();
             User.getCharPanel().moveBy(-80, 0, 5 * FRAME_LENGTH);
             FightScreen.usersTurn = false;
         }
         else
         {
             Fighter fighter = (Fighter)person;
-            fighter.getFighterPanel().moveBackwards();
             fighter.getFighterPanel().moveBy(80, 0, 5 * FRAME_LENGTH);
             FightScreen.usersTurn = true;
         }
@@ -293,7 +301,6 @@ public class FightScreen extends JPanel {
         this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
         if(person instanceof User)
         {
-            User.getCharPanel().usePet();
             FightScreen.usersTurn = false;
         }
         //Fighters dont have pets
@@ -307,46 +314,5 @@ public class FightScreen extends JPanel {
     {
         this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
         //System.out.println("USER SET TO IDLE BECAUSE OF THE END OF AN ANIMATION");
-    }
-
-    public class MainMenuPanel extends JPanel {
-        public MainMenuPanel() {
-            this.setLayout(new BorderLayout());
-            JLabel label = new JLabel("Main Menu", SwingConstants.CENTER);
-            label.setFont(new Font("Arial", Font.BOLD, 36));
-            this.add(label, BorderLayout.CENTER);
-        }
-    }
-
-    public void checkGameOver() {
-        if (theUser.getHealth() <= 0) {
-            showEndGamePanel("You Lose!");
-            //TODO lose money
-        } else if (theFighter.getHealth() <= 0) {
-            showEndGamePanel("You Win!");
-            //TODO add money
-        }
-    }
-        public void showEndGamePanel(String message) {
-        JPanel endPanel = new JPanel();
-        endPanel.setLayout(null);
-        endPanel.setBounds(0, 0, 1920, 1080);
-
-        JLabel resultLabel = new JLabel(message, JLabel.CENTER);
-        resultLabel.setBounds(760, 400, 400, 100);
-        resultLabel.setFont(resultLabel.getFont().deriveFont(36.0f));
-        endPanel.add(resultLabel);
-
-        // Optional: restart or exit buttons
-        // JButton restartButton = new JButton("Restart");
-        // restartButton.setBounds(860, 520, 200, 50);
-        // endPanel.add(restartButton);
-
-        this.add(endPanel);
-        this.repaint();
-
-        // Disable all interactions or timers if needed
-        usersAnimation.animationTimer.stop();
-        fightersAnimation.animationTimer.stop();
     }
 }

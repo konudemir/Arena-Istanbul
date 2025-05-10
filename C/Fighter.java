@@ -12,22 +12,76 @@ public class Fighter extends Person {
     private FighterPanel fighterPanel;
     private HealthBar healthBar;
     protected StaminaBar staminaBar;
+    public boolean isFromStoryMode;
     public static Random random = new Random();
-    public Fighter(int i)
+    public Fighter(int i, boolean isFromStoryMode)
     {
+        this.isFromStoryMode = isFromStoryMode;
         this.fighterPanel = new FighterPanel(i, this);
         this.healthBar = new HealthBar(this);
         this.staminaBar = new StaminaBar(this);
+        if(this.isFromStoryMode)this.createItemsForStoryModeFighter(i);
     }
     public Fighter()
     {
-        this(random.nextInt(AMOUNT_OF_FIGHTERS));
+        this(random.nextInt(AMOUNT_OF_FIGHTERS), false);
         if(random.nextBoolean())this.itemsList.add(new Shield(random.nextInt(4)));
         if(random.nextBoolean())this.itemsList.add(new Helmet(random.nextInt(4)));
         if(random.nextBoolean())this.itemsList.add(new Leggings(random.nextInt(4)));
         if(random.nextBoolean())this.itemsList.add(new Armor(random.nextInt(4)));
         this.itemsList.add(new Sword(random.nextInt(4)));
         this.staminaBar = new StaminaBar(this);
+    }
+    public void createItemsForStoryModeFighter(int i)
+    {
+        if(i == 0)
+        {
+            this.itemsList.add(new Sword(0));
+            this.itemsList.add(new Shield(0));
+            this.itemsList.add(new Helmet(0));
+            this.itemsList.add(new Leggings(0));
+            this.itemsList.add(new Armor(0));
+        }
+        else if(i == 1)
+        {
+            this.itemsList.add(new Sword(1));
+            this.itemsList.add(new Shield(1));
+            this.itemsList.add(new Helmet(1));
+            this.itemsList.add(new Leggings(0));
+            this.itemsList.add(new Armor(0));
+        }
+        else if(i == 2)
+        {
+            this.itemsList.add(new Sword(1));
+            this.itemsList.add(new Shield(2));
+            this.itemsList.add(new Helmet(1));
+            this.itemsList.add(new Leggings(1));
+            this.itemsList.add(new Armor(1));
+        }
+        else if(i == 3)
+        {
+            this.itemsList.add(new Sword(2));
+            this.itemsList.add(new Shield(2));
+            this.itemsList.add(new Helmet(2));
+            this.itemsList.add(new Leggings(3));
+            this.itemsList.add(new Armor(3));
+        }
+        else if(i == 4)
+        {
+            this.itemsList.add(new Sword(3));
+            this.itemsList.add(new Shield(3));
+            this.itemsList.add(new Helmet(3));
+            this.itemsList.add(new Leggings(3));
+            this.itemsList.add(new Armor(3));
+        }
+        else if(i == 5)
+        {
+            this.itemsList.add(new Sword(4));
+            this.itemsList.add(new Shield(4));
+            this.itemsList.add(new Helmet(3));
+            this.itemsList.add(new Leggings(4));
+            this.itemsList.add(new Armor(4));
+        }
     }
     public void fightersTurn()
     {

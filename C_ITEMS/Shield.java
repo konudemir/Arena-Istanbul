@@ -29,18 +29,18 @@ public class Shield extends Item{
     }
     public static int getPriceForLevel(int level)
     {
-        //ToDo fill out the prices for each level
-        return 0;
+        return Item.getPriceForLevel(level);
     }
     public static double getAttackForLevel(int level)
     {
-        //ToDo fill out for each level
         return 0;
     }
     public static double getDefenceForLevel(int level)
     {
-        //ToDo fill out for each level
-        return 0;
+        if(level == 0)return 0.06;
+        if(level == 1)return 0.12;
+        if(level == 2)return 0.18;
+        return 0.24;
     }
     public void setOwner(Person owner) {
         this.owner = owner;

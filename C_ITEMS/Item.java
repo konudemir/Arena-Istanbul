@@ -92,6 +92,13 @@ public abstract class Item{
         }
         return null;
     }
+    public static int getPriceForLevel(int lev)
+    {
+        if(lev == 0)return 100;
+        if(lev == 1)return 200;
+        if(lev == 2)return 300;
+        return 400;
+    }
     public static String itemsFolder(Person person)
     {
         if(person instanceof User)return "items";

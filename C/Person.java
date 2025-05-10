@@ -6,6 +6,7 @@ import java.util.Random;
 
 import C_ITEMS.*;
 import Screens.FightScreen;
+import Screens.LobbyScreen;
 
 public class Person {
     protected int health;
@@ -13,7 +14,7 @@ public class Person {
     protected ArrayList<Item> itemsList = new ArrayList<>();
     protected FighterPanel panel;
     public static final double RANDOMNESS_IN_FIGHTS = 0.2;
-    public static final int HIT_COEFFICIENT = 20;
+    public static final int HIT_COEFFICIENT = 50;
     protected int currentPhoto = 1; //0 to 9
     public Person()
     {
@@ -22,6 +23,7 @@ public class Person {
     }
     public boolean didItGetHit(double attackPower)
     {
+        System.out.println("Entered did it get hit");
         double totalDefensePower = 0;
         if(itemsList.size() > 0)
         for(Item i : itemsList)
@@ -35,10 +37,11 @@ public class Person {
         if(totalDefensePower > 1) totalDefensePower = 1.0;
         //Decide if it got hit (randomness 2)
         double randomDouble = random.nextDouble(1.0);
-        //TODO substract defense
-        if(randomDouble <= totalDefensePower)
+        System.out.println("defense power: " + totalDefensePower + ", random double: " + randomDouble);
+        if(randomDouble >= totalDefensePower)
         {
             this.changeHealth((int)(- attackPower * HIT_COEFFICIENT));
+            System.out.println("HIT BY " + (int)(- attackPower * HIT_COEFFICIENT));
             return true;
         }
         return false;
@@ -123,6 +126,13 @@ public class Person {
             u.getHealthBar().repaint();
             u.getFighterPanel().repaint();
         }
+        if(this.health <= 0)
+        {
+        //TODO Innitiate a battle over screen here new BattleOverScreen(Person winner)
+
+        //Temporary
+        new LobbyScreen();
+        }
     }
     public void lowerStamina(int i)
     {
@@ -140,6 +150,13 @@ public class Person {
             u.getStaminaBar().repaint();
             u.getFighterPanel().repaint();
         }
+        if(this.stamina <= 0)
+        {
+        //TODO Innitiate a battle over screen here new BattleOverScreen(Person winner)
+
+        //Temporary
+        new LobbyScreen();
+        }
     }
     public void increaseStamina(int i)
     {
@@ -156,6 +173,14 @@ public class Person {
             Fighter u = (Fighter)(this);
             u.getStaminaBar().repaint();
             u.getFighterPanel().repaint();
+        }
+        if(this.stamina <= 0)
+        {
+        //TODO Innitiate a battle over screen here new BattleOverScreen(Person winner)
+
+        //Temporary
+        new LobbyScreen();
+        User.getCharPanel().repaint();
         }
     }
     public Item[] listItemsInPriorityOfShowing()

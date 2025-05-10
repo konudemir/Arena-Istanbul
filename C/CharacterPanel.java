@@ -32,11 +32,11 @@ public class CharacterPanel extends FighterPanel{
     public static final int LOBBY = 9;
 
     //Buttons
-    public JLabel moveForward;
-    public JLabel moveBackwards;
-    public JLabel attack;
-    public JLabel sleep;
-    public JLabel usePet;
+    public FightButton moveForward;
+    public FightButton moveBackwards;
+    public FightButton attack;
+    public FightButton sleep;
+    public FightButton usePet;
 
     public CharacterPanel(Person person)
     {
@@ -57,7 +57,6 @@ public class CharacterPanel extends FighterPanel{
         g.drawImage(image, 0, 0, null);
         if(this.person.itemsList.size() == 0)
         {
-            System.out.println("len 0");
             return;
         }
         for(Item item : this.person.listItemsInPriorityOfShowing())
@@ -102,6 +101,10 @@ public class CharacterPanel extends FighterPanel{
     {
         this.setBounds(this.getX() + x, this.getY() + y, this.image.getWidth(null), this.image.getHeight(null));
     }
+    public FightButton[] getFightButtons()
+    {
+        return new FightButton[] {moveForward, moveBackwards, attack, sleep, usePet};
+    } 
     public void addTheButtons()
     {
         moveForward = new FightButton("moveForward", 260, 528);
@@ -265,27 +268,38 @@ public class CharacterPanel extends FighterPanel{
     }
 
     //EMPTY
+    public void attackTo(Person p)
+    {
+        if(User.getCharPanel().getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750)
+        {
+            System.out.println("CLOSE ENOUGH");
+        }
+        else
+        {
+            System.out.println("NOT CLOSE ENOUGH");
+            return;
+        }
+        p.didItGetHit(this.person.getAttackPower());
+        System.out.println("attacked");
+    }
     public void attack()
     {
-        if(this.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750);//it is close enough
-        else return;
-        FightScreen.theFightScreen.theFighter.didItGetHit(this.person.getAttackPower());
-        System.out.println("attacked");
+        FightScreen.theFightScreen.attack(FightScreen.theFightScreen.theUser);
     }
     public void moveForward()
     {
-        
+        FightScreen.theFightScreen.moveForward(FightScreen.theFightScreen.theUser);
     }
     public void moveBackwards()
     {
-        
+        FightScreen.theFightScreen.moveBackwards(FightScreen.theFightScreen.theUser);
     }
     public void sleep()
     {
-        
+        FightScreen.theFightScreen.sleep(FightScreen.theFightScreen.theUser);
     }
     public void usePet()
     {
-        
+        FightScreen.theFightScreen.usePet(FightScreen.theFightScreen.theUser);
     }
 }

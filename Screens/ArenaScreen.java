@@ -105,7 +105,7 @@ public class ArenaScreen extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 //new FightScreen(User.getUser(), new Fighter(0));
                 //new StoreScreen();
-                if(isStory)new FightScreen(User.getUser(), new Fighter(FightScreen.wonAgainstEnemies));
+                if(isStory)new FightScreen(User.getUser(), new Fighter(FightScreen.wonAgainstEnemies, true));
                 else new FightScreen();
             }
     

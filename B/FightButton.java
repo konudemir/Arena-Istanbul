@@ -2,7 +2,9 @@ package B;
 import m.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
+import C.CharacterPanel;
 import C.User;
 import Screens.FightScreen;
 import Screens.LobbyScreen;
@@ -16,6 +18,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
+import java.util.ArrayList;
 
 public class FightButton extends JLabel implements MouseListener{
     private final ImageIcon buttonIcon;
@@ -24,6 +27,7 @@ public class FightButton extends JLabel implements MouseListener{
     private String context;
     private boolean clickable;
     public static FightScreen theFightScreen;
+
     public FightButton(String name, int x, int y)
     {
         this.setBounds(x, y - 500, 90, 90);
@@ -41,19 +45,20 @@ public class FightButton extends JLabel implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent e)
     {
-        if(!FightScreen.usersTurn) return;
+        if(context.equals("usePet") && !User.getUser().hasPet())return;
         this.setIcon(clickedButtonIcon);
-        if(context.equals("attack"))theFightScreen.attack(User.getUser());
-        else if(context.equals("moveForward"))theFightScreen.moveForward(User.getUser());
-        else if(context.equals("moveBackwards"))theFightScreen.moveBackwards(User.getUser());
-        else if(context.equals("sleep"))theFightScreen.sleep(User.getUser());
-        else if(context.equals("usePet"))theFightScreen.usePet(User.getUser());
+        allButtonsDisappearAfterTurn();
+        if(context.equals("attack"))CharacterPanel.getCharPanel().attack();
+        else if(context.equals("moveForward"))CharacterPanel.getCharPanel().moveForward();
+        else if(context.equals("moveBackwards"))CharacterPanel.getCharPanel().moveBackwards();
+        else if(context.equals("sleep"))CharacterPanel.getCharPanel().sleep();
         FightScreen.usersTurn = false;
         FightScreen.theFightScreen.theFighter.fightersTurn();
     }
     @Override
     public void mousePressed(MouseEvent e)
     {
+        if(context.equals("usePet") && !User.getUser().hasPet())return;
         this.setIcon(this.clickedButtonIcon);
         if(!FightScreen.usersTurn) return;
     }
@@ -66,6 +71,7 @@ public class FightButton extends JLabel implements MouseListener{
     @Override
     public void mouseEntered(MouseEvent e)
     {
+        if(context.equals("usePet") && !User.getUser().hasPet())return;
         this.setIcon(enteredButton);
         if(!FightScreen.usersTurn) return;
     }
@@ -74,6 +80,24 @@ public class FightButton extends JLabel implements MouseListener{
     {
         this.setIcon(buttonIcon);
         if(!FightScreen.usersTurn) return;
+    }
+    public void disappearAfterTurn()
+    {
+        this.setVisible(false);
+        Timer timer = new Timer(2000, _ -> {
+            this.setVisible(true);
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+    public static void allButtonsDisappearAfterTurn()
+    {
+        for(FightButton fb : User.getCharPanel().getFightButtons())
+        {
+            fb.disappearAfterTurn();
+        }
+        FightScreen.theFightScreen.setUsersAnimationToIdle();
+        FightScreen.theFightScreen.setFightersAnimationToIdle();
     }
     
 }

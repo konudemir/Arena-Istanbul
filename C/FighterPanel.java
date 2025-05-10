@@ -58,7 +58,6 @@ public class FighterPanel extends JPanel{
         g.drawImage(image, 0, 0, null);
         if(this.person.itemsList.size() == 0)
         {
-            System.out.println("len 0");
             return;
         }
         for(Item item : this.person.listItemsInPriorityOfShowing())
@@ -188,14 +187,16 @@ public class FighterPanel extends JPanel{
 
     }
 
-    // TODO: ? EMPTY
-    public void attack()
+    public void attackTo(Person p)
     {
-        // E: Don't think these should be in here. You can find them in fighter whatShouldItDo().
-        // if(this.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750);//it is close enough
-        // else return;
+        if(this.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750);//it is close enough
+        else return;
         FightScreen.theFightScreen.theUser.didItGetHit(this.person.getAttackPower());
         System.out.println("attacked");
+    }
+    public void attack()
+    {
+        FightScreen.theFightScreen.attack(FightScreen.theFightScreen.theFighter);
     }
     public void moveForward()
     {

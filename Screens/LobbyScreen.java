@@ -314,7 +314,7 @@ public class LobbyScreen extends JPanel{
 
     private void goToArena() {
         System.out.println("Going to Arena...");
-        new FightScreen(User.getUser(), new Fighter(0));
+        new FightScreen(User.getUser(), new Fighter(0, false));
     }
 
     private void goToShop() {

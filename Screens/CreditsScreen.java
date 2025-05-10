@@ -1,6 +1,12 @@
 package Screens;
 
 import javax.swing.*;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import m.MainFrame;
+
 import java.awt.*;
 import java.awt.geom.*;
 
@@ -10,10 +16,13 @@ import java.awt.geom.*;
  * Includes a new title section with Oğuzhan Aydın listed under it.
  */
 public class CreditsScreen extends JPanel {
+    private static CreditsScreen theCreditsScreen;
     // Colors from the image
     private final Color backgroundColor = new Color(209, 179, 122); // Main beige/gold background
     private final Color borderColor = new Color(42, 33, 27);       // Dark border color
     private final Color textColor = new Color(0, 0, 0);           // Black text color
+    
+    private boolean isAtSpecialThanks = true;
     
     // Names for main credits
     private final String[] creditNames = {
@@ -25,11 +34,33 @@ public class CreditsScreen extends JPanel {
     
     // Second title and name
     private final String secondTitle = "SPECIAL THANKS";
-    private final String specialName = "Oğuzhan Aydın";
+    private final String specialName = "Oğuzhan Aydin";
     
     public CreditsScreen() {
+        theCreditsScreen = this;
+        MainFrame.currentPanel = this;
+        this.setLayout(null);
+        MainFrame.theFrame.removePrevPanelsAndLabels();
+        this.setBounds(0, 0, 1920, 1080);
+
         setBackground(backgroundColor);
         setLayout(null); // Using absolute positioning
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(isAtSpecialThanks)
+                {
+                    isAtSpecialThanks = false;
+                    theCreditsScreen.repaint();
+                    MainFrame.theFrame.repaint();
+                }
+                else new FirstMenu();
+            }
+        });
+        MainFrame.theFrame.add(this);
+        MainFrame.theFrame.repaint();
+        this.repaint();
     }
     
     @Override
@@ -116,7 +147,7 @@ public class CreditsScreen extends JPanel {
         
         // Draw second title text
         g2d.setColor(textColor);
-        g2d.drawString(secondTitle, secondTitleRectX + (secondTitleRectWidth - secondTitleWidth) / 2, 
+        g2d.drawString(isAtSpecialThanks ? secondTitle : specialName, secondTitleRectX + (secondTitleRectWidth - secondTitleWidth) / 2 + (!isAtSpecialThanks ? 60 : 0), 
                 secondTitleRectY + fontMetrics.getAscent() + 5);
         
         // Draw special name (Oğuzhan Aydın)

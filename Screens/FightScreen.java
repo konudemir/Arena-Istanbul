@@ -149,13 +149,14 @@ public class FightScreen extends JPanel {
 
     public FightScreen(User user, Fighter fighter)
     {
-
         theFightScreen = this;
         FightButton.theFightScreen = this;
         theUser = user;
         theFighter = fighter;
         user.changeHealth(100);
         fighter.changeHealth(100);
+        user.increaseStamina(100);
+        fighter.increaseStamina(100);
         fightersAnimation = new FighterAnimation(theFighter.getFighterPanel());
         usersAnimation = new FighterAnimation(User.getCharPanel());
         CharacterPanel.getCharPanel().setImage(this);
@@ -211,6 +212,13 @@ public class FightScreen extends JPanel {
                 esc.setVisible(false);
             }
         });
+        esc.setSaveAction(new AbstractAction() {
+            @Override public void actionPerformed(ActionEvent e) {
+                new SaveGameScreen();
+                System.out.println("SAVE GAME SCREEN");
+            }
+        });
+
 
         // Add overlay in popup layer
         theFrame.getLayeredPane().add(esc, JLayeredPane.POPUP_LAYER);
@@ -320,5 +328,44 @@ public class FightScreen extends JPanel {
     {
         this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
         //System.out.println("USER SET TO IDLE BECAUSE OF THE END OF AN ANIMATION");
+    }
+
+
+    public class MainMenuPanel extends JPanel {
+        public MainMenuPanel() {
+            MainFrame.currentPanel = this;
+            theFrame = MainFrame.theFrame;
+            this.setLayout(new BorderLayout());
+            JLabel label = new JLabel("Main Menu", SwingConstants.CENTER);
+            label.setFont(new Font("Arial", Font.BOLD, 36));
+            this.add(label, BorderLayout.CENTER);
+            this.setBounds(0, 0, 1920, 1080);
+        
+            //Remove the previous JPanel if existant
+            theFrame.removePrevPanelsAndLabels();
+            MainFrame.theFrame.add(this);
+        }
+    }
+        public void showEndGamePanel(String message) {
+        JPanel endPanel = new JPanel();
+        endPanel.setLayout(null);
+        endPanel.setBounds(0, 0, 1920, 1080);
+
+        JLabel resultLabel = new JLabel(message, JLabel.CENTER);
+        resultLabel.setBounds(760, 400, 400, 100);
+        resultLabel.setFont(resultLabel.getFont().deriveFont(36.0f));
+        endPanel.add(resultLabel);
+
+        // Optional: restart or exit buttons
+        // JButton restartButton = new JButton("Restart");
+        // restartButton.setBounds(860, 520, 200, 50);
+        // endPanel.add(restartButton);
+
+        this.add(endPanel);
+        this.repaint();
+
+        // Disable all interactions or timers if needed
+        usersAnimation.animationTimer.stop();
+        fightersAnimation.animationTimer.stop();
     }
 }

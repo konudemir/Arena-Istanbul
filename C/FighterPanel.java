@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import javax.swing.Timer;
 import java.awt.Color;
 
 import C_ITEMS.Item;
+import Coloring.Coloring;
 import Screens.*;
 import Screens.FightScreen.FighterAnimation;
 
@@ -22,22 +24,17 @@ public class FighterPanel extends JPanel{
     private static CharacterPanel theCharPanel;
     private Image[] images = new Image[11];
     private int currentPhoto = 1; //0-9
-    private static String[] FIGHTERPATHS = new String[Fighter.AMOUNT_OF_FIGHTERS];
     private static boolean hasFilledPaths = false;
     protected Image image;
     protected Person person;
 
     public FighterPanel(int i, Person person)
     {
+        fillPaths();
         characterNo = i;
         this.person = person;
+        this.image = images[1];
         if(!hasFilledPaths) fillPaths();
-        //Get image
-        try {
-        this.image = ImageIO.read(getClass().getResource(FIGHTERPATHS[i]));
-        } catch (Exception e) {
-            System.out.println("NO IMAGE FOR i:" + i);
-        }
         this.setBounds(1000, 300, 256, 256);
         this.setLayout(null);
         this.setVisible(true);

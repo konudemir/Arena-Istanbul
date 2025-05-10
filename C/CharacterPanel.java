@@ -23,7 +23,7 @@ import java.awt.event.ActionEvent;
 public class CharacterPanel extends FighterPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;
     private static String[] CHARPATHS = new String[AMOUNT_OF_CHARACTERS];
-    private int currentFolderOrder = 0;
+    public int currentFolderOrder = 0;
     private boolean hasFilledPaths = false;
     private static CharacterPanel theCharPanel;
     private Image[] images = new Image[11];

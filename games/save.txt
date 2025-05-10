@@ -1,0 +1,9 @@
+0 currentFolderOrder
+0 wonAgainstEnemies
+x Armor
+0 Cat (0/1)
+x Helmet
+x Leggings
+x Shield
+0 Sword
+0 coins

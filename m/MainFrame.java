@@ -204,6 +204,10 @@ public class MainFrame extends JFrame{
     {
         return new SettingsScreen();
     }
+    public static JPanel loadGameScreenS()
+    {
+        return new LoadGameScreen();
+    }
     public static JPanel getCurrentScreen()
     {
         return currentPanel;

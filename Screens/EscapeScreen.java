@@ -26,12 +26,14 @@ public class EscapeScreen extends JPanel {
     private final JButton btnSettings;
     private final JButton btnExitToMenu;
     private final JButton btnExitGame;
+    public static EscapeScreen theEscapeScreen;
 
     /**
      * @param frameWidth  Width of parent frame
      * @param frameHeight Height of parent frame
      */
     public EscapeScreen(int frameWidth, int frameHeight) {
+        theEscapeScreen = this;
         setBounds(0, 0, frameWidth, frameHeight);
         setBackground(new Color(0, 0, 0, 170));
         setLayout(new GridBagLayout());
@@ -80,7 +82,8 @@ public class EscapeScreen extends JPanel {
         });
         setSaveAction(new AbstractAction() {
             @Override public void actionPerformed(ActionEvent e) {
-                System.out.println("Game saved!");
+                new SaveGameScreen();
+                System.out.println("SAVE GAME SCREEN2");
             }
         });
         setSettingsAction(new AbstractAction() {

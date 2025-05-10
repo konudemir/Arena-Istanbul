@@ -37,6 +37,7 @@ public class Person {
         //First bit of randomness
         Random random = new Random();
         totalDefensePower += random.nextDouble(2 * RANDOMNESS_IN_FIGHTS) - RANDOMNESS_IN_FIGHTS;
+        attackPower += random.nextDouble(2 * RANDOMNESS_IN_FIGHTS) - RANDOMNESS_IN_FIGHTS;
         if(totalDefensePower > 1) totalDefensePower = 1.0;
         //Decide if it got hit (randomness 2)
         double randomDouble = random.nextDouble(1.0);

@@ -52,12 +52,26 @@ public abstract class Saves {
         if(!read().equals("x")) User.getUser().buyItem(new Shield(Integer.parseInt(line)));
         if(!read().equals("x")) User.getUser().buyItem(new Sword(Integer.parseInt(line)));
         if(!read().equals("x")) User.getUser().setCoins(Integer.parseInt(line));
+        User.getUser().totalFought = Integer.parseInt(read());
+        User.getUser().totalWon = Integer.parseInt(read());
         sc.close();
     }
     private static String read()
     {
         line = sc.nextLine();
-        line = line.substring(0, 1);
+        if(line.contains("coins"))
+        {
+            line = line.substring(0, line.length() - 6);
+        }
+        else if(line.contains("totalFought"))
+        {
+            line = line.substring(0, line.length() - 12);
+        }
+        else if(line.contains("totalWon"))
+        {
+            line = line.substring(0, line.length() - 9);
+        }
+        else line = line.substring(0, 1);
         return line;
     }
     public static void saveGame(String path)
@@ -72,7 +86,9 @@ public abstract class Saves {
             + (User.getUser().hasLeggings() ? (User.getUser().getLeggings().getLevel()) : "x") + " Leggings" + System.lineSeparator()
             + (User.getUser().hasShield() ? (User.getUser().getShield().getLevel()) : "x") + " Shield" + System.lineSeparator()
             + (User.getUser().hasSword() ? (User.getUser().getSword().getLevel()) : "x") + " Sword" + System.lineSeparator()
-            + FightScreen.wonAgainstEnemies + " coins"
+            + FightScreen.wonAgainstEnemies + " coins"+ System.lineSeparator()
+            + User.getUser().totalFought + " totalFought"+ System.lineSeparator()
+            + User.getUser().totalWon + " totalWon"
             );
         } catch (IOException e) {
             e.printStackTrace();

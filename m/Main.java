@@ -3,6 +3,7 @@ package m;
 import C.User;
 import C_ITEMS.*;
 import Coloring.Coloring;
+import Screens.GameOverScene;
 
 import java.awt.Font;
 
@@ -33,5 +34,6 @@ public class Main {
         Helmet.fillIcons();
         Sword.fillIcons();
         Leggings.fillIcons();
+        Cat.fillIcons();
     }
 }

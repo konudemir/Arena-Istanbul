@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import C.*;
+import C_ITEMS.Cat;
 import m.MainFrame;
 
 
@@ -157,7 +158,6 @@ public class FightScreen extends JPanel {
         fighter.changeHealth(100);
         user.increaseStamina(100);
         fighter.increaseStamina(100);
-        user.lowerStamina(90);
         fightersAnimation = new FighterAnimation(theFighter.getFighterPanel());
         usersAnimation = new FighterAnimation(User.getCharPanel());
         CharacterPanel.getCharPanel().setImage(this);
@@ -243,6 +243,7 @@ public class FightScreen extends JPanel {
     //Buttons' results
     public void attack(Person person)
     {
+        FightScreen.theFightScreen.theFighter.changeHealth(-100);
         System.out.println("START OF THE ATTACK METHOD IN FIGHTERPANEL!!!");
         person.lowerStamina(10);
         if(person instanceof User)
@@ -313,10 +314,11 @@ public class FightScreen extends JPanel {
     }
     public void usePet(Person person)
     {
-        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
         if(person instanceof User)
         {
+            this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
             FightScreen.usersTurn = false;
+            FightScreen.theFightScreen.theFighter.changeHealth(-5);
         }
         //Fighters dont have pets
     }
@@ -348,6 +350,7 @@ public class FightScreen extends JPanel {
         }
     }
         public void showEndGamePanel(String message) {
+        boolean wasFromStoryMode = FightScreen.theFightScreen.theFighter.isFromStoryMode;
         JPanel endPanel = new JPanel();
         endPanel.setLayout(null);
         endPanel.setBackground(Color.ORANGE);
@@ -364,8 +367,28 @@ public class FightScreen extends JPanel {
         coinsLabel.setFont(resultLabel.getFont().deriveFont(36.0f));
         coinsLabel.setIcon(new ImageIcon("graphs/coins.png"));
         endPanel.add(coinsLabel);
-
-        if(message.equalsIgnoreCase("User Won"))User.getUser().changeCoins(300);
+        User.getUser().totalFought++;
+        if(message.equalsIgnoreCase("User Won"))
+        {
+            User.getUser().changeCoins(300);
+            User.getUser().totalWon++;
+            if(wasFromStoryMode)
+            {
+                FightScreen.wonAgainstEnemies ++;
+                if(wonAgainstEnemies == 2)//It will give a cat after they win against the second enemy
+                {
+                    JLabel addCatLabel = new JLabel("After your amazing performance against your enemies, a vezier has decided to gift you a cat!");
+                    addCatLabel.setBounds(600, 700, 900, 100);
+                    addCatLabel.setFont(resultLabel.getFont().deriveFont(36.0f));
+                    endPanel.add(addCatLabel);
+                    JLabel addCatLabel2 = new JLabel("You may use your cat during fights to harm your enemies while resting!");
+                    addCatLabel2.setBounds(600, 800, 900, 100);
+                    addCatLabel2.setFont(resultLabel.getFont().deriveFont(36.0f));
+                    endPanel.add(addCatLabel2);
+                    User.getUser().buyItem(new Cat());
+                }
+            }
+        }
         else User.getUser().changeCoins(-200);
 
         JLabel resultCoinsLabel = new JLabel("You now have " + User.getUser().getCoins() + " coins!");
@@ -382,7 +405,18 @@ public class FightScreen extends JPanel {
         endPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new LobbyScreen();
+                if(wonAgainstEnemies == 4)
+                {
+                    FightScreen.theFightScreen.remove(endPanel);
+                    new StoryScreen(false);
+                }
+                else if(wonAgainstEnemies == 5)
+                {
+                    FightScreen.theFightScreen.remove(endPanel);
+                    new GameOverScene();
+                    return;
+                }
+                else new LobbyScreen();
             }
         });
 

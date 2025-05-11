@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import C.CharacterPanel;
+import C.Fighter;
 import C.User;
 import m.MainFrame;
 
@@ -96,11 +97,9 @@ public class StoryScreen extends JPanel {
             dialogueIndex++;
         } else {
             if (isFirstScene) {
-                // After first scene ends, go to second scene
                 new LobbyScreen();
             } else {
-                // After second scene, move to the real game screen (replace with your game screen)
-                ////theFrame.setPanel(new MainGameScreen()); // Assuming you have a MainGameScreen class
+                new FightScreen(User.getUser(), new Fighter(FightScreen.wonAgainstEnemies, true));
             }
         }
     }

@@ -63,7 +63,7 @@ public class CharacterPanel extends FighterPanel{
         {
             //item.setImage(this.person.currentPhoto);
             g.drawImage(item.getImage(), 0, 0, null);
-            //System.out.println("DREW in CHARPANEL " + item + ", image: " + item.getImage());
+            System.out.println("DREW in CHARPANEL " + item + ", image: " + item.getImage());
         }
         g.setColor(Color.WHITE);
         g.drawString("Character Image: " + currentPhoto, 100, 10);

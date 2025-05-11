@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import C.*;
+import Screens.StoryScreen;
+import m.MainFrame;
 
 public abstract class Item{
     public static final int AMOUNT_OF_ICONS = 4;//WOODEN IRON GOLD DIOMAND
@@ -88,6 +90,13 @@ public abstract class Item{
         else if(this instanceof Sword)
         {
             Sword item = (Sword)this;
+            return item.getAppropriateImage();
+        }
+        
+        else if(this instanceof Cat)
+        {
+            if(MainFrame.currentPanel instanceof StoryScreen)return null;
+            Cat item = (Cat)this;
             return item.getAppropriateImage();
         }
         return null;

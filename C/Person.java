@@ -78,6 +78,7 @@ public class Person {
                 if(i.getClass() == item.getClass() )
                 {
                     this.sellItem(i);
+                    break;
                 }
             }
         }
@@ -90,6 +91,11 @@ public class Person {
             u.changeCoins(- item.getPrice());
         }
         System.out.println("BOUGHT " + item);
+        if(item instanceof Cat)
+        {
+            Cat cat = (Cat) item;
+            cat.setImage(0);
+        }
         if(MainFrame.currentPanel instanceof StoreScreen)
         {
             StoreScreen.theStoreScreen.coinSpace.setText("" + Main.theUser.getCoins());
@@ -97,19 +103,12 @@ public class Person {
     }
     public void sellItem(Item item)
     {
-        if(this.itemsList.size() == 0)return;
-        for(Item i : itemsList)
+        itemsList.remove(item);
+        if(this instanceof User)
         {
-            if(i == item)
-            {
-                itemsList.remove(i);
-                if(this instanceof User)
-                {
-                    User u = (User)this;
-                    u.changeCoins(i.getPrice());
-                    return;
-                }
-            }
+            User u = (User)this;
+            u.changeCoins(item.getPrice());
+            return;
         }
     }
     public int getCurrentCharacterPhoto()
@@ -136,7 +135,7 @@ public class Person {
         }
         if(this.health <= 0)
         {
-        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER WON");
+        if(this instanceof Fighter)FightScreen.theFightScreen.showEndGamePanel("USER WON");
         else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
         //Temporary
         //new LobbyScreen();
@@ -160,7 +159,7 @@ public class Person {
         }
         if(this.stamina <= 0)
         {
-        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER WON");
+        if(this instanceof Fighter)FightScreen.theFightScreen.showEndGamePanel("USER WON");
         else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
 
         //Temporary
@@ -185,7 +184,7 @@ public class Person {
         }
         if(this.stamina <= 0)
         {
-        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER WON");
+        if(this instanceof Fighter)FightScreen.theFightScreen.showEndGamePanel("USER WON");
         else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
 
         //Temporary
@@ -193,10 +192,10 @@ public class Person {
         User.getCharPanel().repaint();
         }
     }
-    public Item[] listItemsInPriorityOfShowing()
+    public ArrayList<Item> listItemsInPriorityOfShowing()
     {
-        List<Item> ordered = new ArrayList<>();
-        for (Class<?> type : new Class[]{Leggings.class, Armor.class, Helmet.class, Shield.class, Sword.class}) {
+        ArrayList<Item> ordered = new ArrayList<>();
+        for (Class<?> type : new Class[]{Leggings.class, Armor.class, Helmet.class, Shield.class, Sword.class, Cat.class}) {
             for (Item item : itemsList) {
                 if (type.isInstance(item)) {
                     ordered.add(item);
@@ -204,6 +203,6 @@ public class Person {
                 }
             }
         }
-        return ordered.toArray(new Item[0]);
+        return ordered;
     }
 }

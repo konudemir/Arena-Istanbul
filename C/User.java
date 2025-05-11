@@ -1,5 +1,7 @@
 package C;
 
+import java.util.ArrayList;
+
 import C_ITEMS.*;
 
 public class User extends Person{
@@ -8,11 +10,15 @@ public class User extends Person{
     private HealthBar healthBar;
     private int coins;
     protected StaminaBar staminaBar;
+    public int totalFought = 0;
+    public int totalWon = 0;
     public User()  
     {
         theUser = this;
+        this.itemsList = new ArrayList<>();
         this.coins = 200;
         this.buyItem(new Sword(0));
+        this.buyItem(new Cat());
         new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
         this.panel = this.charPanel;

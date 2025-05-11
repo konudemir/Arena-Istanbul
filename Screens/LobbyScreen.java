@@ -17,6 +17,7 @@ import C.CharacterPanel;
 import C.CharacterPanelOld;
 import C.Fighter;
 import C.User;
+import m.Main;
 import m.MainFrame;
 
 import java.awt.event.MouseAdapter;
@@ -45,6 +46,16 @@ public class LobbyScreen extends JPanel{
         // Remove previous panels and set up the screen
         theFrame.removePrevPanelsAndLabels();
         this.setBounds(0, 0, 1920, 1080);
+
+        // Coin display
+        JLabel coinSpace;
+        coinSpace = new JLabel("" + Main.theUser.getCoins(), JLabel.CENTER);
+        coinSpace.setIcon(new ImageIcon("graphs/coinSpace.png"));
+        coinSpace.setFont(new Font("Impact", Font.PLAIN, 100));
+        coinSpace.setForeground(Color.white);
+        coinSpace.setBounds(70, 30, 400, 115);
+        coinSpace.setHorizontalTextPosition(JLabel.CENTER);
+        this.add(coinSpace);
         
         // Add character panel
         this.add(CharacterPanel.getCharPanel());

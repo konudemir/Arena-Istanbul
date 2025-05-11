@@ -77,8 +77,8 @@ public class FighterPanel extends JPanel{
     public void moveBy(int x, int y, int time) {
         int steps = 5;
         int delay = time / steps;
-        int deltaX = ((this.getX() >= 1500 && x > 0) || (this.getX() == 826 && x < 0) ? 0 : x / steps);
-        int deltaY = ((this.getX() >= 1500 && x > 0) || (this.getX() == 826 && x < 0) ? 0 : y / steps);
+        int deltaX = ((this.getX() >= 1500 && x > 0) || (this.getX() <= 700 && x < 0) ? 0 : x / steps);
+        int deltaY = ((this.getX() >= 1500 && x > 0) || (this.getX() <= 700 && x < 0) ? 0 : y / steps);
     
         Timer moveTimer = new Timer(delay, null);
         final int[] counter = {0};

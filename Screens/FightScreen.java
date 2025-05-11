@@ -157,6 +157,7 @@ public class FightScreen extends JPanel {
         fighter.changeHealth(100);
         user.increaseStamina(100);
         fighter.increaseStamina(100);
+        user.lowerStamina(90);
         fightersAnimation = new FighterAnimation(theFighter.getFighterPanel());
         usersAnimation = new FighterAnimation(User.getCharPanel());
         CharacterPanel.getCharPanel().setImage(this);
@@ -349,20 +350,41 @@ public class FightScreen extends JPanel {
         public void showEndGamePanel(String message) {
         JPanel endPanel = new JPanel();
         endPanel.setLayout(null);
+        endPanel.setBackground(Color.ORANGE);
         endPanel.setBounds(0, 0, 1920, 1080);
 
         JLabel resultLabel = new JLabel(message, JLabel.CENTER);
-        resultLabel.setBounds(760, 400, 400, 100);
+        resultLabel.setBounds(700, 350, 400, 100);
         resultLabel.setFont(resultLabel.getFont().deriveFont(36.0f));
+        resultLabel.setIcon(new ImageIcon("graphs/sword.png"));
         endPanel.add(resultLabel);
+        
+        JLabel coinsLabel = new JLabel((message.equalsIgnoreCase("USER WON")) ? ("Gained " + 300 + " Coins!") : ("Lost " +  (-1 * 200) + " Coins!"));
+        coinsLabel.setBounds(700, 500, 600, 100);
+        coinsLabel.setFont(resultLabel.getFont().deriveFont(36.0f));
+        coinsLabel.setIcon(new ImageIcon("graphs/coins.png"));
+        endPanel.add(coinsLabel);
 
-        // Optional: restart or exit buttons
-        // JButton restartButton = new JButton("Restart");
-        // restartButton.setBounds(860, 520, 200, 50);
-        // endPanel.add(restartButton);
+        if(message.equalsIgnoreCase("User Won"))User.getUser().changeCoins(300);
+        else User.getUser().changeCoins(-200);
 
-        this.add(endPanel);
+        JLabel resultCoinsLabel = new JLabel("You now have " + User.getUser().getCoins() + " coins!");
+        resultCoinsLabel.setBounds(700, 600, 600, 100);
+        resultCoinsLabel.setFont(resultLabel.getFont().deriveFont(36.0f));
+        endPanel.add(resultCoinsLabel);
+
+
+        theFrame.removePrevPanelsAndLabels();
+        MainFrame.theFrame.add(endPanel);
         this.repaint();
+        MainFrame.theFrame.repaint();
+
+        endPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new LobbyScreen();
+            }
+        });
 
         // Disable all interactions or timers if needed
         usersAnimation.animationTimer.stop();

@@ -136,10 +136,10 @@ public class Person {
         }
         if(this.health <= 0)
         {
-        //TODO Innitiate a battle over screen here new BattleOverScreen(Person winner)
-
+        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER WON");
+        else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
         //Temporary
-        new LobbyScreen();
+        //new LobbyScreen();
         }
     }
     public void lowerStamina(int i)
@@ -160,10 +160,11 @@ public class Person {
         }
         if(this.stamina <= 0)
         {
-        //TODO Innitiate a battle over screen here new BattleOverScreen(Person winner)
+        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER WON");
+        else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
 
         //Temporary
-        new LobbyScreen();
+        //new LobbyScreen();
         }
     }
     public void increaseStamina(int i)
@@ -184,10 +185,11 @@ public class Person {
         }
         if(this.stamina <= 0)
         {
-        //TODO Innitiate a battle over screen here new BattleOverScreen(Person winner)
+        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER WON");
+        else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
 
         //Temporary
-        new LobbyScreen();
+        //new LobbyScreen();
         User.getCharPanel().repaint();
         }
     }

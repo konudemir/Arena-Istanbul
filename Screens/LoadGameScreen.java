@@ -6,6 +6,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import C.User;
+
 import java.awt.Dimension;
 
 
@@ -97,20 +100,51 @@ public class LoadGameScreen extends JPanel{
 
         for (String saveName : saves) {
             final String name = saveName;
-            JButton saveButton = new JButton(saveName);
+            JLabel saveButton = new JLabel(saveName.substring(6, saveName.length() - 4));
+            saveButton.setIcon(new ImageIcon("graphs/save.png"));
             saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
-            saveButton.setAlignmentX(CENTER_ALIGNMENT);
+            saveButton.setVerticalAlignment(JLabel.CENTER);
+            saveButton.setHorizontalAlignment(JLabel.CENTER);
+            saveButton.setHorizontalTextPosition(JLabel.CENTER);
+            saveButton.setForeground(Color.white);
             Dimension size = new Dimension(600, 100);
             saveButton.setPreferredSize(size);
             saveButton.setMaximumSize(size);
             saveButton.setMinimumSize(size);
-            saveButton.addActionListener(_ -> {
-                try {
+            saveButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            try {
                 Saves.readSave(name);
                 new LobbyScreen();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
+            }
+    
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                saveButton.setIcon(new ImageIcon("graphs/saveEntered.png"));
+                saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                saveButton.setIcon(new ImageIcon("graphs/save.png"));
+                saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mousePressed(MouseEvent e) {
+                saveButton.setIcon(new ImageIcon("graphs/saveClicked.png"));
+                saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                saveButton.setIcon(new ImageIcon("graphs/save.png"));
+                saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
             });
             buttonPanel.add(saveButton);
             buttonPanel.add(Box.createVerticalStrut(10)); // Spacing between buttons

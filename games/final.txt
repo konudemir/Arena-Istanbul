@@ -1,0 +1,11 @@
+3 currentFolderOrder
+3 wonAgainstEnemies
+3 Armor
+1 Cat (0/1)
+3 Helmet
+3 Leggings
+3 Shield
+3 Sword
+500 coins
+10 totalFought
+10 totalWon

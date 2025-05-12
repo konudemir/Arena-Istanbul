@@ -86,25 +86,55 @@ public class SaveGameScreen extends JPanel {
         buttonPanel.setBackground(Color.ORANGE);
 
         // Add "New Save Slot" button
-        JButton newSaveButton = new JButton("New Save Slot");
-        newSaveButton.setFont(new Font("Impact", Font.PLAIN, 30));
-        Dimension size = new Dimension(600, 100);
-        newSaveButton.setPreferredSize(size);
-        newSaveButton.setMaximumSize(size);
-        newSaveButton.setMinimumSize(size);
-        newSaveButton.setAlignmentX(CENTER_ALIGNMENT);
-
-        newSaveButton.addActionListener(_ -> {
-            String saveName = JOptionPane.showInputDialog(this, "Enter new save name:");
+            JLabel newSaveButton = new JLabel("NEW SAVE");
+            newSaveButton.setIcon(new ImageIcon("graphs/save.png"));
+            newSaveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            newSaveButton.setVerticalAlignment(JLabel.CENTER);
+            newSaveButton.setHorizontalAlignment(JLabel.CENTER);
+            newSaveButton.setHorizontalTextPosition(JLabel.CENTER);
+            newSaveButton.setForeground(Color.white);
+            Dimension size = new Dimension(600, 100);
+            newSaveButton.setPreferredSize(size);
+            newSaveButton.setMaximumSize(size);
+            newSaveButton.setMinimumSize(size);
+            newSaveButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            String saveName = JOptionPane.showInputDialog("Enter new save name!", "Enter new save name:");
             if (saveName != null && !saveName.trim().isEmpty()) {
                 try {
                     Saves.saveGame(saveName);
                     new LobbyScreen(); // or you can refresh SaveGameScreen to show new entry
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
-        });
+            }
+    
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                newSaveButton.setIcon(new ImageIcon("graphs/saveEntered.png"));
+                newSaveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                newSaveButton.setIcon(new ImageIcon("graphs/save.png"));
+                newSaveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mousePressed(MouseEvent e) {
+                newSaveButton.setIcon(new ImageIcon("graphs/saveClicked.png"));
+                newSaveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                newSaveButton.setIcon(new ImageIcon("graphs/save.png"));
+                newSaveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+            });
 
         buttonPanel.add(newSaveButton);
         buttonPanel.add(Box.createVerticalStrut(20));
@@ -112,22 +142,54 @@ public class SaveGameScreen extends JPanel {
         // Add existing save buttons
         for (String saveName : saves) {
             final String name = saveName;
-            JButton saveButton = new JButton(saveName.substring(6,name.length() - 4));
+            JLabel saveButton = new JLabel(saveName.substring(6, saveName.length() - 4));
+            saveButton.setIcon(new ImageIcon("graphs/save.png"));
             saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
-            saveButton.setAlignmentX(CENTER_ALIGNMENT);
-            saveButton.setPreferredSize(size);
-            saveButton.setMaximumSize(size);
-            saveButton.setMinimumSize(size);
-            saveButton.addActionListener(_ -> {
-                try {
+            saveButton.setVerticalAlignment(JLabel.CENTER);
+            saveButton.setHorizontalAlignment(JLabel.CENTER);
+            saveButton.setHorizontalTextPosition(JLabel.CENTER);
+            saveButton.setForeground(Color.white);
+            Dimension size2 = new Dimension(600, 100);
+            saveButton.setPreferredSize(size2);
+            saveButton.setMaximumSize(size2);
+            saveButton.setMinimumSize(size2);
+            saveButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            try {
                     Saves.saveGame(name);
                     new LobbyScreen();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
+            }
+    
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                saveButton.setIcon(new ImageIcon("graphs/saveEntered.png"));
+                saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                saveButton.setIcon(new ImageIcon("graphs/save.png"));
+                saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mousePressed(MouseEvent e) {
+                saveButton.setIcon(new ImageIcon("graphs/saveClicked.png"));
+                saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
+    
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                saveButton.setIcon(new ImageIcon("graphs/save.png"));
+                saveButton.setFont(new Font("Impact", Font.PLAIN, 30));
+            }
             });
             buttonPanel.add(saveButton);
-            buttonPanel.add(Box.createVerticalStrut(10));
+            buttonPanel.add(Box.createVerticalStrut(10)); // Spacing between buttons
         }
 
         JScrollPane scrollPane = new JScrollPane(buttonPanel);

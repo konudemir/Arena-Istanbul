@@ -215,6 +215,7 @@ public class FightScreen extends JPanel {
         });
         esc.setSaveAction(new AbstractAction() {
             @Override public void actionPerformed(ActionEvent e) {
+                esc.setVisible(false);
                 new SaveGameScreen();
                 System.out.println("SAVE GAME SCREEN");
             }

@@ -6,6 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import C.User;
 
@@ -94,9 +96,18 @@ public class LoadGameScreen extends JPanel{
     public void addSaveButtons() {
         ArrayList<String> saves = Saves.getAllSaves();
 
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            // Enable anti-aliasing and proper transparency
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(new Color(128, 128, 128, 128)); // semi-transparent red
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.dispose();
+            super.paintComponent(g);
+        }};
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setBackground(Color.ORANGE);
+        buttonPanel.setOpaque(false);
 
         for (String saveName : saves) {
             final String name = saveName;
@@ -149,6 +160,8 @@ public class LoadGameScreen extends JPanel{
             buttonPanel.add(saveButton);
             buttonPanel.add(Box.createVerticalStrut(10)); // Spacing between buttons
         }
+
+        
 
         JScrollPane scrollPane = new JScrollPane(buttonPanel);
         scrollPane.setBounds(150, 100, 600, 800);

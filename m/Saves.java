@@ -76,6 +76,18 @@ public abstract class Saves {
     }
     public static void saveGame(String path)
     {
+        File file = new File(path);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getAbsolutePath());
+                } else {
+                    System.out.println("File could not be created.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try (FileWriter writer = new FileWriter(path)) { // true = append mode
             writer.write
             (User.getCharPanel().currentFolderOrder + " currentFolderOrder" + System.lineSeparator()

@@ -63,14 +63,8 @@ public class CharacterPanel extends FighterPanel{
         {
             //item.setImage(this.person.currentPhoto);
             g.drawImage(item.getImage(), 0, 0, null);
-            System.out.println("DREW in CHARPANEL " + item + ", image: " + item.getImage());
         }
         g.setColor(Color.WHITE);
-        g.drawString("Character Image: " + currentPhoto, 100, 10);
-        for(int i = 0; i < this.person.itemsList.size(); i++)
-        {
-            g.drawString("Item " + this.person.itemsList.get(i) + " image: " + this.person.itemsList.get(i).getImageOrder(), 100, 10 * i + 20);
-        }
     }
     public void moveTo(int x, int y)
     {

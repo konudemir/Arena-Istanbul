@@ -3,12 +3,14 @@ package C_ITEMS;
 import javax.swing.ImageIcon;
 
 import Coloring.*;
+import Screens.FightScreen;
 import C.Fighter;
 import C.Person;
 import C.User;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.util.Random;
 
 public class Cat extends Item{
     public int level;
@@ -61,6 +63,11 @@ public class Cat extends Item{
                     System.out.println("NO CAT IMAGE FOR i:"  + j);
                 }
         }
+    }
+    public static int getAttackForDistance()
+    {
+        if(User.getCharPanel().getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750)return new Random().nextInt(5) + 3;//3-7
+        else return 0;
     }
     public void setImage(int i)
     {

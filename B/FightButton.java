@@ -52,7 +52,7 @@ public class FightButton extends JLabel implements MouseListener{
         else if(context.equals("moveForward"))CharacterPanel.getCharPanel().moveForward();
         else if(context.equals("moveBackwards"))CharacterPanel.getCharPanel().moveBackwards();
         else if(context.equals("sleep"))CharacterPanel.getCharPanel().sleep();
-        else if(context.equals("sleep"))CharacterPanel.getCharPanel().usePet();
+        else if(context.equals("usePet"))CharacterPanel.getCharPanel().usePet();
         FightScreen.usersTurn = false;
         FightScreen.theFightScreen.theFighter.fightersTurn();
     }

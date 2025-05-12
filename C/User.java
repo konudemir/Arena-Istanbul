@@ -18,12 +18,20 @@ public class User extends Person{
         this.itemsList = new ArrayList<>();
         this.coins = 200;
         this.buyItem(new Sword(0));
-        this.buyItem(new Cat());
         new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
         this.panel = this.charPanel;
         this.healthBar = new HealthBar(this);
         this.staminaBar = new StaminaBar(this);
+    }
+    public boolean hasOfItem(Item item)
+    {
+        if(item instanceof Armor && this.hasArmor())if(this.getArmor().getName().equals(item.getName()))return true;
+        if(item instanceof Armor && this.hasHelmet())if(this.getHelmet().getName().equals(item.getName()))return true;
+        if(item instanceof Armor && this.hasLeggings())if(this.getLeggings().getName().equals(item.getName()))return true;
+        if(item instanceof Armor && this.hasShield())if(this.getShield().getName().equals(item.getName()))return true;
+        if(item instanceof Armor && this.hasSword())if(this.getSword().getName().equals(item.getName()))return true;
+        return false;
     }
     public void moveTo(int x, int y)
     {

@@ -244,7 +244,6 @@ public class FightScreen extends JPanel {
     //Buttons' results
     public void attack(Person person)
     {
-        FightScreen.theFightScreen.theFighter.changeHealth(-100);
         System.out.println("START OF THE ATTACK METHOD IN FIGHTERPANEL!!!");
         person.lowerStamina(10);
         if(person instanceof User)
@@ -315,12 +314,10 @@ public class FightScreen extends JPanel {
     }
     public void usePet(Person person)
     {
-        if(person instanceof User)
-        {
-            this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
-            FightScreen.usersTurn = false;
-            FightScreen.theFightScreen.theFighter.changeHealth(-5);
-        }
+        System.out.println("INSIDE USEPET IN FIGHTSCREEN");
+        this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.IDLE;
+        FightScreen.usersTurn = false;
+        FightScreen.theFightScreen.theFighter.changeHealth(Cat.getAttackForDistance());
         //Fighters dont have pets
     }
     public void setFightersAnimationToIdle()

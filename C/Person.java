@@ -24,6 +24,7 @@ public class Person {
         this.health = 100;
         this.stamina = 100;
     }
+    
     public boolean didItGetHit(double attackPower)
     {
         System.out.println("Entered did it get hit");
@@ -44,8 +45,8 @@ public class Person {
         System.out.println("defense power: " + totalDefensePower + ", random double: " + randomDouble);
         if(randomDouble >= totalDefensePower)
         {
-            this.changeHealth((int)(- attackPower * HIT_COEFFICIENT));
-            System.out.println("HIT BY " + (int)(- attackPower * HIT_COEFFICIENT));
+            this.changeHealth(-(Math.abs((int)(- attackPower * HIT_COEFFICIENT))));
+            System.out.println("HIT BY " + (Math.abs((int)(- attackPower * HIT_COEFFICIENT))));
             return true;
         }
         return false;
@@ -135,8 +136,8 @@ public class Person {
         }
         if(this.health <= 0)
         {
-        if(this instanceof Fighter)FightScreen.theFightScreen.showEndGamePanel("USER WON");
-        else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
+        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER LOST");
+        else FightScreen.theFightScreen.showEndGamePanel("USER WON");
         //Temporary
         //new LobbyScreen();
         }
@@ -159,8 +160,8 @@ public class Person {
         }
         if(this.stamina <= 0)
         {
-        if(this instanceof Fighter)FightScreen.theFightScreen.showEndGamePanel("USER WON");
-        else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
+        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER LOST");
+        else FightScreen.theFightScreen.showEndGamePanel("USER WON");
 
         //Temporary
         //new LobbyScreen();
@@ -184,8 +185,8 @@ public class Person {
         }
         if(this.stamina <= 0)
         {
-        if(this instanceof Fighter)FightScreen.theFightScreen.showEndGamePanel("USER WON");
-        else FightScreen.theFightScreen.showEndGamePanel("USER LOST");
+        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER LOST");
+        else FightScreen.theFightScreen.showEndGamePanel("USER WON");
 
         //Temporary
         //new LobbyScreen();

@@ -81,9 +81,20 @@ public class SaveGameScreen extends JPanel {
     public void addSaveButtons() {
         ArrayList<String> saves = Saves.getAllSaves();
 
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            // Enable anti-aliasing and proper transparency
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(new Color(128, 128, 128, 128)); // semi-transparent red
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.dispose();
+            super.paintComponent(g);
+        }};
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setBackground(Color.ORANGE);
+        buttonPanel.setOpaque(false);
+
+        
 
         // Add "New Save Slot" button
             JLabel newSaveButton = new JLabel("NEW SAVE");
@@ -100,11 +111,11 @@ public class SaveGameScreen extends JPanel {
             newSaveButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            String saveName = JOptionPane.showInputDialog("Enter new save name!", "Enter new save name:");
+            String saveName = "games/" + JOptionPane.showInputDialog("Enter new save name!", "Enter new save name:") + ".txt";
             if (saveName != null && !saveName.trim().isEmpty()) {
                 try {
                     Saves.saveGame(saveName);
-                    new LobbyScreen(); // or you can refresh SaveGameScreen to show new entry
+                    new LobbyScreen();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

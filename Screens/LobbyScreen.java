@@ -262,50 +262,7 @@ public class LobbyScreen extends JPanel{
         });
 
 
-        //THE 2ND STORY BUTTON (FOR DEBUG)
-        //Add the exit button
-        JLabel storyDebugButton = new JLabel();
-        storyDebugButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
-        storyDebugButton.setText("STORY 2");
-        storyDebugButton.setHorizontalTextPosition(JLabel.CENTER);
-        storyDebugButton.setForeground(Color.white);
-        storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 50));
-        storyDebugButton.setVerticalAlignment(JLabel.CENTER);
-        storyDebugButton.setHorizontalAlignment(JLabel.CENTER);
-        storyDebugButton.setBounds(200, 200, 300, 95);
-        storyDebugButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                //new FightScreen(User.getUser(), new Fighter(0));
-                //new StoreScreen();
-                new StoryScreen(false);
-            }
-    
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                storyDebugButton.setIcon(new ImageIcon("graphs/enteredFrontArrow.png"));
-                storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 45));
-            }
-    
-            @Override
-            public void mouseExited(MouseEvent e) {
-                storyDebugButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
-                storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 45));
-            }
-    
-            @Override
-            public void mousePressed(MouseEvent e) {
-                storyDebugButton.setIcon(new ImageIcon("graphs/clickedFrontArrow.png"));
-                storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 41));
-            }
-    
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                storyDebugButton.setIcon(new ImageIcon("graphs/frontArrow.png"));
-                storyDebugButton.setFont(new Font("Impact", Font.PLAIN, 45));
-            }
-            });
-        this.add(storyDebugButton);
+        
         this.add(arena);
         this.add(store);
         this.add(backgroundLabel);

@@ -91,7 +91,6 @@ public class StoreScreen extends JPanel {
         clearButtons();
 
         // Sword items
-        createButton("Wooden Sword - 100 coins", 100, 150, _ -> purchaseItem(new Sword(0)));
         createButton("Iron Sword - 200 coins", 100, 300, _ -> purchaseItem(new Sword(1)));
         createButton("Gold Sword - 300 coins", 100, 450, _ -> purchaseItem(new Sword(2)));
         createButton("Diamond Sword - 4000 coins", 100, 600, _ -> purchaseItem(new Sword(3)));
@@ -176,7 +175,7 @@ public class StoreScreen extends JPanel {
     }
 
     private void purchaseItem(Item item) {
-        if (Main.theUser.getCoins() >= item.getPrice()) {
+        if (Main.theUser.getCoins() >= item.getPrice() && !Main.theUser.hasOfItem(item)) {
             Main.theUser.buyItem(item); // Handles coin deduction and inventory
             coinSpace.setText("" + Main.theUser.getCoins());
             updateStoreLog(item, true);

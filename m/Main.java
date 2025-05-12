@@ -12,11 +12,15 @@ public class Main {
     public static final int AMOUNT_OF_CHARACTER_PHOTOS = 9;
     public static User theUser;
     private static Font font;
+    public static MusicPlayer musicPlayer = new MusicPlayer();
+    public static final String MUSIC_PATH = "m/mixkit-driving-ambition-32.wav";
+
     public static void main(String[] args) {
         fillItemIcons();
         theUser = new User();
         MainFrame frame = new MainFrame();
         frame.getFirstScreen();
+        musicPlayer.playMusic(MUSIC_PATH);
     }
     public static Font getFont()
     {

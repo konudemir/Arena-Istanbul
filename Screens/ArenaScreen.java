@@ -7,6 +7,7 @@ import java.awt.*;
 import C.CharacterPanel;
 import C.Fighter;
 import C.User;
+import m.Main;
 import m.MainFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,6 +18,7 @@ public class ArenaScreen extends JPanel {
     
     public ArenaScreen() {
         MainFrame.currentPanel = this;
+        Main.checkIfMusicShouldPlay();
         theFrame = MainFrame.theFrame;
         this.setLayout(null);
         

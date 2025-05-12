@@ -1,7 +1,7 @@
 0 currentFolderOrder
 0 wonAgainstEnemies
 x Armor
-1 Cat (0/1)
+0 Cat (0/1)
 x Helmet
 x Leggings
 x Shield

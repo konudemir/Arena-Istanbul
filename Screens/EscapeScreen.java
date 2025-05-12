@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 public class EscapeScreen extends JPanel {
     private final JButton btnResume;
     private final JButton btnSave;
-    private final JButton btnSettings;
+    //private final JButton btnSettings;
     private final JButton btnExitToMenu;
     private final JButton btnExitGame;
     public static EscapeScreen theEscapeScreen;
@@ -49,13 +49,13 @@ public class EscapeScreen extends JPanel {
 
         btnResume     = createButton("Resume");
         btnSave       = createButton("Save Game");
-        btnSettings   = createButton("Settings");
+        //btnSettings   = createButton("Settings");
         btnExitToMenu = createButton("Exit to Map");  // changed label
         btnExitGame   = createButton("Exit Game");
 
         container.add(btnResume);
         container.add(btnSave);
-        container.add(btnSettings);
+        //container.add(btnSettings);
         container.add(btnExitToMenu);
         container.add(btnExitGame);
 
@@ -86,11 +86,13 @@ public class EscapeScreen extends JPanel {
                 System.out.println("SAVE GAME SCREEN2");
             }
         });
+        /*
         setSettingsAction(new AbstractAction() {
             @Override public void actionPerformed(ActionEvent e) {
                 System.out.println("Opening settings...");
             }
         });
+        */
         // Default: no-op; override in FightScreen
         setExitToMenuAction(new AbstractAction() {
             @Override public void actionPerformed(ActionEvent e) {
@@ -120,7 +122,7 @@ public class EscapeScreen extends JPanel {
 
     public void setResumeAction(AbstractAction a)     { btnResume.setAction(a);     btnResume.setText("Resume"); }
     public void setSaveAction(AbstractAction a)       { btnSave.setAction(a);       btnSave.setText("Save Game"); }
-    public void setSettingsAction(AbstractAction a)   { btnSettings.setAction(a);   btnSettings.setText("Settings"); }
+    //public void setSettingsAction(AbstractAction a)   { btnSettings.setAction(a);   btnSettings.setText("Settings"); }
     public void setExitToMenuAction(AbstractAction a) { btnExitToMenu.setAction(a); btnExitToMenu.setText("Exit to Map"); }
     public void setExitGameAction(AbstractAction a)   { btnExitGame.setAction(a);   btnExitGame.setText("Exit Game"); }
 }

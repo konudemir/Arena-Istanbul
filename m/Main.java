@@ -3,7 +3,7 @@ package m;
 import C.User;
 import C_ITEMS.*;
 import Coloring.Coloring;
-import Screens.GameOverScene;
+import Screens.*;
 
 import java.awt.Font;
 
@@ -13,7 +13,7 @@ public class Main {
     public static User theUser;
     private static Font font;
     public static MusicPlayer musicPlayer = new MusicPlayer();
-    public static final String MUSIC_PATH = "m/mixkit-driving-ambition-32.wav";
+    public static final String MUSIC_PATH = "m/music.wav";
 
     public static void main(String[] args) {
         fillItemIcons();
@@ -21,6 +21,41 @@ public class Main {
         MainFrame frame = new MainFrame();
         frame.getFirstScreen();
         musicPlayer.playMusic(MUSIC_PATH);
+    }
+    public static void checkIfMusicShouldPlay()
+    {
+        if (MainFrame.currentPanel instanceof FirstMenu) {
+        if (SettingsScreen.musicInFirstScreen) {
+            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+        } else {
+            musicPlayer.setVolume(0);
+        }
+    } else if (MainFrame.currentPanel instanceof LobbyScreen) {
+        if (SettingsScreen.musicInLobby) {
+            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+        } else {
+            musicPlayer.setVolume(0);
+        }
+    } else if (MainFrame.currentPanel instanceof FightScreen) {
+        if (SettingsScreen.musicInFight) {
+            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+        } else {
+            musicPlayer.setVolume(0);
+        }
+    } else if (MainFrame.currentPanel instanceof StoreScreen) {
+        if (SettingsScreen.musicInStore) {
+            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+        } else {
+            musicPlayer.setVolume(0);
+        }
+    } else if (MainFrame.currentPanel instanceof StoryScreen) {
+        if (SettingsScreen.musicInStory) {
+            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+        } else {
+            musicPlayer.setVolume(0);
+        }
+    }
+
     }
     public static Font getFont()
     {

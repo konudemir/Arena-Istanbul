@@ -34,6 +34,7 @@ public class LobbyScreen extends JPanel{
         CharacterPanel.getCharPanel().repaint();
         theLobbyScreen = this;
         MainFrame.currentPanel = this;
+        Main.checkIfMusicShouldPlay();
         theFrame = MainFrame.theFrame;
         this.setLayout(null);
 

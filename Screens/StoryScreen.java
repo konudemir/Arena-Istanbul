@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import C.CharacterPanel;
 import C.Fighter;
 import C.User;
+import m.Main;
 import m.MainFrame;
 
 public class StoryScreen extends JPanel {
@@ -47,6 +48,7 @@ public class StoryScreen extends JPanel {
         User.getCharPanel().setImage(this);
 
         MainFrame.currentPanel = this;
+        Main.checkIfMusicShouldPlay();
         theFrame = MainFrame.theFrame;
         theFrame.removePrevPanelsAndLabels();
 

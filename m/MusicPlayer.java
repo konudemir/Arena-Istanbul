@@ -22,6 +22,15 @@ public class MusicPlayer {
             e.printStackTrace();
         }
     }
+    public int getVolumePercent() {
+    if (volumeControl != null) {
+        float min = volumeControl.getMinimum();
+        float max = volumeControl.getMaximum();
+        float current = volumeControl.getValue();
+        return Math.round((current - min) / (max - min) * 100f);
+    }
+    return -1; // Return -1 if volumeControl is not initialized
+    }
 
     public void setVolume(int volumePercent) {
         if (volumeControl != null) {

@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 
 import C.*;
 import C_ITEMS.Cat;
+import m.Main;
 import m.MainFrame;
 
 
@@ -163,6 +164,7 @@ public class FightScreen extends JPanel {
         CharacterPanel.getCharPanel().setImage(this);
         CharacterPanel.getCharPanel().moveTo(0, 500);
         MainFrame.currentPanel = this;
+        Main.checkIfMusicShouldPlay();
         theFrame = MainFrame.theFrame;
         this.setLayout(null);
         ImageIcon backgroundIcon = new ImageIcon("graphs/arenaScene.png");
@@ -205,6 +207,15 @@ public class FightScreen extends JPanel {
                 esc.setVisible(false);
             }
         });
+        /*
+        // Resume button action (redundant since default hides)
+        esc.setSettingsAction(new AbstractAction() {
+            @Override public void actionPerformed(ActionEvent e) {
+                new SettingsScreen();
+                esc.setVisible(false);
+            }
+        });
+        */
 
         // Exit to Map action: remove fight screen and show map
         esc.setExitToMenuAction(new AbstractAction() {

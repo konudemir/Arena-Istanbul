@@ -25,6 +25,7 @@ public class StoreScreen extends JPanel {
     public StoreScreen() {
         theStoreScreen = this;
         MainFrame.currentPanel = this;
+        Main.checkIfMusicShouldPlay();
         theFrame = MainFrame.theFrame;
         this.setLayout(null);
 

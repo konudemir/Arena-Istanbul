@@ -228,7 +228,6 @@ public class FightScreen extends JPanel {
             @Override public void actionPerformed(ActionEvent e) {
                 esc.setVisible(false);
                 new SaveGameScreen();
-                System.out.println("SAVE GAME SCREEN");
             }
         });
 
@@ -255,25 +254,18 @@ public class FightScreen extends JPanel {
     //Buttons' results
     public void attack(Person person)
     {
-        System.out.println("START OF THE ATTACK METHOD IN FIGHTERPANEL!!!");
         person.lowerStamina(10);
         if(person instanceof User)
         {
-            System.out.println("SET THE ATTACKING STATE FOR USER!!!");
             this.usersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.ATTACKING;
-            System.out.println("GOING TO ATTACK THE FIGHTER!!!");
             User.getCharPanel().attackTo(this.theFighter);
-            System.out.println("FINISHED ATTACKING THE FIGHTER!!!");
             FightScreen.usersTurn = false;
         }
         else
         {
-            System.out.println("SET THE ATTACKING STATE FOR USER!!!");
             this.fightersAnimation.currentState = Screens.FightScreen.FighterAnimation.FighterState.ATTACKING;
-            System.out.println("GOING TO ATTACK THE FIGHTER!!!");
             Fighter fighter = (Fighter)person;
             fighter.getFighterPanel().attackTo(this.theUser);
-            System.out.println("FINISHED ATTACKING THE FIGHTER!!!");
             FightScreen.usersTurn = true;
         }
     }

@@ -24,7 +24,6 @@ public class Main {
     }
     public static void checkIfMusicShouldPlay()
     {
-        System.out.println("ENTERED THE CHECK FOR MUSIC METHOD FOR " + MainFrame.currentPanel);
         if (MainFrame.currentPanel instanceof FirstMenu) {
         if (SettingsScreen.musicInFirstScreen) {
             if (MusicPlayer.currentlyClosed) musicPlayer.resumeMusic();

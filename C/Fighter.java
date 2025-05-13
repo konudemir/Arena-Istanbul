@@ -87,7 +87,6 @@ public class Fighter extends Person {
     public void fightersTurn()
     {
         //wait for a sec
-        System.out.println("WAITING FOR A SEC");
         Timer timer = new Timer(1000, _ -> {
             this.whatShouldItDo();
         });
@@ -123,19 +122,14 @@ public class Fighter extends Person {
             }
         }else{ // ie. proxy
             int randomNumber = random.nextInt(100);
-            System.out.println("RANDOM NUMBER: " + randomNumber);
             if(randomNumber < PROXY_ATTACK_RATIO){
                 fighterPanel.attack();
-            System.out.println("RANDOM NUMBER is smaller than " + PROXY_ATTACK_RATIO + ", attack!");
             }else if(randomNumber < PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO){
                 fighterPanel.sleep();
-            System.out.println("RANDOM NUMBER is smaller than " + (PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO) + ", sleep!");
             }else if(randomNumber < PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO + PROXY_MOVE_BACKWARDS_RATIO){
                 fighterPanel.moveBackwards();
-            System.out.println("RANDOM NUMBER is smaller than " + (PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO + PROXY_MOVE_BACKWARDS_RATIO) + ", move backwards!");
             }else{
                 fighterPanel.moveForward();
-            System.out.println("RANDOM NUMBER is bigger than " + (PROXY_ATTACK_RATIO + PROXY_SLEEP_RATIO + PROXY_MOVE_BACKWARDS_RATIO) + ", move forwards!");
             }
         }
 

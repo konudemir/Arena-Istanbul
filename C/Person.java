@@ -27,7 +27,6 @@ public class Person {
     
     public boolean didItGetHit(double attackPower)
     {
-        System.out.println("Entered did it get hit");
         double totalDefensePower = 0;
         if(itemsList.size() > 0)
         for(Item i : itemsList)
@@ -42,11 +41,9 @@ public class Person {
         if(totalDefensePower > 1) totalDefensePower = 1.0;
         //Decide if it got hit (randomness 2)
         double randomDouble = random.nextDouble(1.0);
-        System.out.println("defense power: " + totalDefensePower + ", random double: " + randomDouble);
         if(randomDouble >= totalDefensePower)
         {
             this.changeHealth(-(Math.abs((int)(- attackPower * HIT_COEFFICIENT))));
-            System.out.println("HIT BY " + (Math.abs((int)(- attackPower * HIT_COEFFICIENT))));
             return true;
         }
         return false;
@@ -91,7 +88,6 @@ public class Person {
             User u = (User)this;
             u.changeCoins(- item.getPrice());
         }
-        System.out.println("BOUGHT " + item);
         if(item instanceof Cat)
         {
             Cat cat = (Cat) item;
@@ -139,13 +135,11 @@ public class Person {
         {
         if(this instanceof User)
         {
-            System.out.println("WE ARE DECREASING THE HEALTH OF THE USER AND TELLING USER LOST");
             FightScreen.theFightScreen.showEndGamePanel("USER LOST");
         }
         else
         {
             FightScreen.theFightScreen.showEndGamePanel("USER WON");
-            System.out.println("WE ARE DECREASING THE HEALTH OF THE USER AND TELLING USER LOST");
         }
         //Temporary
         //new LobbyScreen();

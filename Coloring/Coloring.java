@@ -48,8 +48,6 @@ public class Coloring {
                 }
             }
         }
-
-        System.out.println("Flipping completed.");
     }
     /*
     public static void main(String[] args) {

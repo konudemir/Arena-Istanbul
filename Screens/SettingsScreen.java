@@ -152,7 +152,6 @@ public class SettingsScreen extends JPanel {
         (context.equalsIgnoreCase("First Screen") && musicInFirstScreen)
         )isChecked = true;
         JLabel button = new JLabel(context);
-        System.out.println(context + " " + isChecked);
         if(isChecked)button.setIcon(GREEN_BUTTON);
         else button.setIcon(RED_BUTTON);
         button.setHorizontalTextPosition(JLabel.CENTER);
@@ -212,6 +211,5 @@ public class SettingsScreen extends JPanel {
         // or
         // new GameScreen();
         // This depends on your application's navigation flow
-        System.out.println("Back button clicked - implement navigation logic");
     }
 }

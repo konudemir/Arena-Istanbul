@@ -83,7 +83,6 @@ public class EscapeScreen extends JPanel {
         setSaveAction(new AbstractAction() {
             @Override public void actionPerformed(ActionEvent e) {
                 new SaveGameScreen();
-                System.out.println("SAVE GAME SCREEN2");
             }
         });
         /*

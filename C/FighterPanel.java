@@ -149,16 +149,13 @@ public class FighterPanel extends JPanel{
             } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH lobby for fighter: " + characterNo);
             }
-        System.out.println("FILL PATHS IN FIGHTERPANEL " + this.images);
         this.image = this.images[1];
         hasFilledPaths = true;
     }
     public void setImage(JPanel panel)//Used when a new panel is created (add manually to the panel constructor)
     {
-        System.out.println("SETTING IMAGE FOR PANEL: "+ panel);
         if(panel instanceof FightScreen || panel instanceof StoryScreen)//700x700
         {
-            System.out.println("SET THE CHAR IMAGE FOR FIGHT / STORY");
             this.image = images[1];
             currentPhoto = 1;
         }
@@ -183,7 +180,6 @@ public class FighterPanel extends JPanel{
         if(this.getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750);//it is close enough
         else return;
         FightScreen.theFightScreen.theUser.didItGetHit(this.person.getAttackPower());
-        System.out.println("attacked");
     }
     public void attack()
     {

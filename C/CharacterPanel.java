@@ -176,37 +176,31 @@ public class CharacterPanel extends FighterPanel{
             } catch (Exception e) {
             System.out.println("NO IMAGE FOR FILL PATH lobby");
             }
-        System.out.println("FILL PATHS IN CHARPANEL " + this.images);
         this.image = this.images[1];
         hasFilledPaths = true;
     }
     public void setImage(JPanel panel)//Used when a new panel is created (add manually to the panel constructor)
     {
-        System.out.println("SETTING IMAGE FOR PANEL: "+ panel);
         if(panel instanceof CustomizationScreen || panel instanceof CustomizationScreen)//1500x1500
         {
             this.removeTheButtons();
-            System.out.println("SET THE CHAR IMAGE FOR CUST SCREEN");
             this.image = images[CUSTSCREEN];
             currentPhoto = CUSTSCREEN;
         } 
         else if(panel instanceof LobbyScreen || panel instanceof StoreScreen) {//1000x1000
             this.removeTheButtons();
-            System.out.println("SET THE CHAR IMAGE FOR LOBBY / STORE");
             this.image = images[LOBBY];
             currentPhoto = LOBBY;
         } 
         else if(panel instanceof FightScreen)//700x700
         {
             this.addTheButtons();
-            System.out.println("SET THE CHAR IMAGE FOR FIGHT");
             this.image = images[1];
             currentPhoto = 1;
         }
         else if(panel instanceof StoryScreen)//700x700
         {
             this.removeTheButtons();
-            System.out.println("SET THE CHAR IMAGE FOR STORY");
             this.image = images[1];
             currentPhoto = 1;
         }
@@ -266,15 +260,12 @@ public class CharacterPanel extends FighterPanel{
     {
         if(User.getCharPanel().getX() >= 350 && FightScreen.theFightScreen.theFighter.getFighterPanel().getX() <= 750)
         {
-            System.out.println("CLOSE ENOUGH");
         }
         else
         {
-            System.out.println("NOT CLOSE ENOUGH");
             return;
         }
         p.didItGetHit(this.person.getAttackPower());
-        System.out.println("attacked");
     }
     public void attack()
     {

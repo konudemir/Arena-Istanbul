@@ -282,26 +282,6 @@ public class LobbyScreen extends JPanel{
         this.add(button);
     }
 
-    private void goToArena() {
-        System.out.println("Going to Arena...");
-        new FightScreen(User.getUser(), new Fighter(0, false));
-    }
-
-    private void goToShop() {
-        System.out.println("Going to Shop...");
-        new StoreScreen();
-    }
-
-    private void saveGame() {
-        System.out.println("Game Saved!");
-        // Implement game-saving logic
-    }
-
-    private void quitGame() {
-        System.out.println("Quitting Game...");
-        System.exit(0);
-    }
-
     public static BufferedImage toBufferedImage(Image img) {
         if (img instanceof BufferedImage) {
             return (BufferedImage) img;

@@ -120,7 +120,7 @@ public class Person {
     public void changeHealth(int i)
     {
         if((this.health + i) > 100)i = 100 - this.health;
-        if((this.health + i) < 0)i = this.health;
+        if((this.health + i) < 0)i = - this.health;
         this.health += i;
         if(this instanceof User)
         {
@@ -134,10 +134,19 @@ public class Person {
             u.getHealthBar().repaint();
             u.getFighterPanel().repaint();
         }
+        
         if(this.health <= 0)
         {
-        if(this instanceof User)FightScreen.theFightScreen.showEndGamePanel("USER LOST");
-        else FightScreen.theFightScreen.showEndGamePanel("USER WON");
+        if(this instanceof User)
+        {
+            System.out.println("WE ARE DECREASING THE HEALTH OF THE USER AND TELLING USER LOST");
+            FightScreen.theFightScreen.showEndGamePanel("USER LOST");
+        }
+        else
+        {
+            FightScreen.theFightScreen.showEndGamePanel("USER WON");
+            System.out.println("WE ARE DECREASING THE HEALTH OF THE USER AND TELLING USER LOST");
+        }
         //Temporary
         //new LobbyScreen();
         }

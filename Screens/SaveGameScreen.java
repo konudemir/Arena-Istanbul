@@ -27,7 +27,7 @@ public class SaveGameScreen extends JPanel {
         theFrame.removePrevPanelsAndLabels();
         FightScreen.theFightScreen.remove(EscapeScreen.theEscapeScreen);
 
-        this.addBackButton();
+        //this.addBackButton();
         this.addSaveButtons();
         this.add(backgroundLabel);
 

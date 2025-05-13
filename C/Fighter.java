@@ -25,11 +25,12 @@ public class Fighter extends Person {
     public Fighter()
     {
         this(random.nextInt(AMOUNT_OF_FIGHTERS), false);
-        if(random.nextBoolean())this.itemsList.add(new Shield(random.nextInt(4)));
-        if(random.nextBoolean())this.itemsList.add(new Helmet(random.nextInt(4)));
-        if(random.nextBoolean())this.itemsList.add(new Leggings(random.nextInt(4)));
-        if(random.nextBoolean())this.itemsList.add(new Armor(random.nextInt(4)));
-        this.itemsList.add(new Sword(random.nextInt(4)));
+        User u = User.getUser();
+        if(u.willFighterHaveShield())this.itemsList.add(new Shield(u.getRandomLevelForFightersShield()));
+        if(u.willFighterHaveHelmet())this.itemsList.add(new Helmet(u.getRandomLevelForFightersHelmet()));
+        if(u.willFighterHaveLeggings())this.itemsList.add(new Leggings(u.getRandomLevelForFightersLeggings()));
+        if(u.willFighterHaveArmor())this.itemsList.add(new Armor(u.getRandomLevelForFightersArmor()));
+        this.itemsList.add(new Sword(u.getRandomLevelForFightersSword()));
         this.staminaBar = new StaminaBar(this);
     }
     public void createItemsForStoryModeFighter(int i)

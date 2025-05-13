@@ -1,6 +1,7 @@
 package C;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import C_ITEMS.*;
 
@@ -16,7 +17,7 @@ public class User extends Person{
     {
         theUser = this;
         this.itemsList = new ArrayList<>();
-        this.coins = 200;
+        this.coins = 500;
         this.buyItem(new Sword(0));
         new CharacterPanel(this);
         this.charPanel = CharacterPanel.getCharPanel();
@@ -33,6 +34,118 @@ public class User extends Person{
         if(item instanceof Armor && this.hasSword())if(this.getSword().getName().equals(item.getName()))return true;
         return false;
     }
+    public static int getIntWithIncreasedOddsFor(int lev)
+    {
+        Random random = new Random();
+        double r = random.nextDouble(1.0);
+        if(lev == -1)//Means it doesnt have the same item
+        {
+            if(r < 0.5)return 0;
+            if(r < 0.7)return 1;
+            if(r < 0.85)return 2;
+            else return 3;
+        }
+        if(lev == 0)
+        {
+            if(r < 0.4)return 0;
+            if(r < 0.6)return 1;
+            if(r < 0.8)return 2;
+            else return 3;
+        }
+        if(lev == 1)
+        {
+            if(r < 0.3)return 0;
+            if(r < 0.6)return 1;
+            if(r < 0.8)return 2;
+            else return 3;
+        }
+        if(lev == 2)
+        {
+            if(r < 0.3)return 0;
+            if(r < 0.5)return 1;
+            if(r < 0.85)return 2;
+            else return 3;
+        }
+        if(lev == 3)
+        {
+            if(r < 0.3)return 0;
+            if(r < 0.45)return 1;
+            if(r < 0.7)return 2;
+            else return 3;
+        }
+        return random.nextInt(4);
+    }
+
+    public int getRandomLevelForFightersSword()
+    {
+        if(this.hasSword())
+        {
+            return getIntWithIncreasedOddsFor(this.getSword().level);
+        }
+        return getIntWithIncreasedOddsFor(-1);
+    }
+
+    public int getRandomLevelForFightersShield()
+    {
+        if(this.hasShield())
+        {
+            return getIntWithIncreasedOddsFor(this.getShield().level);
+        }
+        return getIntWithIncreasedOddsFor(-1);
+    }
+    public int getRandomLevelForFightersHelmet() {
+    if (this.hasHelmet()) {
+        return getIntWithIncreasedOddsFor(this.getHelmet().level);
+    }
+    return getIntWithIncreasedOddsFor(-1);
+    }
+
+    public int getRandomLevelForFightersLeggings() {
+        if (this.hasLeggings()) {
+            return getIntWithIncreasedOddsFor(this.getLeggings().level);
+        }
+        return getIntWithIncreasedOddsFor(-1);
+    }
+
+    public int getRandomLevelForFightersArmor() {
+        if (this.hasArmor()) {
+            return getIntWithIncreasedOddsFor(this.getArmor().level);
+        }
+        return getIntWithIncreasedOddsFor(-1);
+    }
+    public static boolean getRandomBoolean(double chanceOfTrue)
+    {
+        double r = new Random().nextDouble(1.0);
+        if(r <= chanceOfTrue)return true;
+        else return false;
+    }
+
+    public boolean willFighterHaveShield()
+    {
+        if(this.hasShield())return getRandomBoolean(0.7);
+        else return getRandomBoolean(0.3);
+    }
+    public boolean willFighterHaveSword()
+    {
+        if(this.hasSword())return getRandomBoolean(0.7);
+        else return getRandomBoolean(0.3);
+    }
+    public boolean willFighterHaveHelmet() {
+    if (this.hasHelmet()) return getRandomBoolean(0.7);
+    else return getRandomBoolean(0.3);
+    }
+
+    public boolean willFighterHaveLeggings() {
+        if (this.hasLeggings()) return getRandomBoolean(0.7);
+        else return getRandomBoolean(0.3);
+    }
+
+    public boolean willFighterHaveArmor() {
+        if (this.hasArmor()) return getRandomBoolean(0.7);
+        else return getRandomBoolean(0.3);
+    }
+
+
     public void moveTo(int x, int y)
     {
         this.charPanel.moveTo(x, y);
@@ -151,6 +264,7 @@ public class User extends Person{
     public void changeCoins(int i)
     {
         this.coins += i;
+        if(this.coins < 0)this.coins = 0;
     }
     public boolean hasPet()
     {

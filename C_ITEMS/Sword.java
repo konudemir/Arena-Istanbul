@@ -5,11 +5,13 @@ import javax.swing.ImageIcon;
 import C.*;
 import Coloring.Coloring;
 import m.Main;
+
+import java.awt.Color;
 import java.awt.Image;
 
 public class Sword extends Item{
     public int level;
-    public static Image[][] icons = new Image[Item.AMOUNT_OF_ICONS][Coloring.AMOUNT];//First dimension: Levels, Second Dimension: Different sizes and positions
+    public static Image[][] icons = new Image[5][Coloring.AMOUNT];//First dimension: Levels, Second Dimension: Different sizes and positions
     public static Image[][] iconsForOpponents = new Image[Item.AMOUNT_OF_ICONS][Coloring.AMOUNT];//First dimension: Levels, Second Dimension: Different sizes and positions
     public Sword(int level)
     {
@@ -37,7 +39,8 @@ public class Sword extends Item{
         if(level == 0)return 0.20;
         if(level == 1)return 0.23;
         if(level == 2)return 0.26;
-        return 0.30;
+        if(level == 3)return 0.30;
+        else return 0.70;
     }
     public String getName()
     {
@@ -77,12 +80,20 @@ public class Sword extends Item{
             }
             
         }
+        for(int i = 0; i < Coloring.AMOUNT; i++)
+        {
+            try {
+                    icons[4][i] = new ImageIcon("graphs/character/items/swords/4/" + Coloring.names[i] + ".png").getImage();
+                    } catch (Exception e) {
+                        System.out.println("NO SWORD IMAGE FOR HACKED FOR " + Coloring.names[i]);
+                    }
+        }
     }
     public Image getAppropriateImage()
     {
         for(int i = 0; i < Coloring.AMOUNT; i++)
         {
-            if(this.image == icons[level][i] || this.image == iconsForOpponents[level][i])
+            if(((this.level != 4) && (this.image == icons[level][i] || this.image == iconsForOpponents[level][i])) || (this.level == 4) && this.image == icons[4][i])
             {
                 if(this.owner instanceof User)
                 {

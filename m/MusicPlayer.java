@@ -1,11 +1,47 @@
 package m;
 
 import java.io.*;
+
 import javax.sound.sampled.*;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MusicPlayer {
     private Clip clip;
     private FloatControl volumeControl;
+    public static int setMusicVolume = 50;
+    public static boolean currentlyClosed = false;
+    public Timer repeatTimer;
+    public MusicPlayer() {
+        // Set up a timer that calls x() every 5000 ms
+        repeatTimer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.checkIfMusicShouldPlay();
+            }
+        });
+        repeatTimer.start();
+    }
+    private int pausePosition = 0;
+
+public void pauseMusic() {
+    currentlyClosed = true;
+    if (clip != null && clip.isRunning()) {
+        pausePosition = clip.getFramePosition();
+        clip.stop();
+    }
+}
+
+public void resumeMusic() {
+    currentlyClosed = false;
+    if (clip != null && !clip.isRunning()) {
+        clip.setFramePosition(pausePosition);
+        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+}
+
 
     public void playMusic(String filePath) {
         try {

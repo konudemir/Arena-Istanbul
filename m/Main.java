@@ -24,35 +24,36 @@ public class Main {
     }
     public static void checkIfMusicShouldPlay()
     {
+        System.out.println("ENTERED THE CHECK FOR MUSIC METHOD FOR " + MainFrame.currentPanel);
         if (MainFrame.currentPanel instanceof FirstMenu) {
         if (SettingsScreen.musicInFirstScreen) {
-            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+            if (MusicPlayer.currentlyClosed) musicPlayer.resumeMusic();
         } else {
-            musicPlayer.setVolume(0);
+            musicPlayer.pauseMusic();
         }
     } else if (MainFrame.currentPanel instanceof LobbyScreen) {
         if (SettingsScreen.musicInLobby) {
-            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+            if (MusicPlayer.currentlyClosed) musicPlayer.resumeMusic();
         } else {
-            musicPlayer.setVolume(0);
+            musicPlayer.pauseMusic();
         }
     } else if (MainFrame.currentPanel instanceof FightScreen) {
         if (SettingsScreen.musicInFight) {
-            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+            if (MusicPlayer.currentlyClosed) musicPlayer.resumeMusic();
         } else {
-            musicPlayer.setVolume(0);
+            musicPlayer.pauseMusic();
         }
     } else if (MainFrame.currentPanel instanceof StoreScreen) {
         if (SettingsScreen.musicInStore) {
-            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+            if (MusicPlayer.currentlyClosed) musicPlayer.resumeMusic();
         } else {
-            musicPlayer.setVolume(0);
+            musicPlayer.pauseMusic();
         }
     } else if (MainFrame.currentPanel instanceof StoryScreen) {
         if (SettingsScreen.musicInStory) {
-            if (musicPlayer.getVolumePercent() == 0) musicPlayer.setVolume(50);
+            if (MusicPlayer.currentlyClosed) musicPlayer.resumeMusic();
         } else {
-            musicPlayer.setVolume(0);
+            musicPlayer.pauseMusic();
         }
     }
 

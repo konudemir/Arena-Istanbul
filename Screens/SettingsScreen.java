@@ -30,7 +30,7 @@ public class SettingsScreen extends JPanel {
 
     public static boolean musicInFirstScreen = true;
     public static boolean musicInLobby = true;
-    public static boolean musicInFight = false;
+    public static boolean musicInFight = true;
     public static boolean musicInStore = true;
     public static boolean musicInStory = false;
     
@@ -76,6 +76,7 @@ public class SettingsScreen extends JPanel {
                 // Assuming you have a way to access your MusicPlayer instance
                 if (Main.musicPlayer != null) {
                     Main.musicPlayer.setVolume(value);
+                    MusicPlayer.setMusicVolume = value;
                 }
             }
         });

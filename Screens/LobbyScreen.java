@@ -1,6 +1,5 @@
 package Screens;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Graphics2D;
@@ -8,15 +7,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import C.CharacterPanel;
-import C.CharacterPanelOld;
-import C.Fighter;
-import C.User;
 import m.Main;
 import m.MainFrame;
 
@@ -61,10 +54,6 @@ public class LobbyScreen extends JPanel{
         // Add character panel
         this.add(CharacterPanel.getCharPanel());
         CharacterPanel.getCharPanel().moveTo(100, 560);
-        
-        // Adjusted button size
-        int buttonSize = 180;
-        int yPosition = 850;
         //
 
         //ESC//
@@ -269,17 +258,6 @@ public class LobbyScreen extends JPanel{
         this.add(backgroundLabel);
         theFrame.add(this);
         theFrame.repaint();
-    }
-
-    private void addButton(String imagePath, int x, int y, int size, ActionListener action) {
-        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH));
-        JButton button = new JButton(icon);
-        button.setBounds(x, y, size, size);
-        button.setBorderPainted(false);
-        button.setContentAreaFilled(false);
-        button.setFocusPainted(false);
-        button.addActionListener(action);
-        this.add(button);
     }
 
     public static BufferedImage toBufferedImage(Image img) {

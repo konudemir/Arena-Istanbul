@@ -3,7 +3,6 @@ package C_ITEMS;
 import javax.swing.ImageIcon;
 
 import C.*;
-import m.Main;
 import java.awt.Image;
 import Coloring.*;
 

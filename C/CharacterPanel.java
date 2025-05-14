@@ -5,20 +5,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import C_ITEMS.Item;
-import C_ITEMS.Shield;
 import Coloring.Coloring;
 import Screens.*;
 import javax.swing.Timer;
 
 import B.FightButton;
-
-import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.awt.event.ActionEvent;
 
 public class CharacterPanel extends FighterPanel{
     private static final int AMOUNT_OF_CHARACTERS = 5;

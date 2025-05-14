@@ -1,7 +1,6 @@
 package Screens;
 
 import C.CharacterPanel;
-import C.CharacterPanelOld;
 import m.*;
 
 import javax.swing.JPanel;

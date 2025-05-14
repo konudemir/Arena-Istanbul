@@ -1,8 +1,6 @@
 package Screens;
 
 import C.CharacterPanel;
-import C.CharacterPanelOld;
-import C.Fighter;
 import C.User;
 import m.*;
 
@@ -142,36 +140,7 @@ public class CustomizationScreen extends JPanel{
                 });
         
 
-        JLabel randomButton = new JLabel();
-        randomButton.setIcon(new ImageIcon("graphs/button.png"));
-        randomButton.setBounds(100, 50, 400, 200);
-        randomButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e)
-            {
-                
-            }
-            @Override
-            public void mouseExited(MouseEvent e)
-            {
-                
-            }
-            @Override
-            public void mousePressed(MouseEvent e)
-            {
-                
-            }
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                
-            }
-            @Override
-            public void mouseReleased(MouseEvent e)
-            {
-                CharacterPanelOld.randomizeChar();
-            }
-        });
+        
         
         
 

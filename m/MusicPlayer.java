@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class MusicPlayer {
     private Clip clip;
     private FloatControl volumeControl;
-    public static int setMusicVolume = 50;
+    public static int setMusicVolume = 100;
     public static boolean currentlyClosed = false;
     public Timer repeatTimer;
     public MusicPlayer() {

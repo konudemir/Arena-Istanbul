@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import C.CharacterPanel;
 import C.Fighter;
 import C.User;
 import m.Main;
@@ -22,19 +21,17 @@ public class StoryScreen extends JPanel {
     private int dialogueIndex = 0;
     private String[] firstSceneDialogues = {
             "Father: My son, I have reached the twilight of my life...",
-            /*
             "Father: And I have failed to leave a legacy...",
             "Father: It is now your duty to achieve what I could not.",
             "Father: It is now your duty to become a strong and powerful man",
             "Father: a man who the cruel fear, but the oppressed seek for help...",
             "Father: From now on, you will carry the family name!..",
             "You: I promise, father. I will make you proud."
-            */
     };
     private String[] secondSceneDialogues = {
             "Mother: Son... tragedy has struck.",
             "You: What has happened mother, is everyone alright?",
-            "Mother: The brother of the man you defeated, X, sought revenge.",
+            "Mother: The brother of the man you defeated, sought revenge.",
             "You: This can not be!..",
             "Mother: He found your father... and ended his life.",
             "You: No... ",

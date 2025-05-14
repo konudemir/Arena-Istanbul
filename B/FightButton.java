@@ -1,5 +1,4 @@
 package B;
-import m.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -7,18 +6,9 @@ import javax.swing.Timer;
 import C.CharacterPanel;
 import C.User;
 import Screens.FightScreen;
-import Screens.LobbyScreen;
-import Screens.StoryScreen;
 
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.image.BufferedImage;
-import java.nio.Buffer;
-import java.util.ArrayList;
 
 public class FightButton extends JLabel implements MouseListener{
     private final ImageIcon buttonIcon;

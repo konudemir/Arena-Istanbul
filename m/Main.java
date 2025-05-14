@@ -2,7 +2,6 @@ package m;
 
 import C.User;
 import C_ITEMS.*;
-import Coloring.Coloring;
 import Screens.*;
 
 import java.awt.Font;

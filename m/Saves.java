@@ -80,9 +80,7 @@ public abstract class Saves {
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
-                    System.out.println("File created: " + file.getAbsolutePath());
                 } else {
-                    System.out.println("File could not be created.");
                 }
             } catch (IOException e) {
                 e.printStackTrace();

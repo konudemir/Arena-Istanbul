@@ -1,12 +1,10 @@
 package C;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import C_ITEMS.*;
 import Screens.FightScreen;
-import Screens.LobbyScreen;
 import Screens.StoreScreen;
 import m.Main;
 import m.MainFrame;

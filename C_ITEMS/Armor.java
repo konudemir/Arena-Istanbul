@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 import C.Fighter;
 import C.Person;
 import C.User;
-import m.Main;
 import java.awt.Image;
 import Coloring.*;
 

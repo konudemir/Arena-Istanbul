@@ -3,8 +3,6 @@ import m.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import Screens.StoryScreen;
-
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

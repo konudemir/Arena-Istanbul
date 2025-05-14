@@ -1,0 +1,11 @@
+6 currentFolderOrder
+0 wonAgainstEnemies
+0 Armor
+0 Cat (0/1)
+0 Helmet
+0 Leggings
+0 Shield
+0 Sword
+0 coins
+1 totalFought
+0 totalWon

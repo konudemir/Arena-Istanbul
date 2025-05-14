@@ -12,8 +12,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import C.CharacterPanel;
-import C.User;
 import m.Main;
 import m.MainFrame;
 import m.MusicPlayer;
@@ -59,7 +57,7 @@ public class SettingsScreen extends JPanel {
         keyBindingsButton.setHorizontalTextPosition(JLabel.CENTER);
         
         // Create volume slider
-        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50); // min, max, initial value
+        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, MusicPlayer.setMusicVolume); // min, max, initial value
         volumeSlider.setBounds(150, 200, 300, 50);
         volumeSlider.setMajorTickSpacing(25);
         volumeSlider.setMinorTickSpacing(5);

@@ -4,9 +4,6 @@ import javax.swing.ImageIcon;
 
 import C.*;
 import Coloring.Coloring;
-import m.Main;
-
-import java.awt.Color;
 import java.awt.Image;
 
 public class Sword extends Item{

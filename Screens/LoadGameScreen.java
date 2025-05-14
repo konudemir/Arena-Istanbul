@@ -3,13 +3,11 @@ package Screens;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import C.User;
 
 import java.awt.Dimension;
 

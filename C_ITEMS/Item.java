@@ -3,10 +3,6 @@ package C_ITEMS;
 
 import java.awt.Image;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import C.*;
 import Screens.StoryScreen;
 import m.MainFrame;

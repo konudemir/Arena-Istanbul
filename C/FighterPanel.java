@@ -1,22 +1,16 @@
 package C;
 
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import java.awt.Color;
 
 import C_ITEMS.Item;
-import Coloring.Coloring;
 import Screens.*;
-import Screens.FightScreen.FighterAnimation;
 
 public class FighterPanel extends JPanel{
     private final int characterNo;

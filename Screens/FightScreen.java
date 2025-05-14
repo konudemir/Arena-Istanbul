@@ -371,7 +371,8 @@ public class FightScreen extends JPanel {
         User.getUser().totalFought++;
         if(message.equalsIgnoreCase("User Won"))
         {
-            User.getUser().changeCoins(300);
+            if(wasFromStoryMode)User.getUser().changeCoins(200  + (100 * wonAgainstEnemies));
+            else User.getUser().changeCoins(300);
             User.getUser().totalWon++;
             if(wasFromStoryMode)
             {

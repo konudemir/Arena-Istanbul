@@ -1,4 +1,5 @@
 <img width="300" alt="gameLogo" src="https://github.com/user-attachments/assets/e2fa0f18-677d-4d22-896e-e2d32c44d698" />
+
 # ARENA ISTANBUL
 **Arena Istanbul** is a turn-based fighting game set in a historical, story-driven atmosphere inspired by 1400s Istanbul.  
 Players create their own character, progress through story-based duels, earn gold, buy equipment, and improve their abilities while going through parts of the story-line through cutscenes.
